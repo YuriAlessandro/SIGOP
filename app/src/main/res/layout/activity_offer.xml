@@ -5,21 +5,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/titleTextView"
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/sliding_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ofertas"
-        android:textSize="15dp"
-        android:padding="10dp"
-        android:background="@color/colorAccent"
-        android:textColor="@color/cardview_light_background"/>
+        app:tabMode="scrollable"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/mRecyclerView"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_below="@id/sliding_tabs"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/titleTextView">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="0px"
+        android:layout_weight="1"
+        android:background="@android:color/white" />
+
+    <!--<TextView-->
+        <!--android:id="@+id/titleTextView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Ofertas"-->
+        <!--android:textSize="15dp"-->
+        <!--android:padding="10dp"-->
+        <!--android:background="@color/colorAccent"-->
+        <!--android:textColor="@color/cardview_light_background"/>-->
+
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/mRecyclerView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_below="@id/titleTextView">-->
+    <!--</android.support.v7.widget.RecyclerView>-->
+
+
 
 </RelativeLayout>
