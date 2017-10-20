@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".OfferActivity"></activity>
+        <activity android:name=".RegistrationFormActivity"></activity>
     </application>
 
 </manifest>
