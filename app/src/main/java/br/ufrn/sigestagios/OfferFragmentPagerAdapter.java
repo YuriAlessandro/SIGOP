@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import java.util.List;
+
 /**
  * Created by Gustavo on 19/10/2017.
  */
@@ -13,10 +15,12 @@ public class OfferFragmentPagerAdapter extends FragmentPagerAdapter {
     final int PAGE_COUNT = 3;
     private String tabTitles[] = new String[] { "Estágios", "Bolsas", "Outros" };
     private Context context;
+    private List<List<String>> offers;
 
-    public OfferFragmentPagerAdapter(FragmentManager fm, Context context) {
+    public OfferFragmentPagerAdapter(FragmentManager fm, Context context, List<List<String>> offers) {
         super(fm);
         this.context = context;
+        this.offers = offers;
     }
 
     @Override
@@ -26,7 +30,7 @@ public class OfferFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return OffersFragment.newInstance(position + 1);
+        return OffersFragment.newInstance(position + 1, offers.get(position));
     }
 
     @Override

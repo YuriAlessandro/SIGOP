@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by Gustavo on 19/10/2017.
@@ -19,19 +21,24 @@ import java.util.List;
 
 public class OffersFragment extends Fragment {
     public static final String ARG_PAGE = "ARG_PAGE";
+    public static final String OFFERS = "OFFERS";
 
     private int mPage;
     List<String> offers = new ArrayList<String>();
-    Context context;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    // modificar
-    public static OffersFragment newInstance(int page) {
+    public OffersFragment() {
+        // Required empty public constructor
+    }
+
+    // No futuro a lista será inserida com putSerializable
+    public static OffersFragment newInstance(int page, List<String> strings) {
         Bundle args = new Bundle();
         args.putInt(ARG_PAGE, page);
+        args.putStringArrayList(OFFERS, (ArrayList<String>) strings);
         OffersFragment fragment = new OffersFragment();
         fragment.setArguments(args);
         return fragment;
@@ -41,7 +48,7 @@ public class OffersFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPage = getArguments().getInt(ARG_PAGE);
-
+        offers = getArguments().getStringArrayList(OFFERS);
     }
 
     @Override
@@ -51,14 +58,12 @@ public class OffersFragment extends Fragment {
 
         // Configure and initialize recycler view
         mRecyclerView = (RecyclerView) view.findViewById(R.id.mRecyclerView);
-        mLayoutManager = new LinearLayoutManager(context);
+        mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         mAdapter = new MyAdapter(offers);
         mRecyclerView.setAdapter(mAdapter);
 
-        TextView textView = (TextView) view.findViewById(R.id.title);
-        textView.setText("Fragment #" + mPage);
         return view;
     }
 }
