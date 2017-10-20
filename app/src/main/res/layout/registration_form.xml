@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/year"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:hint="Ano da bolsa"
+        android:ems="10"
+        android:inputType="number"
+        android:layout_marginEnd="20dp" />
+
+
+    <EditText
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Descrição"
+        android:ems="10"
+        android:inputType="textLongMessage"
+        android:layout_below="@+id/year"
+        android:layout_alignStart="@+id/year"
+        android:layout_alignEnd="@id/year"/>
+
+
+    <EditText
+        android:id="@+id/responsible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Nome do responsável"
+        android:ems="10"
+        android:inputType="text"
+        android:layout_below="@+id/description"
+        android:layout_alignStart="@+id/description"
+        android:layout_alignEnd="@id/year"/>
+
+
+    <EditText
+        android:id="@+id/unit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Unidade"
+        android:ems="10"
+        android:inputType="text"
+        android:layout_below="@+id/responsible"
+        android:layout_alignStart="@+id/responsible"
+        android:layout_alignEnd="@id/year"/>
+
+
+    <EditText
+        android:id="@+id/vacanciesRemunerated"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="N° de vagas remuneradas"
+        android:ems="10"
+        android:inputType="number"
+        android:layout_below="@+id/unit"
+        android:layout_alignStart="@+id/unit"
+        android:layout_alignEnd="@id/year"/>
+
+    <EditText
+        android:id="@+id/vacanciesVolunteers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="N° de vagas voluntárias"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:inputType="number"
+        android:layout_below="@+id/vacanciesRemunerated"
+        android:layout_alignStart="@+id/vacanciesRemunerated"
+        android:layout_alignEnd="@id/year"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vacanciesVolunteers"
+        android:layout_alignStart="@id/vacanciesVolunteers"
+        android:layout_alignEnd="@id/vacanciesVolunteers"
+        android:text="Cadastrar"
+        android:onClick="cadastrar"/>
+
+</RelativeLayout>
