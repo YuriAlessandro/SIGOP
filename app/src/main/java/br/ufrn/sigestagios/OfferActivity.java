@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
+import android.content.Intent;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,6 +37,8 @@ public class OfferActivity extends AppCompatActivity {
     List<List<String>> offers = new ArrayList<List<String>>();
 
     private String TAG = OfferActivity.class.getSimpleName();
+
+    private static final int REGISTER = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,6 +138,15 @@ public class OfferActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             Log.e(TAG, "Request finished");
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REGISTER && resultCode == RESULT_OK) {
+            Offer offerRegistered = (Offer) data.getSerializableExtra("offerRegistered");
+            //Do some manipulation with the object offerRegistered
         }
     }
 }

@@ -87,6 +87,6 @@
         android:layout_alignStart="@id/vacanciesVolunteers"
         android:layout_alignEnd="@id/vacanciesVolunteers"
         android:text="Cadastrar"
-        android:onClick="cadastrar"/>
+        android:onClick="register"/>
 
 </RelativeLayout>
