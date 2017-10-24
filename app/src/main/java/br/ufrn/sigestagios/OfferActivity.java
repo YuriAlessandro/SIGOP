@@ -4,6 +4,7 @@ package br.ufrn.sigestagios;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -12,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -71,18 +74,20 @@ public class OfferActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-
+        //New toobar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //Sidebar Menu
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        toggle = new ActionBarDrawerToggle(this, drawerLayout,R.string.drawer_open, R.string.drawer_close);
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
 
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        initNavigationDrawer();
         // Configure and initialize recycler view
 //        mRecyclerView = (RecyclerView) findViewById(R.id.mRecyclerView);
 //        mLayoutManager = new LinearLayoutManager(this);
@@ -93,15 +98,6 @@ public class OfferActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (onOptionsItemSelected(item)){
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     private class GetOffers extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -109,6 +105,8 @@ public class OfferActivity extends AppCompatActivity {
             super.onPreExecute();
             Toast.makeText(getApplicationContext(), "Loading...", Toast.LENGTH_LONG).show();
         }
+
+
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -171,5 +169,50 @@ public class OfferActivity extends AppCompatActivity {
             Offer offerRegistered = (Offer) data.getSerializableExtra("offerRegistered");
             //Do some manipulation with the object offerRegistered
         }
+    }
+
+    //Sidebar Menu
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (toggle.onOptionsItemSelected(item)){
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void initNavigationDrawer() {
+
+        NavigationView navigationView = (NavigationView)findViewById(R.id.navView);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+
+                int id = menuItem.getItemId();
+                Intent i;
+
+                switch (id){
+                    case R.id.cadastro:
+                        i = new Intent(getApplicationContext(), RegistrationFormActivity.class);
+                        startActivity(i);
+                        drawerLayout.closeDrawers();
+                        break;
+                    case R.id.catalogo:
+                        Toast.makeText(getApplicationContext(),"Você já está em Catálogo",Toast.LENGTH_SHORT).show();
+                        drawerLayout.closeDrawers();
+                        break;
+                    case R.id.logout:
+                        i = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(i);
+                        drawerLayout.closeDrawers();
+                        break;
+                }
+                return true;
+            }
+        });
+        View header = navigationView.getHeaderView(0);
+        TextView tv_email = (TextView)header.findViewById(R.id.tv_email);
+        tv_email.setText("sigaa.ufrn.br");
+        drawerLayout = (DrawerLayout)findViewById(R.id.drawerLayout);
     }
 }

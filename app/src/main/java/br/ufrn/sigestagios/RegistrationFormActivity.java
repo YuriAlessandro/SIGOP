@@ -3,12 +3,13 @@ package br.ufrn.sigestagios;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.EditText;
 
 public class RegistrationFormActivity extends AppCompatActivity {
     Offer offer;
     EditText year, description, responsible, unit, vacanciesRemunerated, vacanciesVolunteers;
-
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +21,9 @@ public class RegistrationFormActivity extends AppCompatActivity {
         unit = (EditText) findViewById(R.id.unit);
         vacanciesRemunerated = (EditText) findViewById(R.id.vacanciesRemunerated);
         vacanciesVolunteers = (EditText) findViewById(R.id.vacanciesVolunteers);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 
     public void register(){
