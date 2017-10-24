@@ -1,20 +1,21 @@
 package br.ufrn.sigestagios;
 
+
+import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListAdapter;
-import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
-import android.content.Intent;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,8 +23,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.security.AccessController.getContext;
 
 public class OfferActivity extends AppCompatActivity {
 
@@ -33,6 +32,10 @@ public class OfferActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle toggle;
+    private Toolbar toolbar;
 
     List<List<String>> offers = new ArrayList<List<String>>();
 
@@ -59,6 +62,7 @@ public class OfferActivity extends AppCompatActivity {
         new GetOffers().execute();
 
         super.onCreate(savedInstanceState);
+//        setContentView(R.layout.menu_main);
         setContentView(R.layout.activity_offer);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -70,6 +74,20 @@ public class OfferActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
 
+        //New toobar
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        //Sidebar Menu
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
+
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        initNavigationDrawer();
         // Configure and initialize recycler view
 //        mRecyclerView = (RecyclerView) findViewById(R.id.mRecyclerView);
 //        mLayoutManager = new LinearLayoutManager(this);
@@ -88,12 +106,15 @@ public class OfferActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Loading...", Toast.LENGTH_LONG).show();
         }
 
+
+
         @Override
         protected Void doInBackground(Void... voids) {
             HttpHandler sh = new HttpHandler();
 
             String url = "https://jsonplaceholder.typicode.com/users";
             String jsonStr = sh.makeServiceCall(url);
+
 
             Log.e(TAG, "Response from url: " + jsonStr);
             if (jsonStr != null) {
@@ -148,5 +169,50 @@ public class OfferActivity extends AppCompatActivity {
             Offer offerRegistered = (Offer) data.getSerializableExtra("offerRegistered");
             //Do some manipulation with the object offerRegistered
         }
+    }
+
+    //Sidebar Menu
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (toggle.onOptionsItemSelected(item)){
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void initNavigationDrawer() {
+
+        NavigationView navigationView = (NavigationView)findViewById(R.id.navView);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+
+                int id = menuItem.getItemId();
+                Intent i;
+
+                switch (id){
+                    case R.id.cadastro:
+                        i = new Intent(getApplicationContext(), RegistrationFormActivity.class);
+                        startActivity(i);
+                        drawerLayout.closeDrawers();
+                        break;
+                    case R.id.catalogo:
+                        Toast.makeText(getApplicationContext(),"Você já está em Catálogo",Toast.LENGTH_SHORT).show();
+                        drawerLayout.closeDrawers();
+                        break;
+                    case R.id.logout:
+                        i = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(i);
+                        drawerLayout.closeDrawers();
+                        break;
+                }
+                return true;
+            }
+        });
+        View header = navigationView.getHeaderView(0);
+        TextView tv_email = (TextView)header.findViewById(R.id.tv_email);
+        tv_email.setText("sigaa.ufrn.br");
+        drawerLayout = (DrawerLayout)findViewById(R.id.drawerLayout);
     }
 }
