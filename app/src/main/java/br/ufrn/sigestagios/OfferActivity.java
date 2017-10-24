@@ -32,12 +32,13 @@ public class OfferActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    OfferFragmentPagerAdapter pagerAdapter;
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
     private Toolbar toolbar;
 
-    List<List<String>> offers = new ArrayList<List<String>>();
+    List<List<Offer>> offers = new ArrayList<List<Offer>>();
 
     private String TAG = OfferActivity.class.getSimpleName();
 
@@ -48,25 +49,25 @@ public class OfferActivity extends AppCompatActivity {
 
         // Instanciando os 3 arrays
         for (int i = 0; i < 3; i++) {
-            offers.add(new ArrayList<String>());
+            offers.add(new ArrayList<Offer>());
         }
 
         // Instanciando com exemplos
-        offers.get(0).add("Vaga SINFO");
+//        offers.get(0).add("Vaga SINFO");
 //        offers.get(0).add("Vagas TRE");
 //        offers.get(1).add("Monitoria FMC");
 //        offers.get(1).add("Monitoria Cálculo");
 //        offers.get(2).add("Assistente de hamburguer pra Johnnylee");
         //
 
-        new GetOffers().execute();
+//        new GetOffers().execute();
 
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.menu_main);
         setContentView(R.layout.activity_offer);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
-        OfferFragmentPagerAdapter pagerAdapter = new OfferFragmentPagerAdapter(getSupportFragmentManager(),
+        pagerAdapter = new OfferFragmentPagerAdapter(getSupportFragmentManager(),
                 OfferActivity.this, offers);
         viewPager.setAdapter(pagerAdapter);
 
@@ -98,69 +99,69 @@ public class OfferActivity extends AppCompatActivity {
 
     }
 
-    private class GetOffers extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            Toast.makeText(getApplicationContext(), "Loading...", Toast.LENGTH_LONG).show();
-        }
-
-
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            HttpHandler sh = new HttpHandler();
-
-            String url = "https://jsonplaceholder.typicode.com/users";
-            String jsonStr = sh.makeServiceCall(url);
-
-
-            Log.e(TAG, "Response from url: " + jsonStr);
-            if (jsonStr != null) {
-                try {
-                    JSONArray s_offers = new JSONArray(jsonStr);
-
-                    for (int i = 0; i < s_offers.length(); i++) {
-                        JSONObject c = s_offers.getJSONObject(i);
-                        // Aqui deveríamos tratar todos os campos das ofertas.
-                        // Nesse momento de teste vou lidar apenas com um campo
-                        // para facilitar a remoção posteriormente
-
-                        String name = c.getString("name");
-                        offers.get(0).add(name);
-                    }
-                } catch (final JSONException e) {
-                    Log.e(TAG, "Json parsing error: " + e.getMessage());
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(getApplicationContext(),
-                                    "Json parsing error: " + e.getMessage(),
-                                    Toast.LENGTH_LONG).show();
-                        }
-                    });
-                }
-            } else {
-                Log.e(TAG, "Couldn't get json from server.");
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(),
-                                "Couldn't get json from server. Check LogCat for possible errors!",
-                                Toast.LENGTH_LONG).show();
-                    }
-                });
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            Log.e(TAG, "Request finished");
-        }
-    }
+//    private class GetOffers extends AsyncTask<Void, Void, Void> {
+//
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            Toast.makeText(getApplicationContext(), "Loading...", Toast.LENGTH_LONG).show();
+//        }
+//
+//
+//
+//        @Override
+//        protected Void doInBackground(Void... voids) {
+//            HttpHandler sh = new HttpHandler();
+//
+//            String url = "https://jsonplaceholder.typicode.com/users";
+//            String jsonStr = sh.makeServiceCall(url);
+//
+//
+//            Log.e(TAG, "Response from url: " + jsonStr);
+//            if (jsonStr != null) {
+//                try {
+//                    JSONArray s_offers = new JSONArray(jsonStr);
+//
+//                    for (int i = 0; i < s_offers.length(); i++) {
+//                        JSONObject c = s_offers.getJSONObject(i);
+//                        // Aqui deveríamos tratar todos os campos das ofertas.
+//                        // Nesse momento de teste vou lidar apenas com um campo
+//                        // para facilitar a remoção posteriormente
+//
+//                        String name = c.getString("name");
+//                        offers.get(0).add(name);
+//                    }
+//                } catch (final JSONException e) {
+//                    Log.e(TAG, "Json parsing error: " + e.getMessage());
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            Toast.makeText(getApplicationContext(),
+//                                    "Json parsing error: " + e.getMessage(),
+//                                    Toast.LENGTH_LONG).show();
+//                        }
+//                    });
+//                }
+//            } else {
+//                Log.e(TAG, "Couldn't get json from server.");
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Toast.makeText(getApplicationContext(),
+//                                "Couldn't get json from server. Check LogCat for possible errors!",
+//                                Toast.LENGTH_LONG).show();
+//                    }
+//                });
+//            }
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Void aVoid) {
+//            super.onPostExecute(aVoid);
+//            Log.e(TAG, "Request finished");
+//        }
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -168,6 +169,8 @@ public class OfferActivity extends AppCompatActivity {
         if (requestCode == REGISTER && resultCode == RESULT_OK) {
             Offer offerRegistered = (Offer) data.getSerializableExtra("offerRegistered");
             //Do some manipulation with the object offerRegistered
+            offers.get(0).add(offerRegistered);
+            // ((OffersFragment)pagerAdapter.getItem(0) ).refresh();
         }
     }
 
@@ -194,7 +197,7 @@ public class OfferActivity extends AppCompatActivity {
                 switch (id){
                     case R.id.cadastro:
                         i = new Intent(getApplicationContext(), RegistrationFormActivity.class);
-                        startActivity(i);
+                        startActivityForResult(i, REGISTER);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.catalogo:

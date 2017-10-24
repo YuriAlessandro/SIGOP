@@ -15,17 +15,19 @@ import java.util.List;
  */
 
 class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-    private List<String> mDataSet;
+    private List<Offer> mDataSet;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView mTextView;
+        public TextView descriptionView;
+        public TextView authorView;
         public ViewHolder(View itemView) {
             super(itemView);
-            mTextView = (TextView) itemView.findViewById(R.id.title);
+            descriptionView = (TextView) itemView.findViewById(R.id.cDescription);
+            authorView = (TextView) itemView.findViewById(R.id.cResponsible);
         }
     }
 
-    public MyAdapter(List<String> data) {
+    public MyAdapter(List<Offer> data) {
         mDataSet = data;
     }
 
@@ -40,7 +42,8 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.mTextView.setText(mDataSet.get(position));
+        holder.descriptionView.setText(mDataSet.get(position).getDescription());
+        holder.authorView.setText(mDataSet.get(position).getResponsible());
     }
 
 

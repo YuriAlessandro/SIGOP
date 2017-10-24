@@ -15,9 +15,9 @@ public class OfferFragmentPagerAdapter extends FragmentPagerAdapter {
     final int PAGE_COUNT = 3;
     private String tabTitles[] = new String[] { "Estágios", "Bolsas", "Outros" };
     private Context context;
-    private List<List<String>> offers;
+    private List<List<Offer>> offers;
 
-    public OfferFragmentPagerAdapter(FragmentManager fm, Context context, List<List<String>> offers) {
+    public OfferFragmentPagerAdapter(FragmentManager fm, Context context, List<List<Offer>> offers) {
         super(fm);
         this.context = context;
         this.offers = offers;
