@@ -1,4 +1,4 @@
-package br.ufrn.sigestagios;
+package br.ufrn.sigestagios.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,15 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
+
+import br.ufrn.sigestagios.R;
+import br.ufrn.sigestagios.models.Offer;
 
 /**
  * Created by yurialessandro on 17/10/17.
  */
 
-class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.ViewHolder> {
     private List<Offer> mDataSet;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -27,7 +28,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         }
     }
 
-    public MyAdapter(List<Offer> data) {
+    public OffersListAdapter(List<Offer> data) {
         mDataSet = data;
     }
 

@@ -1,4 +1,4 @@
-package br.ufrn.sigestagios;
+package br.ufrn.sigestagios.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
+
+import br.ufrn.sigestagios.R;
+import br.ufrn.sigestagios.activities.OfferActivity;
+import br.ufrn.sigestagios.models.Offer;
 
 public class RegistrationFormActivity extends AppCompatActivity {
     Offer offer;

@@ -1,4 +1,4 @@
-package br.ufrn.sigestagios;
+package br.ufrn.sigestagios.activities;
 
 
 import android.content.Intent;
@@ -23,6 +23,11 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import br.ufrn.sigestagios.adapters.OfferFragmentPagerAdapter;
+import br.ufrn.sigestagios.R;
+import br.ufrn.sigestagios.models.Offer;
+import br.ufrn.sigestagios.utils.HttpHandler;
 
 public class OfferActivity extends AppCompatActivity {
 
@@ -94,7 +99,7 @@ public class OfferActivity extends AppCompatActivity {
 //        mLayoutManager = new LinearLayoutManager(this);
 //        mRecyclerView.setLayoutManager(mLayoutManager);
 //
-//        mAdapter = new MyAdapter(offers);
+//        mAdapter = new OffersListAdapter(offers);
 //        mRecyclerView.setAdapter(mAdapter);
 
     }
