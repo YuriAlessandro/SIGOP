@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.List;
 
 import br.ufrn.sigestagios.fragments.OffersFragment;
+import br.ufrn.sigestagios.models.Offer;
 
 /**
  * Created by Gustavo on 19/10/2017.
@@ -17,9 +18,9 @@ public class OfferFragmentPagerAdapter extends FragmentPagerAdapter {
     final int PAGE_COUNT = 3;
     private String tabTitles[] = new String[] { "Estágios", "Bolsas", "Outros" };
     private Context context;
-    private List<List<String>> offers;
+    private List<List<Offer>> offers;
 
-    public OfferFragmentPagerAdapter(FragmentManager fm, Context context, List<List<String>> offers) {
+    public OfferFragmentPagerAdapter(FragmentManager fm, Context context, List<List<Offer>> offers) {
         super(fm);
         this.context = context;
         this.offers = offers;

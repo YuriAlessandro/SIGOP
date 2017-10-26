@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.EditText;
 
 import br.ufrn.sigestagios.R;
@@ -30,7 +31,7 @@ public class RegistrationFormActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
-    public void register(){
+    public void register(View v){
         offer = new Offer(Integer.parseInt(year.getText().toString()),
                           description.getText().toString(),
                           responsible.getText().toString(),
