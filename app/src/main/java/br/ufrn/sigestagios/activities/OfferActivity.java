@@ -52,23 +52,11 @@ public class OfferActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        // Instanciando os 3 arrays
         for (int i = 0; i < 3; i++) {
             offers.add(new ArrayList<Offer>());
         }
 
-        // Instanciando com exemplos
-//        offers.get(0).add("Vaga SINFO");
-//        offers.get(0).add("Vagas TRE");
-//        offers.get(1).add("Monitoria FMC");
-//        offers.get(1).add("Monitoria Cálculo");
-//        offers.get(2).add("Assistente de hamburguer pra Johnnylee");
-        //
-
-//        new GetOffers().execute();
-
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.menu_main);
         setContentView(R.layout.activity_offer);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -80,7 +68,7 @@ public class OfferActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-        //New toobar
+        //New toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -94,14 +82,6 @@ public class OfferActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         initNavigationDrawer();
-        // Configure and initialize recycler view
-//        mRecyclerView = (RecyclerView) findViewById(R.id.mRecyclerView);
-//        mLayoutManager = new LinearLayoutManager(this);
-//        mRecyclerView.setLayoutManager(mLayoutManager);
-//
-//        mAdapter = new OffersListAdapter(offers);
-//        mRecyclerView.setAdapter(mAdapter);
-
     }
 
 //    private class GetOffers extends AsyncTask<Void, Void, Void> {
