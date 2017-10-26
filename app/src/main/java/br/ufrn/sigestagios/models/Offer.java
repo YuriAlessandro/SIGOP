@@ -1,4 +1,4 @@
-package br.ufrn.sigestagios;
+package br.ufrn.sigestagios.models;
 
 import java.io.Serializable;
 
