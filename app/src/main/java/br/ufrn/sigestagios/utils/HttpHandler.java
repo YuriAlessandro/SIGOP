@@ -1,4 +1,4 @@
-package br.ufrn.sigestagios;
+package br.ufrn.sigestagios.utils;
 
 import android.util.Log;
 
@@ -15,7 +15,7 @@ import java.net.URL;
  * Created by YuriAlessandro on 20/10/2017.
  */
 
-class HttpHandler {
+public class HttpHandler {
 
     private static final String TAG = HttpHandler.class.getSimpleName();
 
