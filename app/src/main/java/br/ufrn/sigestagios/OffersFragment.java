@@ -20,7 +20,7 @@ public class OffersFragment extends Fragment{
     public static final String OFFERS = "OFFERS";
 
     private int mPage;
-    List<Offer> offers = new ArrayList<Offer>();
+    List<Offer> offers;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -45,6 +45,7 @@ public class OffersFragment extends Fragment{
         super.onCreate(savedInstanceState);
         mPage = getArguments().getInt(ARG_PAGE);
         offers = (List<Offer>) getArguments().getSerializable(OFFERS);
+        mAdapter = new MyAdapter(offers);
     }
 
     @Override
@@ -57,14 +58,8 @@ public class OffersFragment extends Fragment{
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new MyAdapter(offers);
         mRecyclerView.setAdapter(mAdapter);
 
         return view;
     }
-
-    public void refresh() {
-        mAdapter.notifyDataSetChanged();
-    }
-
 }

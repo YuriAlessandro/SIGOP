@@ -170,7 +170,7 @@ public class OfferActivity extends AppCompatActivity {
             Offer offerRegistered = (Offer) data.getSerializableExtra("offerRegistered");
             //Do some manipulation with the object offerRegistered
             offers.get(0).add(offerRegistered);
-            // ((OffersFragment)pagerAdapter.getItem(0) ).refresh();
+            pagerAdapter.notifyDataSetChanged();
         }
     }
 
