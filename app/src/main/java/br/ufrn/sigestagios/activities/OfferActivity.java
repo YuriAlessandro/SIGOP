@@ -1,7 +1,9 @@
 package br.ufrn.sigestagios.activities;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -14,26 +16,34 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.CookieManager;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.moshi.Json;
+import com.squareup.moshi.JsonReader;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.ufrn.sigestagios.adapters.OfferFragmentPagerAdapter;
 import br.ufrn.sigestagios.R;
 import br.ufrn.sigestagios.models.Offer;
+import br.ufrn.sigestagios.models.User;
+import br.ufrn.sigestagios.utils.Constants;
 import br.ufrn.sigestagios.utils.HttpHandler;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class OfferActivity extends AppCompatActivity {
-
-//    private RecyclerView mRecyclerView;
-//    private RecyclerView.Adapter mAdapter;
-//    private RecyclerView.LayoutManager mLayoutManager;
+    private User loggedUser;
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -48,6 +58,8 @@ public class OfferActivity extends AppCompatActivity {
     private String TAG = OfferActivity.class.getSimpleName();
 
     private static final int REGISTER = 0;
+
+    private String apiKey = "iZOuoL4kPb1xuJUeLD3AGwU3xKCcJ5uwrctBfwX6";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,72 +93,75 @@ public class OfferActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        SharedPreferences preferences = this.getSharedPreferences("user_info", 0);
+        String accessToken = preferences.getString(Constants.KEY_ACCESS_TOKEN, null);
+
+        if(accessToken != null){
+            new GetReq().execute("usuario/v0.1/usuarios/info", accessToken);
+        }
+
+
         initNavigationDrawer();
     }
 
-//    private class GetOffers extends AsyncTask<Void, Void, Void> {
-//
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//            Toast.makeText(getApplicationContext(), "Loading...", Toast.LENGTH_LONG).show();
-//        }
-//
-//
-//
-//        @Override
-//        protected Void doInBackground(Void... voids) {
-//            HttpHandler sh = new HttpHandler();
-//
-//            String url = "https://jsonplaceholder.typicode.com/users";
-//            String jsonStr = sh.makeServiceCall(url);
-//
-//
-//            Log.e(TAG, "Response from url: " + jsonStr);
-//            if (jsonStr != null) {
-//                try {
-//                    JSONArray s_offers = new JSONArray(jsonStr);
-//
-//                    for (int i = 0; i < s_offers.length(); i++) {
-//                        JSONObject c = s_offers.getJSONObject(i);
-//                        // Aqui deveríamos tratar todos os campos das ofertas.
-//                        // Nesse momento de teste vou lidar apenas com um campo
-//                        // para facilitar a remoção posteriormente
-//
-//                        String name = c.getString("name");
-//                        offers.get(0).add(name);
-//                    }
-//                } catch (final JSONException e) {
-//                    Log.e(TAG, "Json parsing error: " + e.getMessage());
-//                    runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            Toast.makeText(getApplicationContext(),
-//                                    "Json parsing error: " + e.getMessage(),
-//                                    Toast.LENGTH_LONG).show();
-//                        }
-//                    });
-//                }
-//            } else {
-//                Log.e(TAG, "Couldn't get json from server.");
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Toast.makeText(getApplicationContext(),
-//                                "Couldn't get json from server. Check LogCat for possible errors!",
-//                                Toast.LENGTH_LONG).show();
-//                    }
-//                });
-//            }
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Void aVoid) {
-//            super.onPostExecute(aVoid);
-//            Log.e(TAG, "Request finished");
-//        }
-//    }
+    private class GetReq extends AsyncTask<String, Void, JSONObject> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Toast.makeText(getApplicationContext(), "Carregando usuário", Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... params) {
+            String url = params[0];
+            String accessToken = params[1];
+
+
+            HttpHandler sh = new HttpHandler();
+
+            String req_url = Constants.URL_BASE + url;
+            String jsonStr = sh.makeServiceCall(req_url, accessToken, apiKey);
+
+            Log.e(TAG, "Response from url: " + jsonStr);
+            if (jsonStr != null) {
+                try {
+                    JSONObject resp = new JSONObject(jsonStr);
+                    return resp;
+                } catch (JSONException e) {
+                    Log.e(TAG, "Json parsing error: " + e.getMessage());
+                }
+            } else {
+                Log.e(TAG, "Couldn't get json from server.");
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            try {
+                loggedUser = new User(jsonObject.getLong("id-usario"),
+                                      jsonObject.getLong("id-unidade"),
+                                      jsonObject.getLong("id-foto"),
+                                      jsonObject.getBoolean("ativo"),
+                                      jsonObject.getString("login"),
+                                      jsonObject.getString("nome-pessoa"),
+                                      jsonObject.getString("cpf-cnpj"),
+                                      jsonObject.getString("email"),
+                                      jsonObject.getString("chave-foto"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            NavigationView navigationView = (NavigationView)findViewById(R.id.navView);
+            View header = navigationView.getHeaderView(0);
+            TextView tv_email = header.findViewById(R.id.tv_email);
+            try {
+                tv_email.setText(jsonObject.getString("nome-pessoa"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -190,6 +205,8 @@ public class OfferActivity extends AppCompatActivity {
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.logout:
+                        CookieManager cookieManager = CookieManager.getInstance();
+                        cookieManager.removeAllCookies(null);
                         i = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(i);
                         drawerLayout.closeDrawers();
@@ -198,9 +215,7 @@ public class OfferActivity extends AppCompatActivity {
                 return true;
             }
         });
-        View header = navigationView.getHeaderView(0);
-        TextView tv_email = (TextView)header.findViewById(R.id.tv_email);
-        tv_email.setText("sigaa.ufrn.br");
+
         drawerLayout = (DrawerLayout)findViewById(R.id.drawerLayout);
     }
 }
