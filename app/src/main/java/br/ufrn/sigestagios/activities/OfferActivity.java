@@ -35,6 +35,7 @@ import java.util.List;
 import br.ufrn.sigestagios.adapters.OfferFragmentPagerAdapter;
 import br.ufrn.sigestagios.R;
 import br.ufrn.sigestagios.models.Offer;
+import br.ufrn.sigestagios.models.User;
 import br.ufrn.sigestagios.utils.Constants;
 import br.ufrn.sigestagios.utils.HttpHandler;
 import okhttp3.OkHttpClient;
@@ -42,10 +43,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class OfferActivity extends AppCompatActivity {
-
-//    private RecyclerView mRecyclerView;
-//    private RecyclerView.Adapter mAdapter;
-//    private RecyclerView.LayoutManager mLayoutManager;
+    private User loggedUser;
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -141,6 +139,19 @@ public class OfferActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(JSONObject jsonObject) {
+            try {
+                loggedUser = new User(jsonObject.getLong("id-usario"),
+                                      jsonObject.getLong("id-unidade"),
+                                      jsonObject.getLong("id-foto"),
+                                      jsonObject.getBoolean("ativo"),
+                                      jsonObject.getString("login"),
+                                      jsonObject.getString("nome-pessoa"),
+                                      jsonObject.getString("cpf-cnpj"),
+                                      jsonObject.getString("email"),
+                                      jsonObject.getString("chave-foto"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             NavigationView navigationView = (NavigationView)findViewById(R.id.navView);
             View header = navigationView.getHeaderView(0);
             TextView tv_email = header.findViewById(R.id.tv_email);
