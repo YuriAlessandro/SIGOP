@@ -52,7 +52,7 @@
 
 
     <EditText
-        android:id="@+id/unit"
+        android:id="@+id/term"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -72,8 +72,8 @@
         android:hint="N° de vagas remuneradas"
         android:ems="10"
         android:inputType="number"
-        android:layout_below="@+id/unit"
-        android:layout_alignStart="@+id/unit"
+        android:layout_below="@+id/term"
+        android:layout_alignStart="@+id/term"
         android:layout_alignEnd="@id/year"/>
 
     <EditText

@@ -1,9 +1,8 @@
 package br.ufrn.sigestagios.activities;
 
-
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -20,30 +19,25 @@ import android.webkit.CookieManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.squareup.moshi.Json;
-import com.squareup.moshi.JsonReader;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.ufrn.sigestagios.adapters.OfferFragmentPagerAdapter;
 import br.ufrn.sigestagios.R;
+import br.ufrn.sigestagios.database.OfferDatabaseController;
 import br.ufrn.sigestagios.models.Offer;
 import br.ufrn.sigestagios.models.User;
 import br.ufrn.sigestagios.utils.Constants;
 import br.ufrn.sigestagios.utils.HttpHandler;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import br.ufrn.sigestagios.database.OfferDBContract.OfferEntry;
 
 public class OfferActivity extends AppCompatActivity {
     private User loggedUser;
+
+    OfferDatabaseController databaseController;
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -96,10 +90,16 @@ public class OfferActivity extends AppCompatActivity {
         SharedPreferences preferences = this.getSharedPreferences("user_info", 0);
         String accessToken = preferences.getString(Constants.KEY_ACCESS_TOKEN, null);
 
+
         if(accessToken != null){
-            new GetReq().execute("usuario/v0.1/usuarios/info", accessToken);
+        //    new GetReq().execute("usuario/v0.1/usuarios/info", accessToken);
         }
 
+        // Database Controller
+         databaseController = new OfferDatabaseController(this);
+
+        // Get offers from Database
+        new DatabasePopulator(offers, pagerAdapter, databaseController).execute();
 
         initNavigationDrawer();
     }
@@ -163,12 +163,52 @@ public class OfferActivity extends AppCompatActivity {
         }
     }
 
+    private class DatabasePopulator extends AsyncTask<Void, Void, Void> {
+
+        List<List<Offer>> offers;
+        OfferFragmentPagerAdapter pagerAdapter;
+        OfferDatabaseController databaseController;
+
+        DatabasePopulator (List<List<Offer>> offers,
+                                  OfferFragmentPagerAdapter pagerAdapter,
+                                  OfferDatabaseController databaseController) {
+            this.offers = offers;
+            this.pagerAdapter = pagerAdapter;
+            this.databaseController = databaseController;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Cursor cursor = databaseController.retrieveOffers();
+            while (cursor != null && cursor.moveToNext()) {
+                Offer temp = new Offer(
+                        cursor.getInt(cursor.getColumnIndex(OfferEntry.ANO)),
+                        cursor.getString(cursor.getColumnIndex(OfferEntry.DESCRICAO)),
+                        cursor.getString(cursor.getColumnIndex(OfferEntry.RESPONSAVEL)),
+                        cursor.getString(cursor.getColumnIndex(OfferEntry.UNIDADE)),
+                        cursor.getInt(cursor.getColumnIndex(OfferEntry.VAGAS_REMUNERADAS)),
+                        cursor.getInt(cursor.getColumnIndex(OfferEntry.VAGAS_VOLUNTARIAS))
+                );
+
+                offers.get(0).add(temp);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            pagerAdapter.notifyDataSetChanged();
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REGISTER && resultCode == RESULT_OK) {
             Offer offerRegistered = (Offer) data.getSerializableExtra("offerRegistered");
-            //Do some manipulation with the object offerRegistered
+
+            databaseController.insertOffer(offerRegistered);
             offers.get(0).add(offerRegistered);
             pagerAdapter.notifyDataSetChanged();
         }
@@ -177,11 +217,7 @@ public class OfferActivity extends AppCompatActivity {
     //Sidebar Menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (toggle.onOptionsItemSelected(item)){
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        return toggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
     public void initNavigationDrawer() {
