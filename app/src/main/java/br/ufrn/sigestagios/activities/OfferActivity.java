@@ -19,6 +19,7 @@ import android.webkit.CookieManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -58,7 +59,7 @@ public class OfferActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 5; i++) {
             offers.add(new ArrayList<Offer>());
         }
 
@@ -92,7 +93,10 @@ public class OfferActivity extends AppCompatActivity {
 
 
         if(accessToken != null){
-            new GetLoggedUser().execute("usuario/v0.1/usuarios/info", accessToken);
+//            new GetLoggedUser().execute("usuario/v0.1/usuarios/info", accessToken);
+
+            // Get offers from SIGAA
+            new GetOffersFromSigaa().execute(accessToken);
         }
 
         // Database Controller
@@ -123,7 +127,6 @@ public class OfferActivity extends AppCompatActivity {
             String req_url = Constants.URL_BASE + url;
             String jsonStr = sh.makeServiceCall(req_url, accessToken, apiKey);
 
-            Log.e(TAG, "Response from url: " + jsonStr);
             if (jsonStr != null) {
                 try {
                     JSONObject resp = new JSONObject(jsonStr);
@@ -253,5 +256,56 @@ public class OfferActivity extends AppCompatActivity {
         });
 
         drawerLayout = (DrawerLayout)findViewById(R.id.drawerLayout);
+    }
+
+    private class GetOffersFromSigaa extends AsyncTask<String, Void, Void> {
+        @Override
+        protected Void doInBackground(String... params) {
+            String url_bolsas = "acao-associada/v0.1/oportunidades-bolsas?limit=100";
+            String accessToken = params[0];
+
+
+            HttpHandler sh = new HttpHandler();
+
+            String req_url = Constants.URL_BASE + url_bolsas;
+            String jsonStr = sh.makeServiceCall(req_url, accessToken, apiKey);
+
+            try {
+                JSONArray bolsas = new JSONArray(jsonStr);
+
+                Log.i(TAG, String.valueOf(bolsas.length()));
+                for(int i = 0; i < bolsas.length(); i++){
+                    JSONObject bolsa = bolsas.getJSONObject(i);
+
+                    int year = bolsa.getInt("ano");
+                    String description = bolsa.getString("descricao");
+                    String responsible = bolsa.getString("responsavel");
+                    String term = bolsa.getString("unidade");
+                    int vacanciesRemunerated = bolsa.getInt("vagas-remuneradas");
+
+                    int vacanciesVolunteers;
+                    try {
+                        vacanciesVolunteers = bolsa.getInt("vagas-voluntarias");
+                    }catch (Exception e){
+                        vacanciesVolunteers = 0;
+                    }
+
+                    Offer offer = new Offer(year, description, responsible, term,
+                                            vacanciesRemunerated, vacanciesVolunteers);
+
+                    offers.get(1).add(offer);
+                    Log.i(TAG, "NEW THING ADDED " + description);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            pagerAdapter.notifyDataSetChanged();
+        }
     }
 }
