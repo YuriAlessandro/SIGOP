@@ -3,43 +3,31 @@ package br.ufrn.sigestagios.models;
 import java.io.Serializable;
 
 public class Offer implements Serializable {
-    private int year;
     private String description;
-    private String responsible;
-    private String unit;
-    private int vacanciesRemunerated;
-    private int vacanciesVolunteers;
+    private String term;
+    private String idTerm;
+    private String email;
 
-    public Offer(int year, String description, String responsible, String unit, int vacanciesRemunerated, int vacanciesVolunteers) {
-        this.year = year;
+    public Offer(String description, String term, String idTerm, String email) {
         this.description = description;
-        this.responsible = responsible;
-        this.unit = unit;
-        this.vacanciesRemunerated = vacanciesRemunerated;
-        this.vacanciesVolunteers = vacanciesVolunteers;
-    }
-
-    public int getYear() {
-        return year;
+        this.term = term;
+        this.idTerm = idTerm;
+        this.email = email;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public String getResponsible() {
-        return responsible;
+    public String getTerm() {
+        return term;
     }
 
-    public String getUnit() {
-        return unit;
+    public String getIdTerm() {
+        return idTerm;
     }
 
-    public int getVacanciesRemunerated() {
-        return vacanciesRemunerated;
-    }
-
-    public int getVacanciesVolunteers() {
-        return vacanciesVolunteers;
+    public String getEmail() {
+        return email;
     }
 }
