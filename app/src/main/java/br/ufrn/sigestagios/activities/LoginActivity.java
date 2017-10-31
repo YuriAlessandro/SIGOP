@@ -25,7 +25,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String CLIENT_ID_VALUE = "estagios-id";
     private static final String SECRET_KEY = "segredo";
-    private static final String STATE = "iZOuoL4kPb1xuJUeLD3AGwU3xKCcJ5uwrctBfwX6";
 
     private static final String REDIRECT_URI = "https://api.ufrn.br";
     private static final String AUTHORIZATION_URL = "http://apitestes.info.ufrn.br/authz-server/oauth/authorize";
@@ -34,7 +33,6 @@ public class LoginActivity extends AppCompatActivity {
     private static final String GRANT_TYPE = "authorization_code";
     private static final String RESPONSE_TYPE_VALUE = "code";
     private static final String CLIENT_ID_PARAM = "client_id";
-    private static final String STATE_PARAM = "state";
     private static final String REDIRECT_URI_PARAM = "redirect_uri";
 
     private static final String QUESTION_MARK = "?";

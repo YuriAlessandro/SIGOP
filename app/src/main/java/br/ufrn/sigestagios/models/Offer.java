@@ -6,15 +6,15 @@ public class Offer implements Serializable {
     private int year;
     private String description;
     private String responsible;
-    private String unit;
+    private String term;
     private int vacanciesRemunerated;
     private int vacanciesVolunteers;
 
-    public Offer(int year, String description, String responsible, String unit, int vacanciesRemunerated, int vacanciesVolunteers) {
+    public Offer(int year, String description, String responsible, String term, int vacanciesRemunerated, int vacanciesVolunteers) {
         this.year = year;
         this.description = description;
         this.responsible = responsible;
-        this.unit = unit;
+        this.term = term;
         this.vacanciesRemunerated = vacanciesRemunerated;
         this.vacanciesVolunteers = vacanciesVolunteers;
     }
@@ -31,8 +31,8 @@ public class Offer implements Serializable {
         return responsible;
     }
 
-    public String getUnit() {
-        return unit;
+    public String getTerm() {
+        return term;
     }
 
     public int getVacanciesRemunerated() {

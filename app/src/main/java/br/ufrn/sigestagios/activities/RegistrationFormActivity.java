@@ -13,7 +13,7 @@ import br.ufrn.sigestagios.models.Offer;
 
 public class RegistrationFormActivity extends AppCompatActivity {
     Offer offer;
-    EditText year, description, responsible, unit, vacanciesRemunerated, vacanciesVolunteers;
+    EditText year, description, responsible, term, vacanciesRemunerated, vacanciesVolunteers;
     private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +23,7 @@ public class RegistrationFormActivity extends AppCompatActivity {
         year = (EditText) findViewById(R.id.year);
         description = (EditText) findViewById(R.id.description);
         responsible = (EditText) findViewById(R.id.responsible);
-        unit = (EditText) findViewById(R.id.unit);
+        term = (EditText) findViewById(R.id.term);
         vacanciesRemunerated = (EditText) findViewById(R.id.vacanciesRemunerated);
         vacanciesVolunteers = (EditText) findViewById(R.id.vacanciesVolunteers);
 
@@ -35,7 +35,7 @@ public class RegistrationFormActivity extends AppCompatActivity {
         offer = new Offer(Integer.parseInt(year.getText().toString()),
                           description.getText().toString(),
                           responsible.getText().toString(),
-                          unit.getText().toString(),
+                          term.getText().toString(),
                           Integer.parseInt(vacanciesRemunerated.getText().toString()),
                           Integer.parseInt(vacanciesVolunteers.getText().toString()));
 

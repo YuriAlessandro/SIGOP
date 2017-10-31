@@ -21,12 +21,14 @@ public class HttpHandler {
 
     public HttpHandler(){ }
 
-    public String makeServiceCall(String reqUrl){
+    public String makeServiceCall(String reqUrl, String bearer, String apiKey){
         String response = null;
         try{
             URL url = new URL(reqUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
+            conn.setRequestProperty("authorization", "bearer " + bearer);
+            conn.setRequestProperty("x-api-key", apiKey);
 
             InputStream in = new BufferedInputStream(conn.getInputStream());
             response = convertStreamToString(in);
