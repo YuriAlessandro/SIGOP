@@ -46,7 +46,6 @@
                 android:layout_alignStart="@+id/title"
                 android:layout_alignEnd="@id/title"/>
 
-
             <EditText
                 android:id="@+id/responsible"
                 android:layout_width="match_parent"
@@ -145,6 +144,7 @@
         </RelativeLayout>
 
     </ScrollView>
+
 
 
 </RelativeLayout>

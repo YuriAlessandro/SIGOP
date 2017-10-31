@@ -13,6 +13,7 @@ import java.util.List;
 
 import br.ufrn.sigestagios.R;
 import br.ufrn.sigestagios.adapters.OffersListAdapter;
+import br.ufrn.sigestagios.models.Offer;
 
 /**
  * Created by Gustavo on 19/10/2017.
@@ -23,7 +24,7 @@ public class OffersFragment extends Fragment{
     public static final String OFFERS = "OFFERS";
 
     private int mPage;
-    List<String> offers = new ArrayList<String>();
+    List<Offer> offers;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -34,10 +35,10 @@ public class OffersFragment extends Fragment{
     }
 
     // No futuro a lista será inserida com putSerializable
-    public static OffersFragment newInstance(int page, List<String> strings) {
+    public static OffersFragment newInstance(int page, List<Offer> strings) {
         Bundle args = new Bundle();
         args.putInt(ARG_PAGE, page);
-        args.putStringArrayList(OFFERS, (ArrayList<String>) strings);
+        args.putSerializable(OFFERS, (ArrayList<Offer>) strings);
         OffersFragment fragment = new OffersFragment();
         fragment.setArguments(args);
         return fragment;
@@ -47,7 +48,8 @@ public class OffersFragment extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPage = getArguments().getInt(ARG_PAGE);
-        offers = getArguments().getStringArrayList(OFFERS);
+        offers = (List<Offer>) getArguments().getSerializable(OFFERS);
+        mAdapter = new OffersListAdapter(offers);
     }
 
     @Override
@@ -60,7 +62,6 @@ public class OffersFragment extends Fragment{
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new OffersListAdapter(offers);
         mRecyclerView.setAdapter(mAdapter);
 
         return view;

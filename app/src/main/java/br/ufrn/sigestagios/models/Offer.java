@@ -19,15 +19,7 @@ public class Offer implements Serializable {
         return description;
     }
 
-    public String getTerm() {
-        return term;
-    }
-
-    public String getIdTerm() {
-        return idTerm;
-    }
-
-    public String getEmail() {
-        return email;
+    public String getResponsible() {
+        return responsible;
     }
 }

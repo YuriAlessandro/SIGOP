@@ -3,10 +3,57 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Offer_Title"
-        android:textSize="35dp"/>
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_margin="10dp"
+        card_view:cardBackgroundColor="#FAFAFA"
+        card_view:cardCornerRadius="3dp"
+        android:paddingBottom="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/cDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                android:textSize="15dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_gravity="start"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/cResponsible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Resposinble"
+                android:layout_below="@id/cDescription"
+                android:layout_alignStart="@id/cDescription"/>
+
+            <TextView
+                android:id="@+id/cUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cResponsible"
+                android:layout_alignStart="@id/cResponsible"
+                android:layout_marginRight="10dp"
+                android:text="INSTITUTO METROPOLE DIGITAL" />
+
+            <TextView
+                android:id="@+id/cYear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cUnit"
+                android:layout_alignStart="@id/cResponsible"
+                android:text="2017" />
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
 </RelativeLayout>

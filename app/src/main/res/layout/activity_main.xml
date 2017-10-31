@@ -12,56 +12,42 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        />
+        android:id="@+id/include" />
 
-    <TextView
-        android:id="@+id/usernameTextView"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:text="Nome de usuário:"
-        android:layout_below="@+id/toolbar"/>
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true">
 
-    <EditText
-        android:id="@+id/username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:layout_below="@+id/usernameTextView"
-        android:layout_alignStart="@+id/usernameTextView"
-        android:layout_marginRight="20dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:fontFamily="casual"
+            android:text="SIGEstágios"
+            android:textSize="50dp"
+            android:id="@+id/appTitle"/>
 
-    <TextView
-        android:id="@+id/passwordTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/username"
-        android:text="Senha:"
-        android:ems="10"
-        android:layout_alignStart="@id/username"
-        android:layout_marginTop="10dp"/>
+        <TextView
+            android:id="@+id/appDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="É necessário realizar login com o SIGAA para continuar. Clique no botão abaixo para continuar"
+            android:padding="15dp"
+            android:layout_below="@+id/appTitle"
+            android:layout_alignParentStart="true" />
 
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:layout_below="@+id/passwordTextView"
-        android:layout_alignStart="@+id/passwordTextView"
-        android:layout_alignEnd="@id/username"/>
+        <Button style="@style/Widget.AppCompat.Button.Colored"
+            android:id="@+id/loginButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/appDesc"
+            android:layout_margin="15dp"
+            android:layout_centerHorizontal="true"
+            android:text="Login com SIGAA"
+            android:onClick="login"/>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/password"
-        android:layout_alignStart="@id/usernameTextView"
-        android:layout_alignEnd="@id/username"
-        android:text="Entrar"
-        android:onClick="login"/>
-
+    </RelativeLayout>
 </RelativeLayout>
