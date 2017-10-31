@@ -23,7 +23,6 @@ public class OffersFragment extends Fragment{
     public static final String OFFERS = "OFFERS";
 
     private int mPage;
-    
     List<String> offers = new ArrayList<String>();
 
     private RecyclerView mRecyclerView;
