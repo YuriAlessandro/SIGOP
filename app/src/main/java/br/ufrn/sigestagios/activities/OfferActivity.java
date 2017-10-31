@@ -29,6 +29,7 @@ import java.util.List;
 import br.ufrn.sigestagios.adapters.OfferFragmentPagerAdapter;
 import br.ufrn.sigestagios.R;
 import br.ufrn.sigestagios.database.OfferDatabaseController;
+import br.ufrn.sigestagios.models.Internship;
 import br.ufrn.sigestagios.models.Offer;
 import br.ufrn.sigestagios.models.User;
 import br.ufrn.sigestagios.utils.Constants;
@@ -208,11 +209,11 @@ public class OfferActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REGISTER && resultCode == RESULT_OK) {
-            Offer offerRegistered = (Offer) data.getSerializableExtra("offerRegistered");
+        if (requestCode == REGISTER && resultCode == RESULT_OK) { the object internshipRegistered
+            Internship internshipRegistered = (Internship) data.getSerializableExtra("offerRegistered");
 
-            databaseController.insertOffer(offerRegistered);
-            offers.get(0).add(offerRegistered);
+            databaseController.insertOffer(internshipRegistered);
+            offers.get(0).add(internshipRegistered);
             pagerAdapter.notifyDataSetChanged();
         }
     }
