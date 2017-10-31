@@ -92,7 +92,7 @@ public class OfferActivity extends AppCompatActivity {
 
 
         if(accessToken != null){
-        //    new GetReq().execute("usuario/v0.1/usuarios/info", accessToken);
+            new GetLoggedUser().execute("usuario/v0.1/usuarios/info", accessToken);
         }
 
         // Database Controller
@@ -104,7 +104,7 @@ public class OfferActivity extends AppCompatActivity {
         initNavigationDrawer();
     }
 
-    private class GetReq extends AsyncTask<String, Void, JSONObject> {
+    private class GetLoggedUser extends AsyncTask<String, Void, JSONObject> {
 
         @Override
         protected void onPreExecute() {
