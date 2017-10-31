@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 import br.ufrn.sigestagios.R;
@@ -21,10 +23,14 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView descriptionView;
         public TextView authorView;
+        public TextView year;
+        public TextView unit;
         public ViewHolder(View itemView) {
             super(itemView);
             descriptionView = (TextView) itemView.findViewById(R.id.cDescription);
             authorView = (TextView) itemView.findViewById(R.id.cResponsible);
+            year = (TextView) itemView.findViewById(R.id.cYear);
+            unit = (TextView) itemView.findViewById(R.id.cUnit);
         }
     }
 
@@ -45,6 +51,8 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.descriptionView.setText(mDataSet.get(position).getDescription());
         holder.authorView.setText(mDataSet.get(position).getResponsible());
+        holder.unit.setText(String.valueOf(mDataSet.get(position).getYear()));
+        holder.unit.setText(mDataSet.get(position).getTerm());
     }
 
 

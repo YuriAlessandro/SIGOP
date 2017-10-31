@@ -15,8 +15,9 @@ import br.ufrn.sigestagios.models.Offer;
  */
 
 public class OfferFragmentPagerAdapter extends FragmentPagerAdapter {
-    final int PAGE_COUNT = 3;
-    private String tabTitles[] = new String[] { "Estágios", "Bolsas", "Outros" };
+    final int PAGE_COUNT = 5;
+    private String tabTitles[] = new String[] { "Estágios", "Monitoria", "Extensão",
+                                                "Apoio Técnico", "Pesquisa" };
     private Context context;
     private List<List<Offer>> offers;
 
