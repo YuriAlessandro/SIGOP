@@ -1,5 +1,7 @@
 package br.ufrn.sigestagios.adapters;
 
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.List;
+
 
 import br.ufrn.sigestagios.R;
 import br.ufrn.sigestagios.models.Offer;
@@ -29,7 +32,7 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
     }
 
     public OffersListAdapter(List<Offer> data) {
-        mDataSet = data;
+        this.mDataSet = data;
     }
 
     @Override
@@ -45,6 +48,8 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.descriptionView.setText(mDataSet.get(position).getDescription());
         holder.authorView.setText(mDataSet.get(position).getResponsible());
+
+
     }
 
 

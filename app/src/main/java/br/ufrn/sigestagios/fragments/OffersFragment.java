@@ -2,6 +2,7 @@ package br.ufrn.sigestagios.fragments;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;;
 import android.view.LayoutInflater;
@@ -39,6 +40,7 @@ public class OffersFragment extends Fragment{
         Bundle args = new Bundle();
         args.putInt(ARG_PAGE, page);
         args.putSerializable(OFFERS, (ArrayList<Offer>) strings);
+
         OffersFragment fragment = new OffersFragment();
         fragment.setArguments(args);
         return fragment;
@@ -49,6 +51,7 @@ public class OffersFragment extends Fragment{
         super.onCreate(savedInstanceState);
         mPage = getArguments().getInt(ARG_PAGE);
         offers = (List<Offer>) getArguments().getSerializable(OFFERS);
+
         mAdapter = new OffersListAdapter(offers);
     }
 

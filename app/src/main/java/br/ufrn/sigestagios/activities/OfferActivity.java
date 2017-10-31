@@ -8,6 +8,7 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -38,6 +39,8 @@ public class OfferActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     OfferFragmentPagerAdapter pagerAdapter;
+
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
@@ -82,7 +85,23 @@ public class OfferActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         initNavigationDrawer();
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+
+        swipeRefreshLayout.setColorSchemeColors(
+                Color.RED, Color.GREEN, Color.BLUE, Color.CYAN);
     }
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+
+    }
+
+
 
 //    private class GetOffers extends AsyncTask<Void, Void, Void> {
 //
@@ -200,7 +219,24 @@ public class OfferActivity extends AppCompatActivity {
         });
         View header = navigationView.getHeaderView(0);
         TextView tv_email = (TextView)header.findViewById(R.id.tv_email);
-        tv_email.setText("sigaa.ufrn.br");
+        tv_email.setText("sigaa.ufrn.br"); //set user name or e-mail
         drawerLayout = (DrawerLayout)findViewById(R.id.drawerLayout);
+    }
+
+
+    public void refreshItems() {
+        // Load items
+        // ...
+        Log.d(TAG, "Swiped for refresh!");
+        // Load complete
+        onItemsLoadComplete();
+    }
+
+    public void onItemsLoadComplete() {
+        // Update the adapter and notify data set changed
+        // ...
+        pagerAdapter.notifyDataSetChanged();
+        // Stop refresh animation
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 }
