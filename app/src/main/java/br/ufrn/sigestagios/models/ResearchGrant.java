@@ -17,7 +17,7 @@ public class ResearchGrant extends Offer implements Serializable {
     private int numberPositions;
     private int idWorkPlan;
 
-    public ResearchGrant(String description, String term, String idTerm, String email, int year, String cpf_cnpj, String responsible, int positionsRemunerated, int idProject, int numberPositions, int idWorkPlan) {
+    public ResearchGrant(String description, String term, int idTerm, String email, int year, String cpf_cnpj, String responsible, int positionsRemunerated, int idProject, int numberPositions, int idWorkPlan) {
         super(description, term, idTerm, email);
         this.year = year;
         this.cpf_cnpj = cpf_cnpj;

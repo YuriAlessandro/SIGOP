@@ -5,10 +5,10 @@ import java.io.Serializable;
 public class Offer implements Serializable {
     private String description;
     private String term;
-    private String idTerm;
+    private int idTerm;
     private String email;
 
-    public Offer(String description, String term, String idTerm, String email) {
+    public Offer(String description, String term, int idTerm, String email) {
         this.description = description;
         this.term = term;
         this.idTerm = idTerm;
@@ -19,7 +19,15 @@ public class Offer implements Serializable {
         return description;
     }
 
-    public String getResponsible() {
-        return responsible;
+    public String getTerm() {
+        return term;
+    }
+
+    public int getIdTerm() {
+        return idTerm;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

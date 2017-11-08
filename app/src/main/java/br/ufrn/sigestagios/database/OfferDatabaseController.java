@@ -30,19 +30,17 @@ public class OfferDatabaseController {
         ContentValues values = new ContentValues();
 
         db = offerDB.getWritableDatabase();
-        values.put(OfferEntry.ANO, offer.getYear());
         values.put(OfferEntry.DESCRICAO, offer.getDescription());
-        values.put(OfferEntry.RESPONSAVEL, offer.getResponsible());
+        values.put(OfferEntry.ID_UNIDADE, offer.getIdTerm());
         values.put(OfferEntry.UNIDADE, offer.getTerm());
-        values.put(OfferEntry.VAGAS_REMUNERADAS, offer.getVacanciesRemunerated());
-        values.put(OfferEntry.VAGAS_VOLUNTARIAS, offer.getVacanciesVolunteers());
+        values.put(OfferEntry.EMAIL, offer.getEmail());
 
         return db.insert(OfferEntry.TABLE_NAME, null, values);
     }
 
     public Cursor retrieveOffers() {
-        String[] campos = {OfferEntry.ANO, OfferEntry.DESCRICAO, OfferEntry.RESPONSAVEL,
-                OfferEntry.UNIDADE, OfferEntry.VAGAS_REMUNERADAS, OfferEntry.VAGAS_VOLUNTARIAS};
+        String[] campos = {OfferEntry.DESCRICAO, OfferEntry.ID_UNIDADE,
+                OfferEntry.UNIDADE, OfferEntry.EMAIL};
         db = offerDB.getReadableDatabase();
 
         return db.query(OfferEntry.TABLE_NAME, campos, null, null, null, null, null, null);

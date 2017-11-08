@@ -13,7 +13,7 @@ public class AssociatedAction extends Offer implements Serializable {
     private int positionsRemunerated;
     private int idProject;
 
-    public AssociatedAction(String description, String term, String idTerm, String email, int year, String cpf_cnpj, String responsible, int positionsRemunerated, int idProject) {
+    public AssociatedAction(String description, String term, int idTerm, String email, int year, String cpf_cnpj, String responsible, int positionsRemunerated, int idProject) {
         super(description, term, idTerm, email);
         this.year = year;
         this.cpf_cnpj = cpf_cnpj;

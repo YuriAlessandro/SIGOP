@@ -31,6 +31,7 @@ import br.ufrn.sigestagios.R;
 import br.ufrn.sigestagios.database.OfferDatabaseController;
 import br.ufrn.sigestagios.models.Internship;
 import br.ufrn.sigestagios.models.Offer;
+import br.ufrn.sigestagios.models.TeacherAssistant;
 import br.ufrn.sigestagios.models.User;
 import br.ufrn.sigestagios.utils.Constants;
 import br.ufrn.sigestagios.utils.HttpHandler;
@@ -186,12 +187,10 @@ public class OfferActivity extends AppCompatActivity {
             Cursor cursor = databaseController.retrieveOffers();
             while (cursor != null && cursor.moveToNext()) {
                 Offer temp = new Offer(
-                        cursor.getInt(cursor.getColumnIndex(OfferEntry.ANO)),
                         cursor.getString(cursor.getColumnIndex(OfferEntry.DESCRICAO)),
-                        cursor.getString(cursor.getColumnIndex(OfferEntry.RESPONSAVEL)),
                         cursor.getString(cursor.getColumnIndex(OfferEntry.UNIDADE)),
-                        cursor.getInt(cursor.getColumnIndex(OfferEntry.VAGAS_REMUNERADAS)),
-                        cursor.getInt(cursor.getColumnIndex(OfferEntry.VAGAS_VOLUNTARIAS))
+                        cursor.getInt(cursor.getColumnIndex(OfferEntry.ID_UNIDADE)),
+                        cursor.getString(cursor.getColumnIndex(OfferEntry.EMAIL))
                 );
 
                 offers.get(0).add(temp);
@@ -209,8 +208,8 @@ public class OfferActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REGISTER && resultCode == RESULT_OK) { the object internshipRegistered
-            Internship internshipRegistered = (Internship) data.getSerializableExtra("offerRegistered");
+        if (requestCode == REGISTER && resultCode == RESULT_OK) {
+            Offer internshipRegistered = (Offer) data.getSerializableExtra("offerRegistered");
 
             databaseController.insertOffer(internshipRegistered);
             offers.get(0).add(internshipRegistered);
@@ -262,7 +261,7 @@ public class OfferActivity extends AppCompatActivity {
     private class GetOffersFromSigaa extends AsyncTask<String, Void, Void> {
         @Override
         protected Void doInBackground(String... params) {
-            String url_bolsas = "acao-associada/v0.1/oportunidades-bolsas?limit=100";
+            String url_bolsas = "monitoria/v0.1/oportunidades-bolsas?limit=100";
             String accessToken = params[0];
 
 
@@ -278,11 +277,10 @@ public class OfferActivity extends AppCompatActivity {
                 for(int i = 0; i < bolsas.length(); i++){
                     JSONObject bolsa = bolsas.getJSONObject(i);
 
-                    int year = bolsa.getInt("ano");
                     String description = bolsa.getString("descricao");
-                    String responsible = bolsa.getString("responsavel");
                     String term = bolsa.getString("unidade");
-                    int vacanciesRemunerated = bolsa.getInt("vagas-remuneradas");
+                    int idTerm = bolsa.getInt("id-unidade");
+                    String email = bolsa.getString("email-responsavel");
 
                     int vacanciesVolunteers;
                     try {
@@ -291,8 +289,7 @@ public class OfferActivity extends AppCompatActivity {
                         vacanciesVolunteers = 0;
                     }
 
-                    Offer offer = new Offer(year, description, responsible, term,
-                                            vacanciesRemunerated, vacanciesVolunteers);
+                    Offer offer = new Offer(description, term, idTerm, email);
 
                     offers.get(1).add(offer);
                     Log.i(TAG, "NEW THING ADDED " + description);
