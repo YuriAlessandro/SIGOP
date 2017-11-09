@@ -13,7 +13,7 @@ public class OfferDBContract {
         public static final String TABLE_NAME = "oferta";
         public static final String DESCRICAO = "descricao";
         public static final String UNIDADE = "unidade";
-        public static final String ID_UNIDADE = "id-unidade";
-        public static final String EMAIL = "email-responsavel";
+        public static final String ID_UNIDADE = "id_unidade";
+        public static final String EMAIL = "email_responsavel";
     }
 }

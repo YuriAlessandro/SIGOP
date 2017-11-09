@@ -94,7 +94,6 @@ public class OfferActivity extends AppCompatActivity {
         SharedPreferences preferences = this.getSharedPreferences("user_info", 0);
         String accessToken = preferences.getString(Constants.KEY_ACCESS_TOKEN, null);
 
-
         if(accessToken != null){
 //            new GetLoggedUser().execute("usuario/v0.1/usuarios/info", accessToken);
 
@@ -123,7 +122,6 @@ public class OfferActivity extends AppCompatActivity {
         protected JSONObject doInBackground(String... params) {
             String url = params[0];
             String accessToken = params[1];
-
 
             HttpHandler sh = new HttpHandler();
 
@@ -271,6 +269,7 @@ public class OfferActivity extends AppCompatActivity {
             String req_url = Constants.URL_BASE + url_bolsas;
             String jsonStr = sh.makeServiceCall(req_url, accessToken, apiKey);
 
+            if (jsonStr == null) return null;
             try {
                 JSONArray bolsas = new JSONArray(jsonStr);
 
