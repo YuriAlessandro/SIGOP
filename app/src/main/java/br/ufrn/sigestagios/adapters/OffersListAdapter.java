@@ -22,15 +22,15 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView descriptionView;
-        public TextView unit;
-        public TextView unitID;
-        public TextView email;
+        public TextView unitView;
+        public TextView unitIDView;
+        public TextView emailView;
         public ViewHolder(View itemView) {
             super(itemView);
             descriptionView = (TextView) itemView.findViewById(R.id.cDescription);
-            unit = (TextView) itemView.findViewById(R.id.cUnit);
-            unitID = (TextView) itemView.findViewById(R.id.cUnitID);
-            email = (TextView) itemView.findViewById(R.id.cEmail);
+            unitView = (TextView) itemView.findViewById(R.id.cUnit);
+            unitIDView = (TextView) itemView.findViewById(R.id.cUnitID);
+            emailView = (TextView) itemView.findViewById(R.id.cEmail);
         }
     }
 
@@ -50,9 +50,9 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.descriptionView.setText(mDataSet.get(position).getDescription());
-        holder.unit.setText(mDataSet.get(position).getTerm());
-        holder.unitID.setText(String.valueOf(mDataSet.get(position).getIdTerm()));
-        holder.email.setText(mDataSet.get(position).getEmail());
+        holder.unitView.setText(mDataSet.get(position).getTerm());
+        holder.unitIDView.setText(String.valueOf(mDataSet.get(position).getIdTerm()));
+        holder.emailView.setText(mDataSet.get(position).getEmail());
     }
 
 
