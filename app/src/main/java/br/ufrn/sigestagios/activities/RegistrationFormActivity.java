@@ -17,7 +17,7 @@ import br.ufrn.sigestagios.models.Internship;
 import br.ufrn.sigestagios.models.Internship;
 
 public class RegistrationFormActivity extends AppCompatActivity {
-    Internship Internship;
+    Internship internship;
     EditText title, description, responsible, email, companyName, numberPositions, grantValue, auxTransport, endOffer;
     private Toolbar toolbar;
     @Override
@@ -39,11 +39,11 @@ public class RegistrationFormActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
-    public void register() throws ParseException {
+    public void register(View v) throws ParseException {
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         Date myDate = df.parse(endOffer.getText().toString());
 
-        Internship = new Internship(description.getText().toString(),
+        internship = new Internship(description.getText().toString(),
                           email.getText().toString(),
                           companyName.getText().toString(),
                           responsible.getText().toString(),
@@ -54,7 +54,7 @@ public class RegistrationFormActivity extends AppCompatActivity {
                           title.getText().toString());
 
         Intent resultIntent = new Intent(this, OfferActivity.class);
-        resultIntent.putExtra("InternshipRegistered", Internship);
+        resultIntent.putExtra("offerRegistered", internship);
         setResult(RESULT_OK, resultIntent);
         finish();
     }

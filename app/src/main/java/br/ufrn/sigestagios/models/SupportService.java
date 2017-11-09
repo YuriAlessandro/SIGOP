@@ -11,7 +11,7 @@ public class SupportService extends Offer implements Serializable {
     private String abbrevTerm;
     private int idOpportunity;
 
-    public SupportService(String description, String term, String idTerm, String email, String abbrevTerm, int idOpportunity) {
+    public SupportService(String description, String term, int idTerm, String email, String abbrevTerm, int idOpportunity) {
         super(description, term, idTerm, email);
         this.abbrevTerm = abbrevTerm;
         this.idOpportunity = idOpportunity;

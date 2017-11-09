@@ -16,7 +16,7 @@ public class TeacherAssistant extends Offer implements Serializable {
     private int positionsRemunerated;
     private int positionsVolunteers;
 
-    public TeacherAssistant(String description, String term, String idTerm, String email, int year, String cpf_cnpj, int idProject, int idProjectTA, String responsible, int positionsRemunerated, int positionsVolunteers) {
+    public TeacherAssistant(String description, String term, int idTerm, String email, int year, String cpf_cnpj, int idProject, int idProjectTA, String responsible, int positionsRemunerated, int positionsVolunteers) {
         super(description, term, idTerm, email);
         this.year = year;
         this.cpf_cnpj = cpf_cnpj;
