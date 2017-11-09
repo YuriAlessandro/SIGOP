@@ -31,16 +31,16 @@ public class OfferDatabaseController {
 
         db = offerDB.getWritableDatabase();
         values.put(OfferEntry.DESCRICAO, offer.getDescription());
-        values.put(OfferEntry.ID_UNIDADE, offer.getIdTerm());
         values.put(OfferEntry.UNIDADE, offer.getTerm());
+        values.put(OfferEntry.ID_UNIDADE, offer.getIdTerm());
         values.put(OfferEntry.EMAIL, offer.getEmail());
 
         return db.insert(OfferEntry.TABLE_NAME, null, values);
     }
 
     public Cursor retrieveOffers() {
-        String[] campos = {OfferEntry.DESCRICAO, OfferEntry.ID_UNIDADE,
-                OfferEntry.UNIDADE, OfferEntry.EMAIL};
+        String[] campos = {OfferEntry.DESCRICAO,
+                OfferEntry.UNIDADE, OfferEntry.ID_UNIDADE, OfferEntry.EMAIL};
         db = offerDB.getReadableDatabase();
 
         return db.query(OfferEntry.TABLE_NAME, campos, null, null, null, null, null, null);

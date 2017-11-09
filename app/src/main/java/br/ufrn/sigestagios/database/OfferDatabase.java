@@ -16,8 +16,8 @@ public class OfferDatabase extends SQLiteOpenHelper {
 
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + OfferEntry.TABLE_NAME + " ("
-            + OfferEntry._ID + " INTEGER PRIMARY KEY, " + OfferEntry.DESCRICAO + ", " + OfferEntry.UNIDADE + ", " + OfferEntry.UNIDADE
-            + ", " + OfferEntry.VAGAS_REMUNERADAS + ", " + OfferEntry.VAGAS_VOLUNTARIAS + ")";
+            + OfferEntry._ID + " INTEGER PRIMARY KEY, " + OfferEntry.DESCRICAO + ", " + OfferEntry.UNIDADE + ", " + OfferEntry.ID_UNIDADE
+            + ", " + OfferEntry.EMAIL +  ")";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + OfferEntry.TABLE_NAME;

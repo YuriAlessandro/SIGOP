@@ -29,6 +29,7 @@ import java.util.List;
 import br.ufrn.sigestagios.adapters.OfferFragmentPagerAdapter;
 import br.ufrn.sigestagios.R;
 import br.ufrn.sigestagios.database.OfferDatabaseController;
+import br.ufrn.sigestagios.models.AssociatedAction;
 import br.ufrn.sigestagios.models.Internship;
 import br.ufrn.sigestagios.models.Offer;
 import br.ufrn.sigestagios.models.TeacherAssistant;
@@ -261,7 +262,7 @@ public class OfferActivity extends AppCompatActivity {
     private class GetOffersFromSigaa extends AsyncTask<String, Void, Void> {
         @Override
         protected Void doInBackground(String... params) {
-            String url_bolsas = "monitoria/v0.1/oportunidades-bolsas?limit=100";
+            String url_bolsas = "acao-associada/v0.1/oportunidades-bolsas?limit=100";
             String accessToken = params[0];
 
 
@@ -282,12 +283,13 @@ public class OfferActivity extends AppCompatActivity {
                     int idTerm = bolsa.getInt("id-unidade");
                     String email = bolsa.getString("email-responsavel");
 
-                    int vacanciesVolunteers;
+                    /*
                     try {
                         vacanciesVolunteers = bolsa.getInt("vagas-voluntarias");
                     }catch (Exception e){
                         vacanciesVolunteers = 0;
                     }
+                    */
 
                     Offer offer = new Offer(description, term, idTerm, email);
 
