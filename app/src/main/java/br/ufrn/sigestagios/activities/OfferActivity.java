@@ -102,7 +102,7 @@ public class OfferActivity extends AppCompatActivity {
         }
 
         // Database Controller
-         databaseController = new OfferDatabaseController(this);
+        databaseController = new OfferDatabaseController(this);
 
         // Get offers from Database
         new DatabasePopulator(offers, pagerAdapter, databaseController).execute();
@@ -145,14 +145,14 @@ public class OfferActivity extends AppCompatActivity {
         protected void onPostExecute(JSONObject jsonObject) {
             try {
                 loggedUser = new User(jsonObject.getLong("id-usario"),
-                                      jsonObject.getLong("id-unidade"),
-                                      jsonObject.getLong("id-foto"),
-                                      jsonObject.getBoolean("ativo"),
-                                      jsonObject.getString("login"),
-                                      jsonObject.getString("nome-pessoa"),
-                                      jsonObject.getString("cpf-cnpj"),
-                                      jsonObject.getString("email"),
-                                      jsonObject.getString("chave-foto"));
+                        jsonObject.getLong("id-unidade"),
+                        jsonObject.getLong("id-foto"),
+                        jsonObject.getBoolean("ativo"),
+                        jsonObject.getString("login"),
+                        jsonObject.getString("nome-pessoa"),
+                        jsonObject.getString("cpf-cnpj"),
+                        jsonObject.getString("email"),
+                        jsonObject.getString("chave-foto"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -174,8 +174,8 @@ public class OfferActivity extends AppCompatActivity {
         OfferDatabaseController databaseController;
 
         DatabasePopulator (List<List<Offer>> offers,
-                                  OfferFragmentPagerAdapter pagerAdapter,
-                                  OfferDatabaseController databaseController) {
+                           OfferFragmentPagerAdapter pagerAdapter,
+                           OfferDatabaseController databaseController) {
             this.offers = offers;
             this.pagerAdapter = pagerAdapter;
             this.databaseController = databaseController;
