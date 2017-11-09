@@ -62,7 +62,7 @@ public class OfferActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             offers.add(new ArrayList<Offer>());
         }
 
@@ -95,7 +95,7 @@ public class OfferActivity extends AppCompatActivity {
         String accessToken = preferences.getString(Constants.KEY_ACCESS_TOKEN, null);
 
         if(accessToken != null){
-//            new GetLoggedUser().execute("usuario/v0.1/usuarios/info", accessToken);
+            new GetLoggedUser().execute("usuario/v0.1/usuarios/info", accessToken);
 
             // Get offers from SIGAA
             new GetOffersFromSigaa().execute(accessToken);
