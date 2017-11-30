@@ -25,15 +25,15 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView descriptionView;
-        public TextView authorView;
-        public TextView year;
-        public TextView unit;
+        public TextView unitView;
+        public TextView unitIDView;
+        public TextView emailView;
         public ViewHolder(View itemView) {
             super(itemView);
             descriptionView = (TextView) itemView.findViewById(R.id.cDescription);
-            authorView = (TextView) itemView.findViewById(R.id.cResponsible);
-            year = (TextView) itemView.findViewById(R.id.cYear);
-            unit = (TextView) itemView.findViewById(R.id.cUnit);
+            unitView = (TextView) itemView.findViewById(R.id.cUnit);
+            unitIDView = (TextView) itemView.findViewById(R.id.cUnitID);
+            emailView = (TextView) itemView.findViewById(R.id.cEmail);
         }
     }
 
@@ -53,12 +53,11 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.descriptionView.setText(mDataSet.get(position).getDescription());
-        holder.authorView.setText(mDataSet.get(position).getResponsible());
-        holder.unit.setText(String.valueOf(mDataSet.get(position).getYear()));
-        holder.unit.setText(mDataSet.get(position).getTerm());
 
+        holder.unitView.setText(mDataSet.get(position).getTerm());
+        holder.unitIDView.setText(String.valueOf(mDataSet.get(position).getIdTerm()));
+        holder.emailView.setText(mDataSet.get(position).getEmail());
     }
-
 
     @Override
     public int getItemCount() {

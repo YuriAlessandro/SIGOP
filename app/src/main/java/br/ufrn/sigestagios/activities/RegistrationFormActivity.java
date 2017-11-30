@@ -7,42 +7,55 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import br.ufrn.sigestagios.R;
 import br.ufrn.sigestagios.activities.OfferActivity;
-import br.ufrn.sigestagios.models.Offer;
+import br.ufrn.sigestagios.models.Internship;
+import br.ufrn.sigestagios.models.Internship;
 
 public class RegistrationFormActivity extends AppCompatActivity {
-    Offer offer;
-    EditText year, description, responsible, term, vacanciesRemunerated, vacanciesVolunteers;
+    Internship internship;
+    EditText title, description, responsible, email, companyName, numberPositions, grantValue, auxTransport, endOffer;
     private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registration_form);
 
-        year = (EditText) findViewById(R.id.year);
+        title = (EditText) findViewById(R.id.title);
         description = (EditText) findViewById(R.id.description);
         responsible = (EditText) findViewById(R.id.responsible);
-        term = (EditText) findViewById(R.id.term);
-        vacanciesRemunerated = (EditText) findViewById(R.id.vacanciesRemunerated);
-        vacanciesVolunteers = (EditText) findViewById(R.id.vacanciesVolunteers);
+        email = (EditText) findViewById(R.id.email);
+        companyName = (EditText) findViewById(R.id.companyName);
+        numberPositions = (EditText) findViewById(R.id.numberPositions);
+        grantValue = (EditText) findViewById(R.id.grantValue);
+        auxTransport = (EditText) findViewById(R.id.auxTransport);
+        endOffer = (EditText) findViewById(R.id.endOffer);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
 
-    public void register(View v){
-        offer = new Offer(Integer.parseInt(year.getText().toString()),
-                          description.getText().toString(),
+    public void register(View v) throws ParseException {
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        Date myDate = df.parse(endOffer.getText().toString());
+
+        internship = new Internship(description.getText().toString(),
+                          email.getText().toString(),
+                          companyName.getText().toString(),
                           responsible.getText().toString(),
-                          term.getText().toString(),
-                          Integer.parseInt(vacanciesRemunerated.getText().toString()),
-                          Integer.parseInt(vacanciesVolunteers.getText().toString()));
+                          Integer.parseInt(numberPositions.getText().toString()),
+                          Integer.parseInt(grantValue.getText().toString()),
+                          Integer.parseInt(auxTransport.getText().toString()),
+                          myDate,
+                          title.getText().toString());
 
         Intent resultIntent = new Intent(this, OfferActivity.class);
-        resultIntent.putExtra("offerRegistered", offer);
+        resultIntent.putExtra("offerRegistered", internship);
         setResult(RESULT_OK, resultIntent);
         finish();
     }
-
 }

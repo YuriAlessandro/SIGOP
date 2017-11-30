@@ -31,7 +31,10 @@ import java.util.List;
 import br.ufrn.sigestagios.adapters.OfferFragmentPagerAdapter;
 import br.ufrn.sigestagios.R;
 import br.ufrn.sigestagios.database.OfferDatabaseController;
+import br.ufrn.sigestagios.models.AssociatedAction;
+import br.ufrn.sigestagios.models.Internship;
 import br.ufrn.sigestagios.models.Offer;
+import br.ufrn.sigestagios.models.TeacherAssistant;
 import br.ufrn.sigestagios.models.User;
 import br.ufrn.sigestagios.utils.Constants;
 import br.ufrn.sigestagios.utils.HttpHandler;
@@ -65,7 +68,7 @@ public class OfferActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             offers.add(new ArrayList<Offer>());
         }
 
@@ -97,7 +100,6 @@ public class OfferActivity extends AppCompatActivity {
         SharedPreferences preferences = this.getSharedPreferences("user_info", 0);
         accessToken = preferences.getString(Constants.KEY_ACCESS_TOKEN, null);
 
-
         if(accessToken != null){
             new GetLoggedUser().execute("usuario/v0.1/usuarios/info", accessToken);
 
@@ -106,7 +108,7 @@ public class OfferActivity extends AppCompatActivity {
         }
 
         // Database Controller
-         databaseController = new OfferDatabaseController(this);
+        databaseController = new OfferDatabaseController(this);
 
         // Get offers from Database
         new DatabasePopulator(offers, pagerAdapter, databaseController).execute();
@@ -139,7 +141,6 @@ public class OfferActivity extends AppCompatActivity {
             String url = params[0];
             String accessToken = params[1];
 
-
             HttpHandler sh = new HttpHandler();
 
             String req_url = Constants.URL_BASE + url;
@@ -162,14 +163,14 @@ public class OfferActivity extends AppCompatActivity {
         protected void onPostExecute(JSONObject jsonObject) {
             try {
                 loggedUser = new User(jsonObject.getLong("id-usario"),
-                                      jsonObject.getLong("id-unidade"),
-                                      jsonObject.getLong("id-foto"),
-                                      jsonObject.getBoolean("ativo"),
-                                      jsonObject.getString("login"),
-                                      jsonObject.getString("nome-pessoa"),
-                                      jsonObject.getString("cpf-cnpj"),
-                                      jsonObject.getString("email"),
-                                      jsonObject.getString("chave-foto"));
+                        jsonObject.getLong("id-unidade"),
+                        jsonObject.getLong("id-foto"),
+                        jsonObject.getBoolean("ativo"),
+                        jsonObject.getString("login"),
+                        jsonObject.getString("nome-pessoa"),
+                        jsonObject.getString("cpf-cnpj"),
+                        jsonObject.getString("email"),
+                        jsonObject.getString("chave-foto"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -191,8 +192,8 @@ public class OfferActivity extends AppCompatActivity {
         OfferDatabaseController databaseController;
 
         DatabasePopulator (List<List<Offer>> offers,
-                                  OfferFragmentPagerAdapter pagerAdapter,
-                                  OfferDatabaseController databaseController) {
+                           OfferFragmentPagerAdapter pagerAdapter,
+                           OfferDatabaseController databaseController) {
             this.offers = offers;
             this.pagerAdapter = pagerAdapter;
             this.databaseController = databaseController;
@@ -203,12 +204,10 @@ public class OfferActivity extends AppCompatActivity {
             Cursor cursor = databaseController.retrieveOffers();
             while (cursor != null && cursor.moveToNext()) {
                 Offer temp = new Offer(
-                        cursor.getInt(cursor.getColumnIndex(OfferEntry.ANO)),
                         cursor.getString(cursor.getColumnIndex(OfferEntry.DESCRICAO)),
-                        cursor.getString(cursor.getColumnIndex(OfferEntry.RESPONSAVEL)),
                         cursor.getString(cursor.getColumnIndex(OfferEntry.UNIDADE)),
-                        cursor.getInt(cursor.getColumnIndex(OfferEntry.VAGAS_REMUNERADAS)),
-                        cursor.getInt(cursor.getColumnIndex(OfferEntry.VAGAS_VOLUNTARIAS))
+                        cursor.getInt(cursor.getColumnIndex(OfferEntry.ID_UNIDADE)),
+                        cursor.getString(cursor.getColumnIndex(OfferEntry.EMAIL))
                 );
 
                 offers.get(0).add(temp);
@@ -227,10 +226,10 @@ public class OfferActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REGISTER && resultCode == RESULT_OK) {
-            Offer offerRegistered = (Offer) data.getSerializableExtra("offerRegistered");
+            Offer internshipRegistered = (Offer) data.getSerializableExtra("offerRegistered");
 
-            databaseController.insertOffer(offerRegistered);
-            offers.get(0).add(offerRegistered);
+            databaseController.insertOffer(internshipRegistered);
+            offers.get(0).add(internshipRegistered);
             pagerAdapter.notifyDataSetChanged();
         }
     }
@@ -294,6 +293,7 @@ public class OfferActivity extends AppCompatActivity {
             String req_url = Constants.URL_BASE + url_bolsas;
             String jsonStr = sh.makeServiceCall(req_url, accessToken, apiKey);
 
+            if (jsonStr == null) return null;
             try {
                 JSONArray bolsas = new JSONArray(jsonStr);
 
@@ -301,21 +301,20 @@ public class OfferActivity extends AppCompatActivity {
                 for(int i = 0; i < bolsas.length(); i++){
                     JSONObject bolsa = bolsas.getJSONObject(i);
 
-                    int year = bolsa.getInt("ano");
                     String description = bolsa.getString("descricao");
-                    String responsible = bolsa.getString("responsavel");
                     String term = bolsa.getString("unidade");
-                    int vacanciesRemunerated = bolsa.getInt("vagas-remuneradas");
+                    int idTerm = bolsa.getInt("id-unidade");
+                    String email = bolsa.getString("email-responsavel");
 
-                    int vacanciesVolunteers;
+                    /*
                     try {
                         vacanciesVolunteers = bolsa.getInt("vagas-voluntarias");
                     }catch (Exception e){
                         vacanciesVolunteers = 0;
                     }
+                    */
 
-                    Offer offer = new Offer(year, description, responsible, term,
-                                            vacanciesRemunerated, vacanciesVolunteers);
+                    Offer offer = new Offer(description, term, idTerm, email);
 
                     offers.get(1).add(offer);
                     Log.i(TAG, "NEW THING ADDED " + description);
