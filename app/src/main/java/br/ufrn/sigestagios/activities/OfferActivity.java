@@ -113,11 +113,10 @@ public class OfferActivity extends AppCompatActivity {
         // Get offers from Database
         new DatabasePopulator(offers, pagerAdapter, databaseController).execute();
 
+        //Swipe to refresh
         initNavigationDrawer();
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
 
-        mSwipeRefreshLayout.setColorSchemeColors(
-                Color.RED, Color.GREEN, Color.BLUE, Color.CYAN);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -275,16 +274,29 @@ public class OfferActivity extends AppCompatActivity {
 
         drawerLayout = (DrawerLayout)findViewById(R.id.drawerLayout);
     }
-
+    //Update all the tabs when swipe
     public void refreshItems() {
-
+        this.clearOffers();
+        //get the offers for Associated Actions
         new GetOffersFromSigaa().execute(accessToken);
+
+        // Get offers from Database (Internships)
+        new DatabasePopulator(offers, pagerAdapter, databaseController).execute();
+    }
+
+    public void clearOffers(){
+        //clear all tabs
+        for (int i = 0; i < 6; i++){
+            offers.get(i).clear();
+        }
+        pagerAdapter.notifyDataSetChanged();
+
     }
 
     private class GetOffersFromSigaa extends AsyncTask<String, Void, Void> {
         @Override
         protected Void doInBackground(String... params) {
-            String url_bolsas = "acao-associada/v0.1/oportunidades-bolsas?limit=100";
+            String url_bolsas = "acao-associada/v0.1/oportunidades-bolsas?limit=5";
             String accessToken = params[0];
 
 
