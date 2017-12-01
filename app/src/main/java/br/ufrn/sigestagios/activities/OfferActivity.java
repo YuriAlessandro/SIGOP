@@ -3,7 +3,6 @@ package br.ufrn.sigestagios.activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -28,17 +27,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.ufrn.sigestagios.adapters.OfferFragmentPagerAdapter;
 import br.ufrn.sigestagios.R;
+import br.ufrn.sigestagios.adapters.OfferFragmentPagerAdapter;
+import br.ufrn.sigestagios.database.OfferDBContract.OfferEntry;
 import br.ufrn.sigestagios.database.OfferDatabaseController;
-import br.ufrn.sigestagios.models.AssociatedAction;
-import br.ufrn.sigestagios.models.Internship;
 import br.ufrn.sigestagios.models.Offer;
-import br.ufrn.sigestagios.models.TeacherAssistant;
 import br.ufrn.sigestagios.models.User;
 import br.ufrn.sigestagios.utils.Constants;
 import br.ufrn.sigestagios.utils.HttpHandler;
-import br.ufrn.sigestagios.database.OfferDBContract.OfferEntry;
 
 public class OfferActivity extends AppCompatActivity {
     private User loggedUser;
@@ -296,7 +292,7 @@ public class OfferActivity extends AppCompatActivity {
     private class GetOffersFromSigaa extends AsyncTask<String, Void, Void> {
         @Override
         protected Void doInBackground(String... params) {
-            String url_bolsas = "acao-associada/v0.1/oportunidades-bolsas?limit=5";
+            String url_bolsas = "acao-associada/v0.1/oportunidades-bolsas?limit=100";
             String accessToken = params[0];
 
 

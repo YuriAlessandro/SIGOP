@@ -1,17 +1,12 @@
 package br.ufrn.sigestagios.adapters;
 
-import android.os.Handler;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
-
 
 import br.ufrn.sigestagios.R;
 import br.ufrn.sigestagios.models.Offer;
@@ -28,6 +23,7 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
         public TextView unitView;
         public TextView unitIDView;
         public TextView emailView;
+
         public ViewHolder(View itemView) {
             super(itemView);
             descriptionView = (TextView) itemView.findViewById(R.id.cDescription);
