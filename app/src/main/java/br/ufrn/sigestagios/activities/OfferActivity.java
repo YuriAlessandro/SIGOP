@@ -267,7 +267,6 @@ public class OfferActivity extends AppCompatActivity {
             }
         });
 
-
         drawerLayout = (DrawerLayout)findViewById(R.id.drawerLayout);
     }
     //Update all the tabs when swipe
