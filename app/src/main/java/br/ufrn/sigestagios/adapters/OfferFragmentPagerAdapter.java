@@ -19,12 +19,12 @@ public class OfferFragmentPagerAdapter extends FragmentPagerAdapter {
     
     private String tabTitles[] = new String[] { "Estágios", "Ação Associada", "Monitoria", "Extensão",
                                                 "Apoio Técnico", "Pesquisa" };
-    private Context context;
+    // Terminar isso
+    private Class displayActivities[] = new Class[] {};
     private List<List<Offer>> offers;
 
-    public OfferFragmentPagerAdapter(FragmentManager fm, Context context, List<List<Offer>> offers) {
+    public OfferFragmentPagerAdapter(FragmentManager fm, List<List<Offer>> offers) {
         super(fm);
-        this.context = context;
         this.offers = offers;
     }
 
@@ -35,7 +35,7 @@ public class OfferFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return OffersFragment.newInstance(position + 1, offers.get(position));
+        return OffersFragment.newInstance(position + 1, offers.get(position), displayActivities[position]);
     }
 
     @Override

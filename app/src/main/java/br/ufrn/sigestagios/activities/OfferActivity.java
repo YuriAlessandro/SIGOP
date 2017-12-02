@@ -70,8 +70,7 @@ public class OfferActivity extends AppCompatActivity {
         setContentView(R.layout.activity_offer);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
-        pagerAdapter = new OfferFragmentPagerAdapter(getSupportFragmentManager(),
-                OfferActivity.this, offers);
+        pagerAdapter = new OfferFragmentPagerAdapter(getSupportFragmentManager(), offers);
         viewPager.setAdapter(pagerAdapter);
 
         // Give the TabLayout the ViewPager

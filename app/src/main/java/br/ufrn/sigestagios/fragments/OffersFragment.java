@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ import br.ufrn.sigestagios.models.Offer;
 public class OffersFragment extends Fragment{
     public static final String ARG_PAGE = "ARG_PAGE";
     public static final String OFFERS = "OFFERS";
+    public static final String SHOWER_CLASS = "SHOWER_CLASS";
 
     private int mPage;
     List<Offer> offers;
@@ -34,9 +36,9 @@ public class OffersFragment extends Fragment{
         // Required empty public constructor
     }
 
-    // No futuro a lista será inserida com putSerializable
-    public static OffersFragment newInstance(int page, List<Offer> strings) {
+    public static OffersFragment newInstance(int page, List<Offer> strings, Class showerActivity) {
         Bundle args = new Bundle();
+        args.putSerializable(SHOWER_CLASS, showerActivity);
         args.putInt(ARG_PAGE, page);
         args.putSerializable(OFFERS, (ArrayList<Offer>) strings);
         OffersFragment fragment = new OffersFragment();
@@ -49,7 +51,8 @@ public class OffersFragment extends Fragment{
         super.onCreate(savedInstanceState);
         mPage = getArguments().getInt(ARG_PAGE);
         offers = (List<Offer>) getArguments().getSerializable(OFFERS);
-        mAdapter = new OffersListAdapter(offers);
+        Class shower_class = (Class) getArguments().getSerializable(SHOWER_CLASS);
+        mAdapter = new OffersListAdapter(offers, shower_class);
     }
 
     @Override
@@ -63,6 +66,15 @@ public class OffersFragment extends Fragment{
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         mRecyclerView.setAdapter(mAdapter);
+
+        mRecyclerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int pos = mRecyclerView.getChildLayoutPosition(view);
+                Offer item = offers.get(pos);
+                Toast.makeText(getContext(), item.getDescription(), Toast.LENGTH_LONG).show();
+            }
+        });
 
         return view;
     }

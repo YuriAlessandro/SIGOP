@@ -1,16 +1,19 @@
 package br.ufrn.sigestagios.adapters;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
 import java.util.List;
 
 import br.ufrn.sigestagios.R;
+import br.ufrn.sigestagios.activities.RegistrationFormActivity;
 import br.ufrn.sigestagios.models.Offer;
 
 /**
@@ -19,12 +22,14 @@ import br.ufrn.sigestagios.models.Offer;
 
 public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.ViewHolder> {
     private List<Offer> mDataSet;
+    private Class shower_class;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView descriptionView;
         public TextView unitView;
         public TextView unitIDView;
         public TextView emailView;
+        public int dataIndex;
         public ViewHolder(View itemView) {
             super(itemView);
             descriptionView = (TextView) itemView.findViewById(R.id.cDescription);
@@ -34,8 +39,9 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
         }
     }
 
-    public OffersListAdapter(List<Offer> data) {
+    public OffersListAdapter(List<Offer> data, Class shower_class) {
         mDataSet = data;
+        this.shower_class = shower_class;
     }
 
     @Override
@@ -43,6 +49,13 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.offer_view, parent, false);
 
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), shower_class);
+                view.getContext().startActivity(intent);
+            }
+        });
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
@@ -53,6 +66,7 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
         holder.unitView.setText(mDataSet.get(position).getTerm());
         holder.unitIDView.setText(String.valueOf(mDataSet.get(position).getIdTerm()));
         holder.emailView.setText(mDataSet.get(position).getEmail());
+        holder.dataIndex = position;
     }
 
 
