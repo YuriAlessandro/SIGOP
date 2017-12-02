@@ -9,6 +9,7 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -26,17 +27,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.ufrn.sigestagios.adapters.OfferFragmentPagerAdapter;
 import br.ufrn.sigestagios.R;
+import br.ufrn.sigestagios.adapters.OfferFragmentPagerAdapter;
+import br.ufrn.sigestagios.database.OfferDBContract.OfferEntry;
 import br.ufrn.sigestagios.database.OfferDatabaseController;
-import br.ufrn.sigestagios.models.AssociatedAction;
-import br.ufrn.sigestagios.models.Internship;
 import br.ufrn.sigestagios.models.Offer;
-import br.ufrn.sigestagios.models.TeacherAssistant;
 import br.ufrn.sigestagios.models.User;
 import br.ufrn.sigestagios.utils.Constants;
 import br.ufrn.sigestagios.utils.HttpHandler;
-import br.ufrn.sigestagios.database.OfferDBContract.OfferEntry;
 
 public class OfferActivity extends AppCompatActivity {
     private User loggedUser;
@@ -47,9 +45,13 @@ public class OfferActivity extends AppCompatActivity {
     private ViewPager viewPager;
     OfferFragmentPagerAdapter pagerAdapter;
 
+    SwipeRefreshLayout mSwipeRefreshLayout;
+
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
     private Toolbar toolbar;
+
+    String accessToken;
 
     List<List<Offer>> offers = new ArrayList<List<Offer>>();
 
@@ -92,7 +94,7 @@ public class OfferActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         SharedPreferences preferences = this.getSharedPreferences("user_info", 0);
-        String accessToken = preferences.getString(Constants.KEY_ACCESS_TOKEN, null);
+        accessToken = preferences.getString(Constants.KEY_ACCESS_TOKEN, null);
 
         if(accessToken != null){
             new GetLoggedUser().execute("usuario/v0.1/usuarios/info", accessToken);
@@ -107,7 +109,18 @@ public class OfferActivity extends AppCompatActivity {
         // Get offers from Database
         new DatabasePopulator(offers, pagerAdapter, databaseController).execute();
 
+        //Swipe to refresh
         initNavigationDrawer();
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshItems();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
     }
 
     private class GetLoggedUser extends AsyncTask<String, Void, JSONObject> {
@@ -255,6 +268,24 @@ public class OfferActivity extends AppCompatActivity {
         });
 
         drawerLayout = (DrawerLayout)findViewById(R.id.drawerLayout);
+    }
+    //Update all the tabs when swipe
+    public void refreshItems() {
+        this.clearOffers();
+        //get the offers for Associated Actions
+        new GetOffersFromSigaa().execute(accessToken);
+
+        // Get offers from Database (Internships)
+        new DatabasePopulator(offers, pagerAdapter, databaseController).execute();
+    }
+
+    public void clearOffers(){
+        //clear all tabs
+        for (int i = 0; i < 6; i++){
+            offers.get(i).clear();
+        }
+        pagerAdapter.notifyDataSetChanged();
+
     }
 
     private class GetOffersFromSigaa extends AsyncTask<String, Void, Void> {
