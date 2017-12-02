@@ -6,8 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 import br.ufrn.sigestagios.R;
@@ -25,6 +23,7 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
         public TextView unitView;
         public TextView unitIDView;
         public TextView emailView;
+
         public ViewHolder(View itemView) {
             super(itemView);
             descriptionView = (TextView) itemView.findViewById(R.id.cDescription);
@@ -35,7 +34,7 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
     }
 
     public OffersListAdapter(List<Offer> data) {
-        mDataSet = data;
+        this.mDataSet = data;
     }
 
     @Override
@@ -50,11 +49,11 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.descriptionView.setText(mDataSet.get(position).getDescription());
+
         holder.unitView.setText(mDataSet.get(position).getTerm());
         holder.unitIDView.setText(String.valueOf(mDataSet.get(position).getIdTerm()));
         holder.emailView.setText(mDataSet.get(position).getEmail());
     }
-
 
     @Override
     public int getItemCount() {
