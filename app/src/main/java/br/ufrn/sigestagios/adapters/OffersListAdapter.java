@@ -50,8 +50,8 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.descriptionView.setText(mDataSet.get(position).getDescription());
 
-        holder.unitView.setText(mDataSet.get(position).getTerm());
-        holder.unitIDView.setText(String.valueOf(mDataSet.get(position).getIdTerm()));
+        holder.unitView.setText(mDataSet.get(position).getUnit());
+        holder.unitIDView.setText(String.valueOf(mDataSet.get(position).getIdUnit()));
         holder.emailView.setText(mDataSet.get(position).getEmail());
     }
 
