@@ -28,7 +28,6 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
             super(itemView);
             descriptionView = (TextView) itemView.findViewById(R.id.cDescription);
             unitView = (TextView) itemView.findViewById(R.id.cUnit);
-            unitIDView = (TextView) itemView.findViewById(R.id.cUnitID);
             emailView = (TextView) itemView.findViewById(R.id.cEmail);
         }
     }
@@ -49,9 +48,7 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.descriptionView.setText(mDataSet.get(position).getDescription());
-
         holder.unitView.setText(mDataSet.get(position).getUnit());
-        holder.unitIDView.setText(String.valueOf(mDataSet.get(position).getIdUnit()));
         holder.emailView.setText(mDataSet.get(position).getEmail());
     }
 
