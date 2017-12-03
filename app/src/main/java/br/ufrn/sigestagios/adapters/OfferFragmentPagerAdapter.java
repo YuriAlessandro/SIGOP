@@ -7,6 +7,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.List;
 
+import br.ufrn.sigestagios.activities.AssociatedActionShowActivity;
+import br.ufrn.sigestagios.activities.ExtensionShowActivity;
+import br.ufrn.sigestagios.activities.InternshipShowActivity;
+import br.ufrn.sigestagios.activities.ResearchGrantShowActivity;
+import br.ufrn.sigestagios.activities.SupportServiceShowActivity;
+import br.ufrn.sigestagios.activities.TeacherAssistantShowActivity;
 import br.ufrn.sigestagios.fragments.OffersFragment;
 import br.ufrn.sigestagios.models.Offer;
 
@@ -20,7 +26,9 @@ public class OfferFragmentPagerAdapter extends FragmentPagerAdapter {
     private String tabTitles[] = new String[] { "Estágios", "Ação Associada", "Monitoria", "Extensão",
                                                 "Apoio Técnico", "Pesquisa" };
     // Terminar isso
-    private Class displayActivities[] = new Class[] {};
+    private Class displayActivities[] = new Class[] {InternshipShowActivity.class, AssociatedActionShowActivity.class,
+            TeacherAssistantShowActivity.class, ExtensionShowActivity.class, SupportServiceShowActivity.class,
+            ResearchGrantShowActivity.class};
     private List<List<Offer>> offers;
 
     public OfferFragmentPagerAdapter(FragmentManager fm, List<List<Offer>> offers) {

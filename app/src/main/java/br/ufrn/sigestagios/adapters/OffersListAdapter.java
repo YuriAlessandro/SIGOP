@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 import br.ufrn.sigestagios.R;
@@ -29,6 +27,7 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
         public TextView unitView;
         public TextView unitIDView;
         public TextView emailView;
+
         public ViewHolder(View itemView) {
             super(itemView);
             descriptionView = (TextView) itemView.findViewById(R.id.cDescription);
@@ -39,7 +38,7 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
     }
 
     public OffersListAdapter(List<Offer> data, Class shower_class) {
-        mDataSet = data;
+        this.mDataSet = data;
         this.shower_class = shower_class;
     }
 
@@ -55,6 +54,7 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.descriptionView.setText(mDataSet.get(position).getDescription());
+
         holder.unitView.setText(mDataSet.get(position).getTerm());
         holder.unitIDView.setText(String.valueOf(mDataSet.get(position).getIdTerm()));
         holder.emailView.setText(mDataSet.get(position).getEmail());
@@ -68,7 +68,6 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
             }
         });
     }
-
 
     @Override
     public int getItemCount() {

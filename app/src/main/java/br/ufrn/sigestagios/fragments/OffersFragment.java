@@ -1,9 +1,9 @@
 package br.ufrn.sigestagios.fragments;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +20,7 @@ import br.ufrn.sigestagios.models.Offer;
  * Created by Gustavo on 19/10/2017.
  */
 
-public class OffersFragment extends Fragment{
+public class OffersFragment extends Fragment {
     public static final String ARG_PAGE = "ARG_PAGE";
     public static final String OFFERS = "OFFERS";
     public static final String SHOWER_CLASS = "SHOWER_CLASS";
@@ -41,6 +41,7 @@ public class OffersFragment extends Fragment{
         args.putSerializable(SHOWER_CLASS, showerActivity);
         args.putInt(ARG_PAGE, page);
         args.putSerializable(OFFERS, (ArrayList<Offer>) strings);
+
         OffersFragment fragment = new OffersFragment();
         fragment.setArguments(args);
         return fragment;

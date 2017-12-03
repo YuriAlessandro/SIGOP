@@ -18,6 +18,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/swipeRefresh">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -35,6 +40,7 @@
                 android:layout_below="@id/sliding_tabs"
                 android:background="@android:color/white" />
         </RelativeLayout>
+        </android.support.v4.widget.SwipeRefreshLayout>
 
         <!--<TextView-->
         <!--android:id="@+id/titleTextView"-->
