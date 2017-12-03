@@ -42,24 +42,6 @@
         </RelativeLayout>
         </android.support.v4.widget.SwipeRefreshLayout>
 
-        <!--<TextView-->
-        <!--android:id="@+id/titleTextView"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Ofertas"-->
-        <!--android:textSize="15dp"-->
-        <!--android:padding="10dp"-->
-        <!--android:background="@color/colorAccent"-->
-        <!--android:textColor="@color/cardview_light_background"/>-->
-
-        <!--<android.support.v7.widget.RecyclerView-->
-        <!--android:id="@+id/mRecyclerView"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_below="@id/titleTextView">-->
-        <!--</android.support.v7.widget.RecyclerView>-->
-
-
     </LinearLayout>
 
     <android.support.design.widget.NavigationView

@@ -4,14 +4,14 @@ import java.io.Serializable;
 
 public class Offer implements Serializable {
     private String description;
-    private String term;
-    private int idTerm;
+    private String unit;
+    private int idUnit;
     private String email;
 
-    public Offer(String description, String term, int idTerm, String email) {
+    public Offer(String description, String unit, int idUnit, String email) {
         this.description = description;
-        this.term = term;
-        this.idTerm = idTerm;
+        this.unit = unit;
+        this.idUnit = idUnit;
         this.email = email;
     }
 
@@ -19,12 +19,12 @@ public class Offer implements Serializable {
         return description;
     }
 
-    public String getTerm() {
-        return term;
+    public String getUnit() {
+        return unit;
     }
 
-    public int getIdTerm() {
-        return idTerm;
+    public int getIdUnit() {
+        return idUnit;
     }
 
     public String getEmail() {
