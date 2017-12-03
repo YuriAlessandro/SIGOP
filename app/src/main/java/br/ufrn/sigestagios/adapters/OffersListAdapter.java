@@ -29,7 +29,6 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
         public TextView unitView;
         public TextView unitIDView;
         public TextView emailView;
-        public int dataIndex;
         public ViewHolder(View itemView) {
             super(itemView);
             descriptionView = (TextView) itemView.findViewById(R.id.cDescription);
@@ -49,24 +48,25 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.offer_view, parent, false);
 
-        v.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), shower_class);
-                view.getContext().startActivity(intent);
-            }
-        });
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.descriptionView.setText(mDataSet.get(position).getDescription());
         holder.unitView.setText(mDataSet.get(position).getTerm());
         holder.unitIDView.setText(String.valueOf(mDataSet.get(position).getIdTerm()));
         holder.emailView.setText(mDataSet.get(position).getEmail());
-        holder.dataIndex = position;
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), shower_class);
+                intent.putExtra("OFFER", mDataSet.get(position));
+                view.getContext().startActivity(intent);
+            }
+        });
     }
 
 
