@@ -49,28 +49,28 @@ public class InternshipShowActivity extends AppCompatActivity {
 //                "Vaga para estágio");
 
         description = (TextView) findViewById(R.id.iDesc);
-        description.setText(offer.getDescription());
+        description.setText("Descrição: " + offer.getDescription());
 
         email = (TextView) findViewById(R.id.iEmail);
         email.setText(offer.getEmail());
 
         term = (TextView) findViewById(R.id.iTerm);
-        term.setText(offer.getTerm());
+        term.setText(offer.getUnit());
 
         responsible = (TextView) findViewById(R.id.iResponsible);
         responsible.setText(offer.getResponsible());
 
         numbersPositions = (TextView) findViewById(R.id.iPositionsRemunerated);
-        numbersPositions.setText(offer.getNumberPositions());
+        numbersPositions.setText("Vagas Remuneradas: " + offer.getNumberPositions());
 
         grantValue = (TextView) findViewById(R.id.iGrantValue);
-        grantValue.setText(offer.getGrantValue());
+        grantValue.setText("Valor do estágio: R$ " + offer.getGrantValue());
 
         auxTransport = (TextView) findViewById(R.id.iAuxTransport);
-        auxTransport.setText(offer.getAuxTransport());
+        auxTransport.setText("Auxilio Transporte: R$ " + offer.getAuxTransport());
 
         date = (TextView) findViewById(R.id.iEndOffer);
-        date.setText(String.valueOf(offer.getEndOffer()));
+        date.setText("Fim da oferta: " + String.valueOf(offer.getEndOffer()));
 
         title = (TextView) findViewById(R.id.iTitle);
         title.setText(offer.getTitle());

@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.ufrn.sigestagios.activities.AssociatedActionShowActivity;
@@ -22,18 +23,27 @@ import br.ufrn.sigestagios.models.Offer;
 
 public class OfferFragmentPagerAdapter extends FragmentPagerAdapter {
     final int PAGE_COUNT = 6;
-    
-    private String tabTitles[] = new String[] { "Estágios", "Ação Associada", "Monitoria", "Extensão",
-                                                "Apoio Técnico", "Pesquisa" };
-    // Terminar isso
-    private Class displayActivities[] = new Class[] {InternshipShowActivity.class, AssociatedActionShowActivity.class,
-            TeacherAssistantShowActivity.class, ExtensionShowActivity.class, SupportServiceShowActivity.class,
-            ResearchGrantShowActivity.class};
+
+    private String tabTitles[] = new String[] { "Estágios", "Monitoria", "Extensão",
+            "Pesquisa", "Ação Associada", "Apoio Técnico"};
+
+    private Class displayActivities[] = new Class[] {InternshipShowActivity.class,
+            TeacherAssistantShowActivity.class, ExtensionShowActivity.class,
+            ResearchGrantShowActivity.class, AssociatedActionShowActivity.class,
+            SupportServiceShowActivity.class};
+
     private List<List<Offer>> offers;
+    private List<List<Offer>> copyOffers;
 
     public OfferFragmentPagerAdapter(FragmentManager fm, List<List<Offer>> offers) {
         super(fm);
         this.offers = offers;
+        copyOffers = new ArrayList<List<Offer>>();
+        for (int i = 0; i < offers.size(); i++) {
+            ArrayList<Offer> list = new ArrayList<Offer>();
+            list.addAll(offers.get(i));
+            copyOffers.add(list);
+        }
     }
 
     @Override
@@ -55,5 +65,36 @@ public class OfferFragmentPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getItemPosition(Object object) {
        return POSITION_NONE;
+    }
+
+    public void filter(String query) {
+
+        if(query.isEmpty()){
+            for(int i = 0; i < offers.size(); i++) {
+                offers.get(i).clear();
+                offers.get(i).addAll(copyOffers.get(i));
+            }
+        } else {
+            query = query.toLowerCase();
+            for (int i = 0; i < copyOffers.size(); i++) {
+                offers.get(i).clear();
+                for (Offer offer : copyOffers.get(i)) {
+                    if (offer.getDescription().toLowerCase().contains(query) || offer.getUnit().toLowerCase().contains(query)) {
+                        offers.get(i).add(offer);
+                    }
+                }
+            }
+        }
+
+        super.notifyDataSetChanged();
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        for(int i = 0; i < copyOffers.size(); i++) {
+            copyOffers.get(i).clear();
+            copyOffers.get(i).addAll(offers.get(i));
+        }
+        super.notifyDataSetChanged();
     }
 }

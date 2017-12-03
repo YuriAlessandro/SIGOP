@@ -36,16 +36,16 @@ public class TeacherAssistantShowActivity extends AppCompatActivity {
 //                2);
 
         description = (TextView) findViewById(R.id.taDesc);
-        description.setText(offer.getDescription());
+        description.setText("Descrição: " + offer.getDescription());
 
         term = (TextView) findViewById(R.id.taTerm);
-        term.setText(offer.getTerm());
+        term.setText(offer.getUnit());
 
         email = (TextView) findViewById(R.id.taEmail);
         email.setText(offer.getEmail());
 
         year = (TextView) findViewById(R.id.taYear);
-        year.setText(offer.getYear());
+        year.setText("Ano: " + offer.getYear());
 
         cpf_cnpj = (TextView) findViewById(R.id.taCpf_cnpj);
         cpf_cnpj.setText(offer.getCpf_cnpj());
@@ -54,9 +54,9 @@ public class TeacherAssistantShowActivity extends AppCompatActivity {
         responsible.setText(offer.getResponsible());
 
         positionsRemunerated = (TextView) findViewById(R.id.taPositionsRemunerated);
-        positionsRemunerated.setText(offer.getPositionsRemunerated());
+        positionsRemunerated.setText("Vagas Remuneradas: " + offer.getPositionsRemunerated());
 
         positionsVolunteers = (TextView) findViewById(R.id.taPositionsVolunteers);
-        positionsVolunteers.setText(offer.getPositionsVolunteers());
+        positionsVolunteers.setText("Vagas Voluntárias: " + offer.getPositionsVolunteers());
     }
 }

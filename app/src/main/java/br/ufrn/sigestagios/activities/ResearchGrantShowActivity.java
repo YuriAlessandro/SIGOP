@@ -37,16 +37,16 @@ public class ResearchGrantShowActivity extends AppCompatActivity {
 //                2);
 
         description = (TextView) findViewById(R.id.rgDesc);
-        description.setText(offer.getDescription());
+        description.setText("Descrição: " + offer.getDescription());
 
         term = (TextView) findViewById(R.id.rgTerm);
-        term.setText(offer.getTerm());
+        term.setText(offer.getUnit());
 
         email = (TextView) findViewById(R.id.rgEmail);
         email.setText(offer.getEmail());
 
         year = (TextView) findViewById(R.id.rgYear);
-        year.setText(offer.getYear());
+        year.setText("Ano: " + offer.getYear());
 
         cpf_cnpj = (TextView) findViewById(R.id.rgCpf_cnpj);
         cpf_cnpj.setText(offer.getCpf_cnpj());
@@ -55,9 +55,9 @@ public class ResearchGrantShowActivity extends AppCompatActivity {
         responsible.setText(offer.getResponsible());
 
         positionRemunerated = (TextView) findViewById(R.id.rgPositionsRemunerated);
-        positionRemunerated.setText(offer.getPositionsRemunerated());
+        positionRemunerated.setText("Vagas remuneradas: " + offer.getPositionsRemunerated());
 
         numberPositions = (TextView) findViewById(R.id.rgNumberPositions);
-        numberPositions.setText(offer.getNumberPositions());
+        numberPositions.setText("Total de Vagas: " + offer.getNumberPositions());
     }
 }

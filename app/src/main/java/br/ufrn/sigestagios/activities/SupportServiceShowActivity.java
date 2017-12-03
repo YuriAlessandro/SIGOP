@@ -31,10 +31,10 @@ public class SupportServiceShowActivity extends AppCompatActivity {
 //                21);
 
         description = (TextView) findViewById(R.id.ssDesc);
-        description.setText(offer.getDescription());
+        description.setText("Descrição: " + offer.getDescription());
 
         term = (TextView) findViewById(R.id.ssTerm);
-        term.setText(offer.getTerm());
+        term.setText(offer.getUnit());
 
         email = (TextView) findViewById(R.id.ssEmail);
         email.setText(offer.getEmail());

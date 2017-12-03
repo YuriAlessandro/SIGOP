@@ -34,16 +34,16 @@ public class AssociatedActionShowActivity extends AppCompatActivity {
 //                121);
 
         description = (TextView) findViewById(R.id.aaDesc);
-        description.setText(offer.getDescription());
+        description.setText("Descrição: " + offer.getDescription());
 
         term = (TextView) findViewById(R.id.aaTerm);
-        term.setText(offer.getTerm());
+        term.setText(offer.getUnit());
 
         email = (TextView) findViewById(R.id.aaEmail);
         email.setText(offer.getEmail());
 
         year = (TextView) findViewById(R.id.aaYear);
-        year.setText(offer.getYear());
+        year.setText("Ano: " + offer.getYear());
 
         cpf_cnpj = (TextView) findViewById(R.id.aaCpf_cnpj);
         cpf_cnpj.setText(String.valueOf(offer.getCpf_cnpj()));
@@ -52,6 +52,6 @@ public class AssociatedActionShowActivity extends AppCompatActivity {
         responsible.setText(offer.getResponsible());
 
         positionsRemunerated = (TextView) findViewById(R.id.aaPositionsRemunerated);
-        positionsRemunerated.setText(offer.getPositionsRemunerated());
+        positionsRemunerated.setText("Vagas Remuneradas: " + offer.getPositionsRemunerated());
     }
 }

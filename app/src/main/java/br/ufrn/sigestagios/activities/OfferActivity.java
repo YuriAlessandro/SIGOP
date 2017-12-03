@@ -14,9 +14,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.CookieManager;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,8 +34,11 @@ import br.ufrn.sigestagios.R;
 import br.ufrn.sigestagios.adapters.OfferFragmentPagerAdapter;
 import br.ufrn.sigestagios.database.OfferDBContract.OfferEntry;
 import br.ufrn.sigestagios.database.OfferDatabaseController;
-import br.ufrn.sigestagios.models.AssociatedAction;
+import br.ufrn.sigestagios.models.Extension;
 import br.ufrn.sigestagios.models.Offer;
+import br.ufrn.sigestagios.models.ResearchGrant;
+import br.ufrn.sigestagios.models.SupportService;
+import br.ufrn.sigestagios.models.TeacherAssistant;
 import br.ufrn.sigestagios.models.User;
 import br.ufrn.sigestagios.utils.Constants;
 import br.ufrn.sigestagios.utils.HttpHandler;
@@ -100,7 +106,8 @@ public class OfferActivity extends AppCompatActivity {
             new GetLoggedUser().execute("usuario/v0.1/usuarios/info", accessToken);
 
             // Get offers from SIGAA
-            new GetOffersFromSigaa().execute(accessToken);
+            Toast.makeText(getApplicationContext(), "Carregando ofertas", Toast.LENGTH_LONG).show();
+            new GetAssistantsFromSigaa().execute(accessToken);
         }
 
         // Database Controller
@@ -123,12 +130,37 @@ public class OfferActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu, menu);
+
+        final MenuItem searchItem = menu.findItem(R.id.search_bar);
+        final SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setIconifiedByDefault(false);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                pagerAdapter.filter(query);
+                return false;
+            }
+        });
+
+        return true;
+    }
+
+
     private class GetLoggedUser extends AsyncTask<String, Void, JSONObject> {
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Toast.makeText(getApplicationContext(), "Carregando usuário", Toast.LENGTH_LONG).show();
         }
 
         @Override
@@ -153,6 +185,8 @@ public class OfferActivity extends AppCompatActivity {
             }
             return null;
         }
+
+
 
         @Override
         protected void onPostExecute(JSONObject jsonObject) {
@@ -272,8 +306,9 @@ public class OfferActivity extends AppCompatActivity {
     //Update all the tabs when swipe
     public void refreshItems() {
         this.clearOffers();
+        Toast.makeText(getApplicationContext(), "Carregando ofertas", Toast.LENGTH_LONG).show();
         //get the offers for Associated Actions
-        new GetOffersFromSigaa().execute(accessToken);
+        new GetAssistantsFromSigaa().execute(accessToken);
 
         // Get offers from Database (Internships)
         new DatabasePopulator(offers, pagerAdapter, databaseController).execute();
@@ -288,7 +323,166 @@ public class OfferActivity extends AppCompatActivity {
 
     }
 
-    private class GetOffersFromSigaa extends AsyncTask<String, Void, Void> {
+    private class GetAssistantsFromSigaa extends AsyncTask<String, Void, Void> {
+        @Override
+        protected Void doInBackground(String... params) {
+            String url_extensions = "monitoria/v0.1/oportunidades-bolsas?limit=100";
+            String accessToken = params[0];
+
+            HttpHandler sh = new HttpHandler();
+
+            String req_url = Constants.URL_BASE + url_extensions;
+            String jsonStr = sh.makeServiceCall(req_url, accessToken, apiKey);
+
+            if (jsonStr == null) return null;
+            try {
+                JSONArray assistants = new JSONArray(jsonStr);
+
+                Log.i(TAG, String.valueOf(assistants.length()));
+                for(int i = 0; i < assistants.length(); i++){
+                    JSONObject opportunity = assistants.getJSONObject(i);
+
+                    String description = opportunity.getString("descricao");
+
+                    if (description.equals("null") || description == null){
+                        description = "Título não informado";
+                    }
+
+                    String term = opportunity.getString("unidade");
+                    int idTerm = opportunity.getInt("id-unidade");
+                    String email = opportunity.getString("email-responsavel");
+                    String responsible = opportunity.getString("responsavel");
+                    String cpf_cnpj = opportunity.getString("cpf-cnpj").toString();
+                    int idProject = opportunity.getInt("id-projeto");
+                    int idProjectTA = opportunity.getInt("id-projeto-monitoria");
+                    int year = opportunity.getInt("ano");
+                    int positionsRemunerated = opportunity.getInt("vagas-remuneradas");
+                    int positionsVolunteers = opportunity.getInt("vagas-voluntarias");
+
+
+                    Offer teacherAssistant = new TeacherAssistant(description, term, idTerm, email, year,
+                            cpf_cnpj, idProject, idProjectTA, responsible, positionsRemunerated, positionsVolunteers);
+
+                    offers.get(1).add(teacherAssistant);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            pagerAdapter.notifyDataSetChanged();
+
+            new GetExtensionFromSigaa().execute(accessToken);
+            new GetAssociatedActionFromSigaa().execute(accessToken);
+            new GetResearchsFromSigaa().execute(accessToken);
+            new GetSupportFromSigaa().execute(accessToken);
+        }
+    }
+
+    private class GetExtensionFromSigaa extends AsyncTask<String, Void, Void> {
+        @Override
+        protected Void doInBackground(String... params) {
+            String url_extensions = "extensao/v0.1/oportunidades-bolsas?limit=100";
+            String accessToken = params[0];
+
+            HttpHandler sh = new HttpHandler();
+
+            String req_url = Constants.URL_BASE + url_extensions;
+            String jsonStr = sh.makeServiceCall(req_url, accessToken, apiKey);
+
+            if (jsonStr == null) return null;
+            try {
+                JSONArray extesions = new JSONArray(jsonStr);
+
+                for(int i = 0; i < extesions.length(); i++){
+                    JSONObject opportunity = extesions.getJSONObject(i);
+
+                    String description = opportunity.getString("descricao");
+                    String term = opportunity.getString("unidade");
+                    int idTerm = opportunity.getInt("id-unidade");
+                    String email = opportunity.getString("email-responsavel");
+                    int positionsRemunerated = opportunity.getInt("vagas-remuneradas");
+                    String responsible = opportunity.getString("responsavel");
+                    long cpf_cnpj = opportunity.getLong("cpf-cnpj");
+                    int idProject = opportunity.getInt("id-projeto");
+                    int year = opportunity.getInt("ano");
+                    int idProjectExtension = opportunity.getInt("id-atividade-extensao");
+
+
+                    Offer extension = new Extension(description, term, idTerm, email, year,
+                                                    cpf_cnpj, responsible, positionsRemunerated,
+                                                    idProject, idProjectExtension);
+
+                    offers.get(2).add(extension);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            pagerAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private class GetResearchsFromSigaa extends AsyncTask<String, Void, Void> {
+        @Override
+        protected Void doInBackground(String... params) {
+            String url_extensions = "pesquisa/v0.1/oportunidades-bolsas?limit=100";
+            String accessToken = params[0];
+
+            HttpHandler sh = new HttpHandler();
+
+            String req_url = Constants.URL_BASE + url_extensions;
+            String jsonStr = sh.makeServiceCall(req_url, accessToken, apiKey);
+
+            if (jsonStr == null) return null;
+            try {
+                JSONArray researchs = new JSONArray(jsonStr);
+
+                for(int i = 0; i < researchs.length(); i++){
+                    JSONObject opportunity = researchs.getJSONObject(i);
+
+                    String description = opportunity.getString("descricao");
+                    String term = opportunity.getString("unidade");
+                    int idTerm = opportunity.getInt("id-unidade");
+                    String email = opportunity.getString("email-responsavel");
+                    int positionsRemunerated = opportunity.getInt("vagas-remuneradas");
+                    String responsible = opportunity.getString("responsavel");
+                    String cpf_cnpj = opportunity.getString("cpf-cnpj-responsavel").toString();
+                    int idProject = opportunity.getInt("id-projeto");
+                    int year = opportunity.getInt("ano");
+                    int numberPositions = opportunity.getInt("numero-vagas");
+                    int idWorkPlan = opportunity.getInt("id-plano-trabalho");
+
+
+                    Offer research = new ResearchGrant(description, term, idTerm, email, year,
+                                                        cpf_cnpj, responsible, positionsRemunerated,
+                                                        idProject, numberPositions, idWorkPlan);
+
+                    offers.get(3).add(research);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            pagerAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private class GetAssociatedActionFromSigaa extends AsyncTask<String, Void, Void> {
         @Override
         protected Void doInBackground(String... params) {
             String url_bolsas = "acao-associada/v0.1/oportunidades-bolsas?limit=100";
@@ -303,7 +497,6 @@ public class OfferActivity extends AppCompatActivity {
             try {
                 JSONArray bolsas = new JSONArray(jsonStr);
 
-                Log.i(TAG, String.valueOf(bolsas.length()));
                 for(int i = 0; i < bolsas.length(); i++){
                     JSONObject bolsa = bolsas.getJSONObject(i);
 
@@ -312,18 +505,54 @@ public class OfferActivity extends AppCompatActivity {
                     int idTerm = bolsa.getInt("id-unidade");
                     String email = bolsa.getString("email-responsavel");
 
-                    /*
-                    try {
-                        vacanciesVolunteers = bolsa.getInt("vagas-voluntarias");
-                    }catch (Exception e){
-                        vacanciesVolunteers = 0;
-                    }
-                    */
-
                     Offer offer = new Offer(description, term, idTerm, email);
 
-                    offers.get(1).add(offer);
-                    Log.i(TAG, "NEW THING ADDED " + description);
+                    offers.get(4).add(offer);
+//                    Log.i(TAG, "NEW THING ADDED " + description);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            pagerAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private class GetSupportFromSigaa extends AsyncTask<String, Void, Void> {
+        @Override
+        protected Void doInBackground(String... params) {
+            String url_extensions = "bolsa-apoio-tecnico/v0.1/oportunidades?limit=100";
+            String accessToken = params[0];
+
+            HttpHandler sh = new HttpHandler();
+
+            String req_url = Constants.URL_BASE + url_extensions;
+            String jsonStr = sh.makeServiceCall(req_url, accessToken, apiKey);
+
+            if (jsonStr == null) return null;
+            try {
+                JSONArray opportunities = new JSONArray(jsonStr);
+
+                for(int i = 0; i < opportunities.length(); i++){
+                    JSONObject opportunity = opportunities.getJSONObject(i);
+
+                    String description = opportunity.getString("descricao");
+                    String term = opportunity.getString("unidade");
+                    int idTerm = opportunity.getInt("id-unidade");
+                    String email = opportunity.getString("email");
+                    String abbrevTerm = opportunity.getString("sigla-unidade");
+                    int idOpportunity = opportunity.getInt("id-oportunidade");
+
+
+                    Offer supportService = new SupportService(description, term, idTerm, email,
+                                                        abbrevTerm, idOpportunity);
+
+                    offers.get(5).add(supportService);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
