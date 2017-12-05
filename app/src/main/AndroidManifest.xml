@@ -20,7 +20,7 @@
         </activity>
         <activity android:name=".activities.OfferActivity" />
         <activity android:name=".activities.RegistrationFormActivity" />
-        <activity android:name=".activities.LoginActivity"></activity>
+        <activity android:name=".activities.LoginActivity" android:noHistory="true"></activity>
 
         <activity android:name=".activities.AssociatedActionShowActivity"></activity>
         <activity android:name=".activities.ExtensionShowActivity"></activity>

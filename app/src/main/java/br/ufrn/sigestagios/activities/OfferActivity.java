@@ -294,6 +294,7 @@ public class OfferActivity extends AppCompatActivity {
                         CookieManager cookieManager = CookieManager.getInstance();
                         cookieManager.removeAllCookies(null);
                         i = new Intent(getApplicationContext(), MainActivity.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(i);
                         drawerLayout.closeDrawers();
                         break;

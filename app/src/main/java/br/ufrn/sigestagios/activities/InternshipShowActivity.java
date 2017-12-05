@@ -2,6 +2,7 @@ package br.ufrn.sigestagios.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import java.text.ParseException;
@@ -74,5 +75,9 @@ public class InternshipShowActivity extends AppCompatActivity {
 
         title = (TextView) findViewById(R.id.iTitle);
         title.setText(offer.getTitle());
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Estágio");
     }
 }

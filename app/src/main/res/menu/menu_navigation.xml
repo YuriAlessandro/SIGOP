@@ -8,5 +8,5 @@
         android:title="Catálogo"/>
     <item
         android:id="@+id/logout"
-        android:title="Sair"/>
+        android:title="Trocar usuário"/>
 </menu>

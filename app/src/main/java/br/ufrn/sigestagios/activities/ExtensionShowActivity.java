@@ -2,6 +2,7 @@ package br.ufrn.sigestagios.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import br.ufrn.sigestagios.R;
@@ -54,5 +55,9 @@ public class ExtensionShowActivity extends AppCompatActivity {
 
         positionsRemunerated = (TextView) findViewById(R.id.ePositionsRemunerated);
         positionsRemunerated.setText("Vagas Remuneradas: " + offer.getPositionsRemunerated());
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Extensão");
     }
 }

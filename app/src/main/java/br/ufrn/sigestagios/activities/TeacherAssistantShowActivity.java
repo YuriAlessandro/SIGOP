@@ -2,6 +2,7 @@ package br.ufrn.sigestagios.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import br.ufrn.sigestagios.R;
@@ -58,5 +59,9 @@ public class TeacherAssistantShowActivity extends AppCompatActivity {
 
         positionsVolunteers = (TextView) findViewById(R.id.taPositionsVolunteers);
         positionsVolunteers.setText("Vagas Voluntárias: " + offer.getPositionsVolunteers());
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Monitoria");
     }
 }
