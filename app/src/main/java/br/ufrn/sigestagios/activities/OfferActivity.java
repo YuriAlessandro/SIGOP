@@ -34,6 +34,7 @@ import br.ufrn.sigestagios.R;
 import br.ufrn.sigestagios.adapters.OfferFragmentPagerAdapter;
 import br.ufrn.sigestagios.database.OfferDBContract.OfferEntry;
 import br.ufrn.sigestagios.database.OfferDatabaseController;
+import br.ufrn.sigestagios.models.AssociatedAction;
 import br.ufrn.sigestagios.models.Extension;
 import br.ufrn.sigestagios.models.Offer;
 import br.ufrn.sigestagios.models.ResearchGrant;
@@ -504,8 +505,15 @@ public class OfferActivity extends AppCompatActivity {
                     String term = bolsa.getString("unidade");
                     int idTerm = bolsa.getInt("id-unidade");
                     String email = bolsa.getString("email-responsavel");
+                    int year = bolsa.getInt("ano");
+                    long cpf_cnpj = bolsa.getLong("cpf-cnpj");
+                    String responsible = bolsa.getString("responsavel");
+                    int positionRemunareted = bolsa.getInt("vagas-remuneradas");
+                    int idProject = bolsa.getInt("id-projeto");
 
-                    Offer offer = new Offer(description, term, idTerm, email);
+                    Offer offer = new AssociatedAction(description, term, idTerm, email,
+                                                        year, cpf_cnpj, responsible, positionRemunareted,
+                                                        idProject);
 
                     offers.get(4).add(offer);
 //                    Log.i(TAG, "NEW THING ADDED " + description);
