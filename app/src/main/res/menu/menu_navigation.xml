@@ -4,9 +4,6 @@
         android:id="@+id/cadastro"
         android:title="Cadastro"/>
     <item
-        android:id="@+id/catalogo"
-        android:title="Catálogo"/>
-    <item
         android:id="@+id/logout"
         android:title="Trocar usuário"/>
 </menu>

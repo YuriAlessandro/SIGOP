@@ -286,10 +286,6 @@ public class OfferActivity extends AppCompatActivity {
                         startActivityForResult(i, REGISTER);
                         drawerLayout.closeDrawers();
                         break;
-                    case R.id.catalogo:
-                        Toast.makeText(getApplicationContext(),"Você já está em Catálogo",Toast.LENGTH_SHORT).show();
-                        drawerLayout.closeDrawers();
-                        break;
                     case R.id.logout:
                         CookieManager cookieManager = CookieManager.getInstance();
                         cookieManager.removeAllCookies(null);
