@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/iTitle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dados da unidade:"
+                android:textSize="17dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_gravity="start"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/iTerm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="INSTITUTO METROPOLE DIGITAL"
+                android:layout_below="@+id/iTitle1"
+                android:layout_alignStart="@+id/iTitle1"/>
+
+            <TextView
+                android:id="@+id/iTitle2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iTerm"
+                android:layout_alignStart="@+id/iTerm"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="17dp"
+                android:text="Dados do responsável:" />
+
+            <TextView
+                android:id="@+id/iResponsible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iTitle2"
+                android:layout_alignStart="@+id/iTerm"
+                android:text="JOAO EMMANUEL IZIDIO DA SILVA" />
+
+            <TextView
+                android:id="@+id/iEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iResponsible"
+                android:layout_alignStart="@+id/iTerm"
+                android:text="joaoeizidio@gmail.com" />
+
+            <TextView
+                android:id="@+id/iTitle3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iEmail"
+                android:layout_alignStart="@+id/iTerm"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="17dp"
+                android:text="Dados da oferta:" />
+
+            <TextView
+                android:id="@+id/iPositionsRemunerated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iTitle3"
+                android:layout_alignStart="@+id/iTerm"
+                android:layout_marginRight="10dp"
+                android:text="Vagas remuneradas: 2" />
+
+            <TextView
+                android:id="@+id/iGrantValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iPositionsRemunerated"
+                android:layout_alignStart="@id/iTitle1"
+                android:layout_marginRight="10dp"
+                android:text="Valor do estágio: R$ 700,00" />
+
+            <TextView
+                android:id="@+id/iAuxTransport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iGrantValue"
+                android:layout_alignStart="@id/iTitle1"
+                android:layout_marginRight="10dp"
+                android:text="Auxilio Transporte: R$ 50,00" />
+
+            <TextView
+                android:id="@+id/iEndOffer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iAuxTransport"
+                android:layout_alignStart="@id/iTitle1"
+                android:layout_marginRight="10dp"
+                android:text="Fim da oferta: 21/12/2017" />
+
+            <TextView
+                android:id="@+id/iTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iEndOffer"
+                android:layout_alignStart="@id/iTitle1"
+                android:layout_marginRight="10dp"
+                android:text="Estágio para Programador em JavaScript" />
+
+            <TextView
+                android:id="@+id/iDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iTitle"
+                android:layout_alignStart="@+id/iTerm"
+                android:layout_marginTop="10dp"
+                android:text="Descrição: \nAbscsvcn sncbs nbcsnb cns bcbs nbs nbcnsbc nbscbscscscscscscscscscscscscscscsc scscsc" />
+        </RelativeLayout>
+
+    </ScrollView>
+</RelativeLayout>

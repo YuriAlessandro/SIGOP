@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -80,8 +79,7 @@ public class OfferActivity extends AppCompatActivity {
         setContentView(R.layout.activity_offer);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
-        pagerAdapter = new OfferFragmentPagerAdapter(getSupportFragmentManager(),
-                OfferActivity.this, offers);
+        pagerAdapter = new OfferFragmentPagerAdapter(getSupportFragmentManager(), offers);
         viewPager.setAdapter(pagerAdapter);
 
         // Give the TabLayout the ViewPager
@@ -362,10 +360,10 @@ public class OfferActivity extends AppCompatActivity {
                     int positionsVolunteers = opportunity.getInt("vagas-voluntarias");
 
 
-                    Offer extension = new TeacherAssistant(description, term, idTerm, email, year,
+                    Offer teacherAssistant = new TeacherAssistant(description, term, idTerm, email, year,
                             cpf_cnpj, idProject, idProjectTA, responsible, positionsRemunerated, positionsVolunteers);
 
-                    offers.get(1).add(extension);
+                    offers.get(1).add(teacherAssistant);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -409,7 +407,7 @@ public class OfferActivity extends AppCompatActivity {
                     String email = opportunity.getString("email-responsavel");
                     int positionsRemunerated = opportunity.getInt("vagas-remuneradas");
                     String responsible = opportunity.getString("responsavel");
-                    String cpf_cnpj = opportunity.getString("cpf-cnpj").toString();
+                    long cpf_cnpj = opportunity.getLong("cpf-cnpj");
                     int idProject = opportunity.getInt("id-projeto");
                     int year = opportunity.getInt("ano");
                     int idProjectExtension = opportunity.getInt("id-atividade-extensao");
@@ -490,7 +488,6 @@ public class OfferActivity extends AppCompatActivity {
             String url_bolsas = "acao-associada/v0.1/oportunidades-bolsas?limit=100";
             String accessToken = params[0];
 
-
             HttpHandler sh = new HttpHandler();
 
             String req_url = Constants.URL_BASE + url_bolsas;
@@ -552,10 +549,10 @@ public class OfferActivity extends AppCompatActivity {
                     int idOpportunity = opportunity.getInt("id-oportunidade");
 
 
-                    Offer research = new SupportService(description, term, idTerm, email,
+                    Offer supportService = new SupportService(description, term, idTerm, email,
                                                         abbrevTerm, idOpportunity);
 
-                    offers.get(5).add(research);
+                    offers.get(5).add(supportService);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

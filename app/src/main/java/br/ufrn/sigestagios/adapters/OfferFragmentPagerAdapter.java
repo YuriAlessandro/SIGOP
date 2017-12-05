@@ -8,6 +8,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.ufrn.sigestagios.activities.AssociatedActionShowActivity;
+import br.ufrn.sigestagios.activities.ExtensionShowActivity;
+import br.ufrn.sigestagios.activities.InternshipShowActivity;
+import br.ufrn.sigestagios.activities.ResearchGrantShowActivity;
+import br.ufrn.sigestagios.activities.SupportServiceShowActivity;
+import br.ufrn.sigestagios.activities.TeacherAssistantShowActivity;
 import br.ufrn.sigestagios.fragments.OffersFragment;
 import br.ufrn.sigestagios.models.Offer;
 
@@ -17,16 +23,20 @@ import br.ufrn.sigestagios.models.Offer;
 
 public class OfferFragmentPagerAdapter extends FragmentPagerAdapter {
     final int PAGE_COUNT = 6;
-    
+
     private String tabTitles[] = new String[] { "Estágios", "Monitoria", "Extensão",
-                                                "Pesquisa", "Ação Associada", "Apoio Técnico"};
-    private Context context;
+            "Pesquisa", "Ação Associada", "Apoio Técnico"};
+
+    private Class displayActivities[] = new Class[] {InternshipShowActivity.class,
+            TeacherAssistantShowActivity.class, ExtensionShowActivity.class,
+            ResearchGrantShowActivity.class, AssociatedActionShowActivity.class,
+            SupportServiceShowActivity.class};
+
     private List<List<Offer>> offers;
     private List<List<Offer>> copyOffers;
 
-    public OfferFragmentPagerAdapter(FragmentManager fm, Context context, List<List<Offer>> offers) {
+    public OfferFragmentPagerAdapter(FragmentManager fm, List<List<Offer>> offers) {
         super(fm);
-        this.context = context;
         this.offers = offers;
         copyOffers = new ArrayList<List<Offer>>();
         for (int i = 0; i < offers.size(); i++) {
@@ -43,7 +53,7 @@ public class OfferFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return OffersFragment.newInstance(position + 1, offers.get(position));
+        return OffersFragment.newInstance(position + 1, offers.get(position), displayActivities[position]);
     }
 
     @Override

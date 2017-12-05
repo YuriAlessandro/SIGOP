@@ -21,6 +21,15 @@
         <activity android:name=".activities.OfferActivity" />
         <activity android:name=".activities.RegistrationFormActivity" />
         <activity android:name=".activities.LoginActivity"></activity>
+
+        <activity android:name=".activities.AssociatedActionShowActivity"></activity>
+        <activity android:name=".activities.ExtensionShowActivity"></activity>
+        <activity android:name=".activities.InternshipShowActivity"></activity>
+        <activity android:name=".activities.ResearchGrantShowActivity"></activity>
+        <activity android:name=".activities.SupportServiceShowActivity"></activity>
+        <activity android:name=".activities.TeacherAssistantShowActivity"></activity>
+
+
     </application>
 
 </manifest>

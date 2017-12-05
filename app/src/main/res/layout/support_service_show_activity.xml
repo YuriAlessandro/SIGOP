@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/ssTitle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dados da unidade:"
+                android:textSize="17dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_gravity="start"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/ssTerm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="INSTITUTO METROPOLE DIGITAL"
+                android:layout_below="@+id/ssTitle1"
+                android:layout_alignStart="@+id/ssTitle1"/>
+
+            <TextView
+                android:id="@+id/ssAbbrevTerm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/ssTerm"
+                android:layout_alignBottom="@+id/ssTerm"
+                android:layout_toEndOf="@+id/ssTerm"
+                android:text=" - IMD" />
+
+            <TextView
+                android:id="@+id/ssTitle2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ssTerm"
+                android:layout_alignStart="@+id/ssTerm"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="17dp"
+                android:text="Dados do responsável:" />
+
+            <TextView
+                android:id="@+id/ssEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ssTitle2"
+                android:layout_alignStart="@+id/ssTerm"
+                android:text="joaoeizidio@gmail.com" />
+
+            <TextView
+                android:id="@+id/ssTitle3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ssEmail"
+                android:layout_alignStart="@+id/ssTerm"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="17dp"
+                android:text="Dados da oferta:" />
+
+            <TextView
+                android:id="@+id/ssDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ssTitle3"
+                android:layout_alignStart="@+id/ssTerm"
+                android:text="Descrição: \nAbscsvcn sncbs nbcsnb cns bcbs nbs nbcnsbc nbscbscscscscscscscscscscscscscscsc scscsc" />
+        </RelativeLayout>
+
+    </ScrollView>
+</RelativeLayout>

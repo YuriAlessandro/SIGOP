@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar">
+
+         <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/aaTitle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dados da unidade:"
+                android:textSize="17dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_gravity="start"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/aaTerm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="INSTITUTO METROPOLE DIGITAL"
+                android:layout_below="@+id/aaTitle1"
+                android:layout_alignStart="@+id/aaTitle1"/>
+
+             <TextView
+                 android:id="@+id/aaTitle2"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_below="@+id/aaTerm"
+                 android:layout_alignStart="@+id/aaTerm"
+                 android:layout_marginTop="10dp"
+                 android:textColor="@color/colorPrimaryDark"
+                 android:textSize="17dp"
+                 android:text="Dados do responsável:" />
+
+             <TextView
+                 android:id="@+id/aaResponsible"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_below="@+id/aaTitle2"
+                 android:layout_alignStart="@+id/aaTerm"
+                 android:text="JOAO EMMANUEL IZIDIO DA SILVA" />
+
+             <TextView
+                 android:id="@+id/aaEmail"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_below="@+id/aaResponsible"
+                 android:layout_alignStart="@+id/aaTerm"
+                 android:text="joaoeizidio@gmail.com" />
+
+             <TextView
+                 android:id="@+id/aaCpf_cnpj"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_below="@+id/aaEmail"
+                 android:layout_alignStart="@+id/aaTerm"
+                 android:text="10823443523" />
+
+             <TextView
+                 android:id="@+id/aaTitle3"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_below="@+id/aaCpf_cnpj"
+                 android:layout_alignStart="@+id/aaTerm"
+                 android:layout_marginTop="10dp"
+                 android:textColor="@color/colorPrimaryDark"
+                 android:textSize="17dp"
+                 android:text="Dados da oferta:" />
+
+             <TextView
+                 android:id="@+id/aaPositionsRemunerated"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_below="@+id/aaTitle3"
+                 android:layout_alignStart="@+id/aaTerm"
+                 android:layout_marginRight="10dp"
+                 android:text="Vagas remuneradas: 2" />
+
+             <TextView
+                 android:id="@+id/aaYear"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_alignBaseline="@+id/aaPositionsRemunerated"
+                 android:layout_alignBottom="@+id/aaPositionsRemunerated"
+                 android:layout_toEndOf="@+id/aaPositionsRemunerated"
+                 android:text="Ano: 2017" />
+
+             <TextView
+                 android:id="@+id/aaDesc"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_below="@id/aaYear"
+                 android:layout_alignStart="@+id/aaTerm"
+                 android:layout_marginTop="10dp"
+                 android:text="Descrição: \nAbscsvcn sncbs nbcsnb cns bcbs nbs nbcnsbc nbscbscscscscscscscscscscscscscscsc scscsc" />
+        </RelativeLayout>
+
+    </ScrollView>
+</RelativeLayout>
