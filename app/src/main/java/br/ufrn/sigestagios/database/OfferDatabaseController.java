@@ -31,8 +31,8 @@ public class OfferDatabaseController {
 
         db = offerDB.getWritableDatabase();
         values.put(OfferEntry.DESCRICAO, offer.getDescription());
-        values.put(OfferEntry.UNIDADE, offer.getTerm());
-        values.put(OfferEntry.ID_UNIDADE, offer.getIdTerm());
+        values.put(OfferEntry.UNIDADE, offer.getUnit());
+        values.put(OfferEntry.ID_UNIDADE, offer.getIdUnit());
         values.put(OfferEntry.EMAIL, offer.getEmail());
 
         return db.insert(OfferEntry.TABLE_NAME, null, values);

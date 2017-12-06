@@ -8,13 +8,13 @@ import java.io.Serializable;
 
 public class Extension extends Offer implements Serializable {
     private int year;
-    private String cpf_cnpj;
+    private long cpf_cnpj;
     private String responsible;
     private int positionsRemunerated;
     private int idProject;
     private int idProjectExtension;
 
-    public Extension(String description, String term, int idTerm, String email, int year, String cpf_cnpj, String responsible, int positionsRemunerated, int idProject, int idProjectExtension) {
+    public Extension(String description, String term, int idTerm, String email, int year, long cpf_cnpj, String responsible, int positionsRemunerated, int idProject, int idProjectExtension) {
         super(description, term, idTerm, email);
         this.year = year;
         this.cpf_cnpj = cpf_cnpj;
@@ -28,7 +28,7 @@ public class Extension extends Offer implements Serializable {
         return year;
     }
 
-    public String getCpf_cnpj() {
+    public long getCpf_cnpj() {
         return cpf_cnpj;
     }
 
