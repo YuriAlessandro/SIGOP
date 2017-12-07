@@ -27,7 +27,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import br.ufrn.sigestagios.R;
@@ -36,6 +39,7 @@ import br.ufrn.sigestagios.database.OfferDBContract.OfferEntry;
 import br.ufrn.sigestagios.database.OfferDatabaseController;
 import br.ufrn.sigestagios.models.AssociatedAction;
 import br.ufrn.sigestagios.models.Extension;
+import br.ufrn.sigestagios.models.Internship;
 import br.ufrn.sigestagios.models.Offer;
 import br.ufrn.sigestagios.models.ResearchGrant;
 import br.ufrn.sigestagios.models.SupportService;
@@ -233,13 +237,27 @@ public class OfferActivity extends AppCompatActivity {
         protected Void doInBackground(Void... voids) {
             Cursor cursor = databaseController.retrieveOffers();
             while (cursor != null && cursor.moveToNext()) {
-                Offer temp = new Offer(
-                        cursor.getString(cursor.getColumnIndex(OfferEntry.DESCRICAO)),
-                        cursor.getString(cursor.getColumnIndex(OfferEntry.UNIDADE)),
-                        cursor.getInt(cursor.getColumnIndex(OfferEntry.ID_UNIDADE)),
-                        cursor.getString(cursor.getColumnIndex(OfferEntry.EMAIL))
-                );
+                SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
+                String dataString = cursor.getString(cursor.getColumnIndex(OfferEntry.FIMOFERTA));
+                Date fimOferta;
+                try {
+                     fimOferta = df.parse(dataString);
+                } catch (ParseException e) {
+                    System.out.println("Erro na conversão da data de " + dataString);
+                    continue;
+                }
+
+                Offer temp = new Internship(
+                        cursor.getString(cursor.getColumnIndex(OfferEntry.DESCRICAO)),
+                        cursor.getString(cursor.getColumnIndex(OfferEntry.EMAIL)),
+                        cursor.getString(cursor.getColumnIndex(OfferEntry.UNIDADE)),
+                        cursor.getString(cursor.getColumnIndex(OfferEntry.RESPONSAVEL)),
+                        cursor.getInt(cursor.getColumnIndex(OfferEntry.VAGAS)),
+                        cursor.getInt(cursor.getColumnIndex(OfferEntry.VALOR)),
+                        cursor.getInt(cursor.getColumnIndex(OfferEntry.AUXTRANSP)),
+                        fimOferta,
+                        cursor.getString(cursor.getColumnIndex(OfferEntry.TITULO)));
                 offers.get(0).add(temp);
             }
 
@@ -256,7 +274,7 @@ public class OfferActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REGISTER && resultCode == RESULT_OK) {
-            Offer internshipRegistered = (Offer) data.getSerializableExtra("offerRegistered");
+            Internship internshipRegistered = (Internship) data.getSerializableExtra("offerRegistered");
 
             databaseController.insertOffer(internshipRegistered);
             offers.get(0).add(internshipRegistered);
@@ -305,11 +323,12 @@ public class OfferActivity extends AppCompatActivity {
     public void refreshItems() {
         this.clearOffers();
         Toast.makeText(getApplicationContext(), "Carregando ofertas", Toast.LENGTH_LONG).show();
-        //get the offers for Associated Actions
-        new GetAssistantsFromSigaa().execute(accessToken);
 
         // Get offers from Database (Internships)
         new DatabasePopulator(offers, pagerAdapter, databaseController).execute();
+
+        //get the offers for Associated Actions
+        new GetAssistantsFromSigaa().execute(accessToken);
     }
 
     public void clearOffers(){

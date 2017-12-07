@@ -121,6 +121,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/iEndOffer"
                 android:layout_alignStart="@id/iTitle1"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginRight="10dp"
                 android:text="Estágio para Programador em JavaScript" />
 
