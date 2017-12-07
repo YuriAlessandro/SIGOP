@@ -13,9 +13,9 @@ public class Internship extends Offer implements Serializable {
     private int numberPositions;
     private int grantValue;
     private int auxTransport;
-    private Date endOffer;
+    private String endOffer;
 
-    public Internship(String description, String email, String companyName, String responsible, int numberPositions, int grantValue, int auxTransport, Date endOffer, String title) {
+    public Internship(String description, String email, String companyName, String responsible, int numberPositions, int grantValue, int auxTransport, String endOffer, String title) {
         super(description, companyName, 0, email);
         this.responsible = responsible;
         this.numberPositions = numberPositions;
@@ -57,11 +57,11 @@ public class Internship extends Offer implements Serializable {
         this.auxTransport = auxTransport;
     }
 
-    public Date getEndOffer() {
+    public String getEndOffer() {
         return endOffer;
     }
 
-    public void setEndOffer(Date endOffer) {
+    public void setEndOffer(String endOffer) {
         this.endOffer = endOffer;
     }
 

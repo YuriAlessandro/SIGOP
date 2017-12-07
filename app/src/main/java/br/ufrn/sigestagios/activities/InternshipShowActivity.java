@@ -71,7 +71,7 @@ public class InternshipShowActivity extends AppCompatActivity {
         auxTransport.setText("Auxilio Transporte: R$ " + offer.getAuxTransport());
 
         date = (TextView) findViewById(R.id.iEndOffer);
-        date.setText("Fim da oferta: " + String.valueOf(offer.getEndOffer()));
+        date.setText("Fim da oferta: " + offer.getEndOffer());
 
         title = (TextView) findViewById(R.id.iTitle);
         title.setText(offer.getTitle());
