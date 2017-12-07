@@ -2,7 +2,7 @@ package br.ufrn.sigestagios.models;
 
 import java.io.Serializable;
 
-public class Offer implements Serializable {
+public abstract class Offer implements Serializable {
     private String description;
     private String unit;
     private int idUnit;
