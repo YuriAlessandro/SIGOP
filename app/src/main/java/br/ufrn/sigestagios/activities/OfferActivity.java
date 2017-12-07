@@ -237,16 +237,6 @@ public class OfferActivity extends AppCompatActivity {
         protected Void doInBackground(Void... voids) {
             Cursor cursor = databaseController.retrieveOffers();
             while (cursor != null && cursor.moveToNext()) {
-                SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-
-                String dataString = cursor.getString(cursor.getColumnIndex(OfferEntry.FIMOFERTA));
-                Date fimOferta;
-                try {
-                     fimOferta = df.parse(dataString);
-                } catch (ParseException e) {
-                    System.out.println("Erro na conversão da data de " + dataString);
-                    continue;
-                }
 
                 Offer temp = new Internship(
                         cursor.getString(cursor.getColumnIndex(OfferEntry.DESCRICAO)),
@@ -256,7 +246,7 @@ public class OfferActivity extends AppCompatActivity {
                         cursor.getInt(cursor.getColumnIndex(OfferEntry.VAGAS)),
                         cursor.getInt(cursor.getColumnIndex(OfferEntry.VALOR)),
                         cursor.getInt(cursor.getColumnIndex(OfferEntry.AUXTRANSP)),
-                        fimOferta,
+                        cursor.getString(cursor.getColumnIndex(OfferEntry.FIMOFERTA)),
                         cursor.getString(cursor.getColumnIndex(OfferEntry.TITULO)));
                 offers.get(0).add(temp);
             }

@@ -32,7 +32,6 @@ public class OfferDatabaseController {
 
     public long insertOffer(Internship intern) {
         ContentValues values = new ContentValues();
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
         db = offerDB.getWritableDatabase();
         values.put(OfferEntry.DESCRICAO, intern.getDescription());
@@ -43,7 +42,7 @@ public class OfferDatabaseController {
         values.put(OfferEntry.VAGAS, intern.getNumberPositions());
         values.put(OfferEntry.VALOR, intern.getAuxTransport());
         values.put(OfferEntry.AUXTRANSP, intern.getAuxTransport());
-        values.put(OfferEntry.FIMOFERTA, df.format(intern.getEndOffer()));
+        values.put(OfferEntry.FIMOFERTA, intern.getEndOffer());
 
         return db.insert(OfferEntry.TABLE_NAME, null, values);
     }

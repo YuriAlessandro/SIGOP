@@ -127,7 +127,7 @@
                 android:layout_below="@+id/description"
                 android:layout_alignStart="@+id/description"
                 android:onClick="showDatePickerDialog"
-                android:text="Escolha a data" />
+                android:text="Data do fim da oferta" />
 
             <TextView
                 android:id="@+id/endOffer"
@@ -138,9 +138,7 @@
                 android:layout_toEndOf="@+id/button1"
                 android:layout_marginLeft="10dp"
                 android:layout_alignEnd="@id/description"
-                android:textSize="17dp"
-                android:hint="Data do fim da oferta"
-                android:inputType="date" />
+                android:textSize="17dp" />
 
             <Button
                 android:layout_width="match_parent"

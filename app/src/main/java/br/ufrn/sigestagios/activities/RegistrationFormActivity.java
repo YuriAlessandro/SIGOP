@@ -61,6 +61,13 @@ public class RegistrationFormActivity extends AppCompatActivity {
         auxTransport = (EditText) findViewById(R.id.auxTransport);
         endOffer = (TextView) findViewById(R.id.endOffer);
 
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar calendar = Calendar.getInstance();
+        calendar = Calendar.getInstance();
+        Date today = calendar.getTime();
+        String sToday = df.format(today);
+        endOffer.setText(sToday);
+        data = sToday;
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
