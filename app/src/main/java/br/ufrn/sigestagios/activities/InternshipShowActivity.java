@@ -24,30 +24,9 @@ public class InternshipShowActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.internship_action_show_activity);
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
         offer = (Internship) getIntent().getSerializableExtra("OFFER");
-
-//        String dateStr = "04/05/2010";
-
-//        SimpleDateFormat curFormater = new SimpleDateFormat("dd/MM/yyyy");
-//        Date myDate = null;
-//        //Só tava querendo pegar com isso, enfim, depois vou fazer um DatePicker
-//        try {
-//            myDate = curFormater.parse(dateStr);
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-
-//        offer = new Internship (
-//                "desc",
-//                "exemplo@gmail.com",
-//                "INSTITUTO METROPOLE DIGITAL" ,
-//                "JOAO EMMANUEL",
-//                2 ,
-//                500,
-//                100,
-//                 myDate,
-//                "Vaga para estágio");
 
         description = (TextView) findViewById(R.id.iDesc);
         description.setText("Descrição: " + offer.getDescription());
@@ -71,10 +50,10 @@ public class InternshipShowActivity extends AppCompatActivity {
         auxTransport.setText("Auxilio Transporte: R$ " + offer.getAuxTransport());
 
         date = (TextView) findViewById(R.id.iEndOffer);
-        date.setText("Fim da oferta: " + String.valueOf(offer.getEndOffer()));
+        date.setText("Fim da oferta: " + offer.getEndOffer());
 
         title = (TextView) findViewById(R.id.iTitle);
-        title.setText(offer.getTitle());
+        title.setText("Título: " + offer.getTitle());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

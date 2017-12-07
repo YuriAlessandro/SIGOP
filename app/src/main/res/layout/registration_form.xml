@@ -109,18 +109,6 @@
                 android:layout_alignEnd="@id/title"/>
 
             <EditText
-                android:id="@+id/endOffer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Data do fim da oferta"
-                android:layout_marginTop="10dp"
-                android:ems="10"
-                android:inputType="date"
-                android:layout_below="@+id/auxTransport"
-                android:layout_alignStart="@+id/auxTransport"
-                android:layout_alignEnd="@id/title"/>
-
-            <EditText
                 android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -128,15 +116,35 @@
                 android:layout_marginTop="10dp"
                 android:ems="10"
                 android:inputType="textLongMessage"
-                android:layout_below="@+id/endOffer"
-                android:layout_alignStart="@+id/endOffer"
+                android:layout_below="@+id/auxTransport"
+                android:layout_alignStart="@+id/auxTransport"
                 android:layout_alignEnd="@id/title"/>
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/description"
+                android:layout_alignStart="@+id/description"
+                android:onClick="showDatePickerDialog"
+                android:text="Data do fim da oferta" />
+
+            <TextView
+                android:id="@+id/endOffer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/button1"
+                android:layout_alignBottom="@+id/button1"
+                android:layout_toEndOf="@+id/button1"
+                android:layout_marginLeft="10dp"
+                android:layout_alignEnd="@id/description"
+                android:textSize="17dp" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/description"
-                android:layout_alignStart="@id/description"
+                android:layout_below="@id/button1"
+                android:layout_alignStart="@id/button1"
                 android:layout_alignEnd="@id/description"
                 android:text="Cadastrar"
                 android:onClick="register"/>
