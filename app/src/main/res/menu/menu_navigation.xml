@@ -12,6 +12,10 @@
         android:title="Minhas Ofertas"
         android:icon="@drawable/ic_view_list_black_24px"/>
     <item
+        android:id="@+id/myFavs"
+        android:title="Meus Favoritos"
+        android:icon="@drawable/ic_star_rate_black_18px"/>
+    <item
         android:id="@+id/configurations"
         android:title="Configurações"
         android:icon="@drawable/ic_settings_black_24px"/>
