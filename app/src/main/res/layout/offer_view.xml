@@ -10,9 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_margin="10dp"
-        card_view:cardBackgroundColor="#FAFAFA"
+        card_view:cardBackgroundColor="@color/colorPrimary"
+        card_view:cardElevation="5dp"
         card_view:cardCornerRadius="3dp"
-        android:paddingBottom="10dp">
+        android:paddingBottom="10dp"
+        card_view:contentPadding="10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -23,11 +25,11 @@
                 android:layout_height="wrap_content"
                 android:text="Description"
                 android:textSize="15dp"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="#FAFAFA"
                 android:layout_gravity="start"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp" />
 
             <TextView
                 android:id="@+id/cEmail"
@@ -35,6 +37,7 @@
                 android:layout_height="wrap_content"
                 android:text="Email"
                 android:layout_below="@id/cDescription"
+                android:textColor="#FAFAFA"
                 android:layout_alignStart="@id/cDescription"/>
 
             <TextView
@@ -44,8 +47,19 @@
                 android:layout_below="@id/cEmail"
                 android:layout_alignStart="@id/cEmail"
                 android:layout_marginRight="10dp"
+                android:textColor="#FAFAFA"
                 android:text="INSTITUTO METROPOLE DIGITAL" />
-        </RelativeLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:clickable="true"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/ic_star_border_black_18px"
+                android:backgroundTint="#FAFAFA"/></RelativeLayout>
 
     </android.support.v7.widget.CardView>
 </RelativeLayout>
