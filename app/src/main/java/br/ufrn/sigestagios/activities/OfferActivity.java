@@ -30,6 +30,7 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -337,7 +338,7 @@ public class OfferActivity extends AppCompatActivity {
     private class GetAssistantsFromSigaa extends AsyncTask<String, Void, Void> {
         @Override
         protected Void doInBackground(String... params) {
-            String url_extensions = "monitoria/v0.1/oportunidades-bolsas?limit=100";
+            String url_extensions = "monitoria/v0.1/oportunidades-bolsas?limit=100&ano=2018";
             String accessToken = params[0];
 
             HttpHandler sh = new HttpHandler();
@@ -397,7 +398,7 @@ public class OfferActivity extends AppCompatActivity {
     private class GetExtensionFromSigaa extends AsyncTask<String, Void, Void> {
         @Override
         protected Void doInBackground(String... params) {
-            String url_extensions = "extensao/v0.1/oportunidades-bolsas?limit=100";
+            String url_extensions = "extensao/v0.1/oportunidades-bolsas?limit=100&ano=2018";
             String accessToken = params[0];
 
             HttpHandler sh = new HttpHandler();
@@ -446,7 +447,7 @@ public class OfferActivity extends AppCompatActivity {
     private class GetResearchsFromSigaa extends AsyncTask<String, Void, Void> {
         @Override
         protected Void doInBackground(String... params) {
-            String url_extensions = "pesquisa/v0.1/oportunidades-bolsas?limit=100";
+            String url_extensions = "pesquisa/v0.1/oportunidades-bolsas?limit=100&ano=2018";
             String accessToken = params[0];
 
             HttpHandler sh = new HttpHandler();
@@ -496,7 +497,7 @@ public class OfferActivity extends AppCompatActivity {
     private class GetAssociatedActionFromSigaa extends AsyncTask<String, Void, Void> {
         @Override
         protected Void doInBackground(String... params) {
-            String url_bolsas = "acao-associada/v0.1/oportunidades-bolsas?limit=100";
+            String url_bolsas = "acao-associada/v0.1/oportunidades-bolsas?limit=100&ano=2018";
             String accessToken = params[0];
 
             HttpHandler sh = new HttpHandler();
