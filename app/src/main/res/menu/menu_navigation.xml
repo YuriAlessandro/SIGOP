@@ -23,4 +23,8 @@
         android:id="@+id/logout"
         android:title="Trocar usuário"
         android:icon="@drawable/ic_exit_to_app_black_24px"/>
+    <item
+        android:id="@+id/about"
+        android:title="Sobre"
+        android:icon="@drawable/ic_info_black_24px"/>
 </menu>

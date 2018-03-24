@@ -302,6 +302,10 @@ public class OfferActivity extends AppCompatActivity {
                         startActivity(i);
                         drawerLayout.closeDrawers();
                         break;
+                    case R.id.about:
+                        i = new Intent(getApplicationContext(), AboutActivity.class);
+                        startActivity(i);
+                        break;
                 }
                 return true;
             }

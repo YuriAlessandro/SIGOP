@@ -21,19 +21,20 @@
         </activity>
         <activity android:name=".activities.OfferActivity" />
         <activity android:name=".activities.RegistrationFormActivity" />
-        <activity android:name=".activities.LoginActivity" android:noHistory="true"></activity>
-
-        <activity android:name=".activities.AssociatedActionShowActivity"></activity>
-        <activity android:name=".activities.ExtensionShowActivity"></activity>
-        <activity android:name=".activities.InternshipShowActivity"></activity>
-        <activity android:name=".activities.ResearchGrantShowActivity"></activity>
-        <activity android:name=".activities.SupportServiceShowActivity"></activity>
-        <activity android:name=".activities.TeacherAssistantShowActivity"></activity>
+        <activity
+            android:name=".activities.LoginActivity"
+            android:noHistory="true" />
+        <activity android:name=".activities.AssociatedActionShowActivity" />
+        <activity android:name=".activities.ExtensionShowActivity" />
+        <activity android:name=".activities.InternshipShowActivity" />
+        <activity android:name=".activities.ResearchGrantShowActivity" />
+        <activity android:name=".activities.SupportServiceShowActivity" />
+        <activity android:name=".activities.TeacherAssistantShowActivity" />
+        <activity android:name=".activities.AboutActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
 
     </application>
 
