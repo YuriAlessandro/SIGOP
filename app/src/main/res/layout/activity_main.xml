@@ -4,50 +4,88 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.ufrn.sigestagios.activities.MainActivity">
+    tools:context="br.ufrn.sigestagios.activities.MainActivity"
+    android:background="@color/colorPrimaryText">
 
-    <include
-        layout="@layout/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/include" />
+    <!--<include-->
+        <!--layout="@layout/toolbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:id="@+id/include" />-->
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="200dp"
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true">
 
         <TextView
+            android:id="@+id/appTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:fontFamily="casual"
-            android:text="SIGEstágios"
-            android:textSize="50dp"
-            android:id="@+id/appTitle"/>
+            android:fontFamily="@font/dosis_extrabold"
+            android:text="@string/app_name"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textSize="50sp"
+            android:textColor="#FAFAFA"/>
 
         <TextView
             android:id="@+id/appDesc"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="É necessário realizar login com o SIGAA para continuar. Clique no botão abaixo para continuar"
+            android:textAlignment="center"
+            android:text="Entre com o SIGAA para ver e cadastrar ofertas ou faça login com sua conta concedente."
             android:padding="15dp"
             android:layout_below="@+id/appTitle"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:textColor="#FAFAFA"/>
 
-        <Button style="@style/Widget.AppCompat.Button.Colored"
-            android:id="@+id/loginButton"
-            android:layout_width="wrap_content"
+        <android.support.v7.widget.LinearLayoutCompat
+            android:id="@+id/layoutLoginButtons"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/appDesc"
-            android:layout_margin="15dp"
             android:layout_centerHorizontal="true"
-            android:text="Login com SIGAA"
-            android:onClick="login"/>
+            android:gravity="center">
 
+            <Button style="@style/Widget.AppCompat.Button.Colored"
+                android:id="@+id/loginButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Login com SIGAA"
+                android:onClick="login"/>
+
+            <Button
+                android:id="@+id/loginButtonNoSigaa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Login" />
+
+        </android.support.v7.widget.LinearLayoutCompat>
+
+        <TextView
+            android:id="@+id/appDesc2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Caso não possua conta na UFRN, você pode apenas cadastrar ofertas se registrando abaixo."
+            android:padding="15dp"
+            android:layout_below="@id/layoutLoginButtons"
+            android:layout_alignParentStart="true"
+            android:textColor="#FAFAFA"/>
+
+        <Button style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/appDesc2"
+            android:layout_centerHorizontal="true"
+            android:padding="25dp"
+            android:text="Criar conta"/>
     </RelativeLayout>
 </RelativeLayout>
