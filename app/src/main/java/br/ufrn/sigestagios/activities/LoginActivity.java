@@ -25,19 +25,22 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String CLIENT_ID_VALUE = "estagios-id";
     private static final String SECRET_KEY = "segredo";
+    private static final String STATE = "E3ZYKC1T6H2yP4z";
 
     private static final String REDIRECT_URI = "https://api.ufrn.br";
-    private static final String AUTHORIZATION_URL = "http://apitestes.info.ufrn.br/authz-server/oauth/authorize";
-    private static final String ACCESS_TOKEN_URL = "http://apitestes.info.ufrn.br/authz-server/oauth/token";
+    private static final String AUTHORIZATION_URL = "https://autenticacao.info.ufrn.br/authz-server/oauth/authorize";
+    private static final String ACCESS_TOKEN_URL = "https://autenticacao.info.ufrn.br/authz-server/oauth/token";
     private static final String RESPONSE_TYPE_PARAM = "response_type";
     private static final String GRANT_TYPE = "authorization_code";
     private static final String RESPONSE_TYPE_VALUE = "code";
     private static final String CLIENT_ID_PARAM = "client_id";
+    private static final String STATE_PARAM = "state";
     private static final String REDIRECT_URI_PARAM = "redirect_uri";
 
     private static final String QUESTION_MARK = "?";
     private static final String AMPERSAND = "&";
     private static final String EQUALS = "=";
+
 
     private WebView webView;
     private ProgressDialog progressDialog;
@@ -87,6 +90,7 @@ public class LoginActivity extends AppCompatActivity {
         return AUTHORIZATION_URL
                 + QUESTION_MARK + RESPONSE_TYPE_PARAM + EQUALS + RESPONSE_TYPE_VALUE
                 + AMPERSAND + CLIENT_ID_PARAM + EQUALS + CLIENT_ID_VALUE
+                + AMPERSAND + STATE_PARAM + EQUALS + STATE
                 + AMPERSAND + REDIRECT_URI_PARAM + EQUALS + REDIRECT_URI;
     }
 
@@ -145,6 +149,6 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString(Constants.KEY_ACCESS_TOKEN, accessToken);
         editor.putString(Constants.KEY_REFRESH_TOKEN, refreshToken);
         editor.putLong(Constants.KEY_EXPIRES_IN, expiresIn);
-        editor.commit();
+        editor.apply();
     }
 }
