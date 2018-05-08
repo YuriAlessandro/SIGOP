@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import br.ufrn.sigestagios.R;
 import br.ufrn.sigestagios.adapters.OfferFragmentPagerAdapter;
@@ -103,7 +104,7 @@ public class OfferActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         SharedPreferences preferences = this.getSharedPreferences("user_info", 0);
         accessToken = preferences.getString(Constants.KEY_ACCESS_TOKEN, null);
@@ -323,7 +324,7 @@ public class OfferActivity extends AppCompatActivity {
         new DatabasePopulator(offers, pagerAdapter, databaseController).execute();
 
         //get the offers for Associated Actions
-        new GetAssistantsFromSigaa().execute(accessToken);
+        new GetInternshipFromSigaa().execute(accessToken);
     }
 
     public void clearOffers(){
