@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:paddingTop="20dp"
     android:paddingBottom="20dp"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorAccent"
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:gravity="center">
@@ -19,7 +19,7 @@
 
     <TextView
         android:id="@+id/tv_email"
-        android:textColor="@color/cardview_light_background"
+        android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         android:layout_gravity="center"
         android:layout_width="wrap_content"

@@ -2,6 +2,7 @@ package br.ufrn.sigestagios.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -283,6 +284,46 @@ public class OfferActivity extends AppCompatActivity {
     public void initNavigationDrawer() {
 
         NavigationView navigationView = (NavigationView)findViewById(R.id.navView);
+
+        navigationView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+
+        int[][] state = new int[][] {
+                new int[] {-android.R.attr.state_enabled}, // disabled
+                new int[] {android.R.attr.state_enabled}, // enabled
+                new int[] {-android.R.attr.state_checked}, // unchecked
+                new int[] { android.R.attr.state_pressed}  // pressed
+
+        };
+
+        int[] color = new int[] {
+                getResources().getColor(R.color.colorPrimaryText),
+                getResources().getColor(R.color.colorPrimaryText),
+                getResources().getColor(R.color.colorPrimaryText),
+                getResources().getColor(R.color.colorAccent)
+        };
+
+        ColorStateList csl = new ColorStateList(state, color);
+
+        // FOR NAVIGATION VIEW ITEM ICON COLOR
+        int[][] states = new int[][] {
+                new int[] {-android.R.attr.state_enabled}, // disabled
+                new int[] {android.R.attr.state_enabled}, // enabled
+                new int[] {-android.R.attr.state_checked}, // unchecked
+                new int[] { android.R.attr.state_pressed}  // pressed
+
+        };
+
+        int[] colors = new int[] {
+                getResources().getColor(R.color.colorAccent),
+                getResources().getColor(R.color.colorAccent),
+                getResources().getColor(R.color.colorAccent),
+                getResources().getColor(R.color.colorAccent)
+        };
+
+        ColorStateList csl2 = new ColorStateList(states, colors);
+
+        navigationView.setItemTextColor(csl);
+        navigationView.setItemIconTintList(csl2);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {

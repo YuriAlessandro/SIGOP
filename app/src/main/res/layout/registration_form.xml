@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground">
+    android:background="@color/colorPrimary">
 
     <include
         layout="@layout/toolbar"
@@ -33,6 +33,9 @@
                 android:inputType="textPersonName"
                 android:layout_marginEnd="20dp"
                 android:layout_below="@+id/toolbar"
+                android:textColor="@color/colorPrimaryText"
+                android:textColorHint="@color/colorPrimaryTextDark"
+                android:textColorLink="@color/colorPrimaryTextDark"
                 />
 
 
@@ -46,7 +49,10 @@
                 android:inputType="textEmailAddress"
                 android:layout_below="@+id/title"
                 android:layout_alignStart="@+id/title"
-                android:layout_alignEnd="@id/title"/>
+                android:layout_alignEnd="@id/title"
+                android:textColor="@color/colorPrimaryText"
+                android:textColorHint="@color/colorPrimaryTextDark"
+                android:textColorLink="@color/colorPrimaryTextDark"/>
 
             <EditText
                 android:id="@+id/responsible"
@@ -58,7 +64,10 @@
                 android:inputType="text"
                 android:layout_below="@+id/email"
                 android:layout_alignStart="@+id/email"
-                android:layout_alignEnd="@id/title"/>
+                android:layout_alignEnd="@id/title"
+                android:textColor="@color/colorPrimaryText"
+                android:textColorHint="@color/colorPrimaryTextDark"
+                android:textColorLink="@color/colorPrimaryTextDark"/>
 
 
             <EditText
@@ -71,7 +80,10 @@
                 android:inputType="text"
                 android:layout_below="@+id/responsible"
                 android:layout_alignStart="@+id/responsible"
-                android:layout_alignEnd="@id/title"/>
+                android:layout_alignEnd="@id/title"
+                android:textColor="@color/colorPrimaryText"
+                android:textColorHint="@color/colorPrimaryTextDark"
+                android:textColorLink="@color/colorPrimaryTextDark"/>
 
 
             <EditText
@@ -84,7 +96,10 @@
                 android:inputType="number"
                 android:layout_below="@+id/companyName"
                 android:layout_alignStart="@+id/companyName"
-                android:layout_alignEnd="@id/title"/>
+                android:layout_alignEnd="@id/title"
+                android:textColor="@color/colorPrimaryText"
+                android:textColorHint="@color/colorPrimaryTextDark"
+                android:textColorLink="@color/colorPrimaryTextDark"/>
 
             <EditText
                 android:id="@+id/grantValue"
@@ -96,7 +111,10 @@
                 android:inputType="number"
                 android:layout_below="@+id/numberPositions"
                 android:layout_alignStart="@+id/numberPositions"
-                android:layout_alignEnd="@id/title"/>
+                android:layout_alignEnd="@id/title"
+                android:textColor="@color/colorPrimaryText"
+                android:textColorHint="@color/colorPrimaryTextDark"
+                android:textColorLink="@color/colorPrimaryTextDark"/>
 
             <EditText
                 android:id="@+id/auxTransport"
@@ -108,7 +126,10 @@
                 android:inputType="number"
                 android:layout_below="@+id/grantValue"
                 android:layout_alignStart="@+id/grantValue"
-                android:layout_alignEnd="@id/title"/>
+                android:layout_alignEnd="@id/title"
+                android:textColor="@color/colorPrimaryText"
+                android:textColorHint="@color/colorPrimaryTextDark"
+                android:textColorLink="@color/colorPrimaryTextDark"/>
 
             <EditText
                 android:id="@+id/description"
@@ -120,7 +141,10 @@
                 android:inputType="textLongMessage"
                 android:layout_below="@+id/auxTransport"
                 android:layout_alignStart="@+id/auxTransport"
-                android:layout_alignEnd="@id/title"/>
+                android:layout_alignEnd="@id/title"
+                android:textColor="@color/colorPrimaryText"
+                android:textColorHint="@color/colorPrimaryTextDark"
+                android:textColorLink="@color/colorPrimaryTextDark"/>
 
             <Button
                 android:id="@+id/button1"
@@ -129,7 +153,10 @@
                 android:layout_below="@+id/description"
                 android:layout_alignStart="@+id/description"
                 android:onClick="showDatePickerDialog"
-                android:text="Data do fim da oferta" />
+                android:text="Data do fim da oferta"
+                android:background="@color/colorAccent"
+                android:textColor="@color/colorPrimaryText"
+                android:layout_marginBottom="10dp"/>
 
             <TextView
                 android:id="@+id/endOffer"
@@ -140,7 +167,8 @@
                 android:layout_toEndOf="@+id/button1"
                 android:layout_marginLeft="10dp"
                 android:layout_alignEnd="@id/description"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:textColor="@color/colorPrimaryText"/>
 
             <Button
                 android:layout_width="match_parent"
@@ -149,7 +177,9 @@
                 android:layout_alignStart="@id/button1"
                 android:layout_alignEnd="@id/description"
                 android:text="Cadastrar"
-                android:onClick="register"/>
+                android:onClick="register"
+                android:background="@color/colorAccent"
+                android:textColor="@color/colorPrimaryText"/>
 
         </RelativeLayout>
 
