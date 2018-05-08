@@ -15,7 +15,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar">
+        android:layout_below="@id/toolbar"
+        android:background="@color/colorPrimary">
 
          <RelativeLayout
             android:layout_width="match_parent"
@@ -27,11 +28,11 @@
                 android:layout_height="wrap_content"
                 android:text="Dados da unidade:"
                 android:textSize="17dp"
-                android:textColor="@color/colorPrimaryDark"
                 android:layout_gravity="start"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:textColor="@color/colorPrimaryDark"/>
 
             <TextView
                 android:id="@+id/aaTerm"
@@ -39,7 +40,8 @@
                 android:layout_height="wrap_content"
                 android:text="INSTITUTO METROPOLE DIGITAL"
                 android:layout_below="@+id/aaTitle1"
-                android:layout_alignStart="@+id/aaTitle1"/>
+                android:layout_alignStart="@+id/aaTitle1"
+                android:textColor="@color/colorPrimaryText"/>
 
              <TextView
                  android:id="@+id/aaTitle2"
@@ -58,7 +60,8 @@
                  android:layout_height="wrap_content"
                  android:layout_below="@+id/aaTitle2"
                  android:layout_alignStart="@+id/aaTerm"
-                 android:text="JOAO EMMANUEL IZIDIO DA SILVA" />
+                 android:text="JOAO EMMANUEL IZIDIO DA SILVA"
+                 android:textColor="@color/colorPrimaryText"/>
 
              <TextView
                  android:id="@+id/aaEmail"
@@ -66,7 +69,8 @@
                  android:layout_height="wrap_content"
                  android:layout_below="@+id/aaResponsible"
                  android:layout_alignStart="@+id/aaTerm"
-                 android:text="joaoeizidio@gmail.com" />
+                 android:text="joaoeizidio@gmail.com"
+                 android:textColor="@color/colorPrimaryText"/>
 
              <TextView
                  android:id="@+id/aaCpf_cnpj"
@@ -74,7 +78,8 @@
                  android:layout_height="wrap_content"
                  android:layout_below="@+id/aaEmail"
                  android:layout_alignStart="@+id/aaTerm"
-                 android:text="10823443523" />
+                 android:text="10823443523"
+                 android:textColor="@color/colorPrimaryText"/>
 
              <TextView
                  android:id="@+id/aaTitle3"
@@ -94,7 +99,8 @@
                  android:layout_below="@+id/aaTitle3"
                  android:layout_alignStart="@+id/aaTerm"
                  android:layout_marginRight="10dp"
-                 android:text="Vagas remuneradas: 2" />
+                 android:text="Vagas remuneradas: 2"
+                 android:textColor="@color/colorPrimaryText"/>
 
              <TextView
                  android:id="@+id/aaYear"
@@ -103,7 +109,8 @@
                  android:layout_alignBaseline="@+id/aaPositionsRemunerated"
                  android:layout_alignBottom="@+id/aaPositionsRemunerated"
                  android:layout_toEndOf="@+id/aaPositionsRemunerated"
-                 android:text="Ano: 2017" />
+                 android:text="Ano: 2017"
+                 android:textColor="@color/colorPrimaryText"/>
 
              <TextView
                  android:id="@+id/aaDesc"
@@ -112,6 +119,7 @@
                  android:layout_below="@id/aaYear"
                  android:layout_alignStart="@+id/aaTerm"
                  android:layout_marginTop="10dp"
+                 android:textColor="@color/colorPrimaryText"
                  android:text="Descrição: \nAbscsvcn sncbs nbcsnb cns bcbs nbs nbcnsbc nbscbscscscscscscscscscscscscscscsc scscsc" />
         </RelativeLayout>
 

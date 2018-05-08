@@ -15,7 +15,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar">
+        android:layout_below="@id/toolbar"
+        android:background="@color/colorPrimary">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -39,7 +40,8 @@
                 android:layout_height="wrap_content"
                 android:text="INSTITUTO METROPOLE DIGITAL"
                 android:layout_below="@+id/rgTitle1"
-                android:layout_alignStart="@+id/rgTitle1"/>
+                android:layout_alignStart="@+id/rgTitle1"
+                android:textColor="@color/colorPrimaryText"/>
 
             <TextView
                 android:id="@+id/rgTitle2"
@@ -58,7 +60,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rgTitle2"
                 android:layout_alignStart="@+id/rgTerm"
-                android:text="JOAO EMMANUEL IZIDIO DA SILVA" />
+                android:text="JOAO EMMANUEL IZIDIO DA SILVA"
+                android:textColor="@color/colorPrimaryText"/>
 
             <TextView
                 android:id="@+id/rgEmail"
@@ -66,7 +69,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rgResponsible"
                 android:layout_alignStart="@+id/rgTerm"
-                android:text="joaoeizidio@gmail.com" />
+                android:text="joaoeizidio@gmail.com"
+                android:textColor="@color/colorPrimaryText"/>
 
             <TextView
                 android:id="@+id/rgCpf_cnpj"
@@ -74,7 +78,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rgEmail"
                 android:layout_alignStart="@+id/rgTerm"
-                android:text="10823443523" />
+                android:text="10823443523"
+                android:textColor="@color/colorPrimaryText"/>
 
             <TextView
                 android:id="@+id/rgTitle3"
@@ -94,7 +99,8 @@
                 android:layout_below="@+id/rgTitle3"
                 android:layout_alignStart="@+id/rgTerm"
                 android:layout_marginRight="10dp"
-                android:text="Total de vagas: 4" />
+                android:text="Total de vagas: 4"
+                android:textColor="@color/colorPrimaryText"/>
 
             <TextView
                 android:id="@+id/rgPositionsRemunerated"
@@ -103,7 +109,8 @@
                 android:layout_below="@+id/rgNumberPositions"
                 android:layout_alignStart="@+id/rgTerm"
                 android:layout_marginRight="10dp"
-                android:text="Vagas remuneradas: 2" />
+                android:text="Vagas remuneradas: 2"
+                android:textColor="@color/colorPrimaryText"/>
 
             <TextView
                 android:id="@+id/rgYear"
@@ -111,7 +118,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/rgPositionsRemunerated"
                 android:layout_alignStart="@id/rgTerm"
-                android:text="Ano: 2017" />
+                android:text="Ano: 2017"
+                android:textColor="@color/colorPrimaryText"/>
 
             <TextView
                 android:id="@+id/rgDesc"
@@ -120,6 +128,7 @@
                 android:layout_below="@id/rgYear"
                 android:layout_alignStart="@+id/rgTerm"
                 android:layout_marginTop="10dp"
+                android:textColor="@color/colorPrimaryText"
                 android:text="Descrição: \nAbscsvcn sncbs nbcsnb cns bcbs nbs nbcnsbc nbscbscscscscscscscscscscscscscscsc scscsc" />
         </RelativeLayout>
 

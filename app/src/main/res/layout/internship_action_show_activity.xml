@@ -15,7 +15,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar">
+        android:layout_below="@id/toolbar"
+        android:background="@color/colorPrimary">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -39,7 +40,8 @@
                 android:layout_height="wrap_content"
                 android:text="INSTITUTO METROPOLE DIGITAL"
                 android:layout_below="@+id/iTitle1"
-                android:layout_alignStart="@+id/iTitle1"/>
+                android:layout_alignStart="@+id/iTitle1"
+                android:textColor="@color/colorPrimaryText"/>
 
             <TextView
                 android:id="@+id/iTitle2"
@@ -58,7 +60,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iTitle2"
                 android:layout_alignStart="@+id/iTerm"
-                android:text="JOAO EMMANUEL IZIDIO DA SILVA" />
+                android:text="JOAO EMMANUEL IZIDIO DA SILVA"
+                android:textColor="@color/colorPrimaryText"/>
 
             <TextView
                 android:id="@+id/iEmail"
@@ -66,7 +69,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iResponsible"
                 android:layout_alignStart="@+id/iTerm"
-                android:text="joaoeizidio@gmail.com" />
+                android:text="joaoeizidio@gmail.com"
+                android:textColor="@color/colorPrimaryText"/>
 
             <TextView
                 android:id="@+id/iTitle3"
@@ -86,7 +90,8 @@
                 android:layout_below="@+id/iTitle3"
                 android:layout_alignStart="@+id/iTerm"
                 android:layout_marginRight="10dp"
-                android:text="Vagas remuneradas: 2" />
+                android:text="Vagas remuneradas: 2"
+                android:textColor="@color/colorPrimaryText"/>
 
             <TextView
                 android:id="@+id/iGrantValue"
@@ -95,7 +100,8 @@
                 android:layout_below="@id/iPositionsRemunerated"
                 android:layout_alignStart="@id/iTitle1"
                 android:layout_marginRight="10dp"
-                android:text="Valor do estágio: R$ 700,00" />
+                android:text="Valor do estágio: R$ 700,00"
+                android:textColor="@color/colorPrimaryText"/>
 
             <TextView
                 android:id="@+id/iAuxTransport"
@@ -104,7 +110,8 @@
                 android:layout_below="@id/iGrantValue"
                 android:layout_alignStart="@id/iTitle1"
                 android:layout_marginRight="10dp"
-                android:text="Auxilio Transporte: R$ 50,00" />
+                android:text="Auxilio Transporte: R$ 50,00"
+                android:textColor="@color/colorPrimaryText"/>
 
             <TextView
                 android:id="@+id/iEndOffer"
@@ -113,7 +120,8 @@
                 android:layout_below="@id/iAuxTransport"
                 android:layout_alignStart="@id/iTitle1"
                 android:layout_marginRight="10dp"
-                android:text="Fim da oferta: 21/12/2017" />
+                android:text="Fim da oferta: 21/12/2017"
+                android:textColor="@color/colorPrimaryText"/>
 
             <TextView
                 android:id="@+id/iTitle"
@@ -121,7 +129,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/iEndOffer"
                 android:layout_alignStart="@id/iTitle1"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="10dp"
@@ -134,6 +142,7 @@
                 android:layout_below="@id/iTitle"
                 android:layout_alignStart="@+id/iTerm"
                 android:layout_marginTop="10dp"
+                android:textColor="@color/colorPrimaryText"
                 android:text="Descrição: \nAbscsvcn sncbs nbcsnb cns bcbs nbs nbcnsbc nbscbscscscscscscscscscscscscscscsc scscsc" />
         </RelativeLayout>
 

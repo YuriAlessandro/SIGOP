@@ -15,7 +15,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar">
+        android:layout_below="@id/toolbar"
+        android:background="@color/colorPrimary">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -38,6 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="INSTITUTO METROPOLE DIGITAL"
+                android:textColor="@color/colorPrimaryText"
                 android:layout_below="@+id/taTitle1"
                 android:layout_alignStart="@+id/taTitle1"/>
 
@@ -58,6 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/taTitle2"
                 android:layout_alignStart="@+id/taTerm"
+                android:textColor="@color/colorPrimaryText"
                 android:text="JOAO EMMANUEL IZIDIO DA SILVA" />
 
             <TextView
@@ -66,6 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/taResponsible"
                 android:layout_alignStart="@+id/taTerm"
+                android:textColor="@color/colorPrimaryText"
                 android:text="joaoeizidio@gmail.com" />
 
             <TextView
@@ -74,6 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/taEmail"
                 android:layout_alignStart="@+id/taTerm"
+                android:textColor="@color/colorPrimaryText"
                 android:text="10823443523" />
 
             <TextView
@@ -93,6 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/taTitle3"
                 android:layout_alignStart="@+id/taTerm"
+                android:textColor="@color/colorPrimaryText"
                 android:layout_marginRight="10dp"
                 android:text="Vagas remuneradas: 2" />
 
@@ -100,6 +106,7 @@
                 android:id="@+id/taPositionsVolunteers"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryText"
                 android:layout_below="@+id/taPositionsRemunerated"
                 android:layout_alignStart="@+id/taTerm"
                 android:layout_marginRight="10dp"
@@ -110,6 +117,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/taPositionsVolunteers"
+                android:textColor="@color/colorPrimaryText"
                 android:layout_alignStart="@id/taTerm"
                 android:text="Ano: 2017" />
 
@@ -118,6 +126,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/taYear"
+                android:textColor="@color/colorPrimaryText"
                 android:layout_alignStart="@+id/taTerm"
                 android:layout_marginTop="10dp"
                 android:text="Descrição: \nAbscsvcn sncbs nbcsnb cns bcbs nbs nbcnsbc nbscbscscscscscscscscscscscscscscsc scscsc" />
