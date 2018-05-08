@@ -65,6 +65,7 @@
                 android:id="@+id/loginButtonNoSigaa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="loginNotSigaa"
                 android:text="Login" />
 
         </android.support.v7.widget.LinearLayoutCompat>
@@ -86,6 +87,7 @@
             android:layout_below="@id/appDesc2"
             android:layout_centerHorizontal="true"
             android:padding="25dp"
+            android:onClick="register"
             android:text="Criar conta"/>
     </RelativeLayout>
 </RelativeLayout>
