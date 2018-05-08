@@ -23,7 +23,7 @@ import br.ufrn.sigestagios.R;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final String CLIENT_ID_VALUE = "estagios-id";
+    private static final String CLIENT_ID_VALUE = "sigop-id";
     private static final String SECRET_KEY = "segredo";
     private static final String STATE = "E3ZYKC1T6H2yP4z";
 
