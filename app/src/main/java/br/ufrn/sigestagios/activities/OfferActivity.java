@@ -113,7 +113,7 @@ public class OfferActivity extends AppCompatActivity {
 
             // Get offers from SIGAA
             Toast.makeText(getApplicationContext(), "Carregando ofertas", Toast.LENGTH_LONG).show();
-            new GetAssistantsFromSigaa().execute(accessToken);
+            new GetInternshipFromSigaa().execute(accessToken);
         }
 
         // Database Controller
@@ -335,6 +335,58 @@ public class OfferActivity extends AppCompatActivity {
 
     }
 
+    private class GetInternshipFromSigaa extends AsyncTask<String, Void, Void> {
+        @Override
+        protected Void doInBackground(String... params) {
+            String url_extensions = "estagio/v0.1/ofertas-estagios?limit=1";
+            String accessToken = params[0];
+
+            HttpHandler sh = new HttpHandler();
+
+            String req_url = Constants.URL_BASE + url_extensions;
+            String jsonStr = sh.makeServiceCall(req_url, accessToken, apiKey);
+
+            if (jsonStr == null) return null;
+            try {
+                JSONArray internships = new JSONArray(jsonStr);
+
+                for(int i = 0; i < internships.length(); i++){
+                    JSONObject opportunity = internships.getJSONObject(i);
+
+                    int idOffer = opportunity.getInt("id-oferta-estagio");
+//                    int idConcedenteEstagio = opportunity.getInt("id-concedente-estagio");
+                    String title = opportunity.getString("titulo");
+                    String description = opportunity.getString("descricao");
+                    int vacancies = opportunity.getInt("qtd-vagas");
+                    int value = (int) opportunity.getDouble("valor-bolsa");
+                    int tranpAux = (int) opportunity.getDouble("valor-aux-transporte");
+
+                    String endOffer = String.valueOf(opportunity.getLong("data-fim-publicacao"));
+
+                    Offer internship = new Internship(description, title, vacancies, value, tranpAux, endOffer);
+
+                    offers.get(0).add(internship);
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            pagerAdapter.notifyDataSetChanged();
+
+            new GetAssistantsFromSigaa().execute(accessToken);
+            new GetExtensionFromSigaa().execute(accessToken);
+            new GetAssociatedActionFromSigaa().execute(accessToken);
+            new GetResearchsFromSigaa().execute(accessToken);
+            new GetSupportFromSigaa().execute(accessToken);
+        }
+    }
+
     private class GetAssistantsFromSigaa extends AsyncTask<String, Void, Void> {
         @Override
         protected Void doInBackground(String... params) {
@@ -387,11 +439,6 @@ public class OfferActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             pagerAdapter.notifyDataSetChanged();
-
-            new GetExtensionFromSigaa().execute(accessToken);
-            new GetAssociatedActionFromSigaa().execute(accessToken);
-            new GetResearchsFromSigaa().execute(accessToken);
-            new GetSupportFromSigaa().execute(accessToken);
         }
     }
 

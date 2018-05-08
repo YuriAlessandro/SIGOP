@@ -98,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            ProgressDialog.show(LoginActivity.this, "", "Loading", true);
+//            ProgressDialog.show(LoginActivity.this, "", "Loading", true);
         }
 
         @Override
