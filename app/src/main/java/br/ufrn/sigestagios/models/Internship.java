@@ -14,6 +14,7 @@ public class Internship extends Offer implements Serializable {
     private int grantValue;
     private int auxTransport;
     private String endOffer;
+    boolean isFromSigaa;
 
     public Internship(String description, String email, String companyName, String responsible, int numberPositions, int grantValue, int auxTransport, String endOffer, String title) {
         super(description, companyName, 0, email);
@@ -23,6 +24,17 @@ public class Internship extends Offer implements Serializable {
         this.auxTransport = auxTransport;
         this.endOffer = endOffer;
         this.title = title;
+        this.isFromSigaa = false;
+    }
+
+    public Internship(String description, String title, int numberPositions, int grantValue, int auxTransport, String endOffer){
+        super(description, "", 0, "");
+        this.numberPositions = numberPositions;
+        this.grantValue = grantValue;
+        this.auxTransport = auxTransport;
+        this.endOffer = endOffer;
+        this.title = title;
+        this.isFromSigaa = true;
     }
 
     public String getResponsible() {
