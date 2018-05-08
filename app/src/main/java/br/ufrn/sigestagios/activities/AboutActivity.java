@@ -20,7 +20,7 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         Element versionElement = new Element();
-        versionElement.setTitle("Versão 0.01");
+        versionElement.setTitle("Versão 0.15");
 
         Element authorYuri = new Element();
         Element authorPedro = new Element();
