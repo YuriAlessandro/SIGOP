@@ -278,6 +278,11 @@ public class OfferActivity extends AppCompatActivity {
     //Sidebar Menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.myProfile){
+            Intent i = new Intent(getApplicationContext(), UserProfile.class);
+            startActivity(i);
+            return true;
+        }
         return toggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
