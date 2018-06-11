@@ -385,7 +385,7 @@ public class OfferActivity extends AppCompatActivity {
     private class GetInternshipFromSigaa extends AsyncTask<String, Void, Void> {
         @Override
         protected Void doInBackground(String... params) {
-            String url_extensions = "estagio/v0.1/ofertas-estagios?limit=1";
+            String url_extensions = "estagio/v0.1/ofertas-estagios?limit=100";
             String accessToken = params[0];
 
             HttpHandler sh = new HttpHandler();
