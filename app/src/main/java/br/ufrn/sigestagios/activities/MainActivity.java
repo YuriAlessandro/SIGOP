@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void register(View v){
-        Intent i = new Intent(this, signup.class);
+        Intent i = new Intent(this, SignupActivity.class);
         startActivity(i);
     }
 }
