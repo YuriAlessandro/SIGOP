@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void register(View v){
-        Toast.makeText(getApplicationContext(), "Em breve", Toast.LENGTH_LONG).show();
+        Intent i = new Intent(this, SignupActivity.class);
+        startActivity(i);
     }
 }

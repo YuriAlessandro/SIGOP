@@ -41,6 +41,26 @@ public class HttpHandler {
         return response;
     }
 
+    public String makeServiceCall(String reqUrl, String method){
+        String response = null;
+        try{
+            URL url = new URL(reqUrl);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod(method);
+//            conn.setRequestProperty("authorization", "bearer " + bearer);
+//            conn.setRequestProperty("x-api-key", apiKey);
+
+            InputStream in = new BufferedInputStream(conn.getInputStream());
+            response = convertStreamToString(in);
+        } catch (MalformedURLException e) {
+            Log.e(TAG, "MalformedURLException: " + e.getMessage());
+        } catch (IOException e) {
+            Log.e(TAG, "IOException: " + e.getMessage());
+        }
+
+        return response;
+    }
+
     private String convertStreamToString(InputStream is){
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         StringBuilder sb = new StringBuilder();
