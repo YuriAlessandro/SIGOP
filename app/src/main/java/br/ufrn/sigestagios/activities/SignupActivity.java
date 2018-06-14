@@ -124,12 +124,12 @@ public class SignupActivity extends AppCompatActivity {
             super.onPostExecute(aBoolean);
             Context ctx = getApplicationContext();
             if (aBoolean){
-                Toast.makeText(ctx, "Usuário criado com sucesso. Faça login para continuar", Toast.LENGTH_LONG);
+                Toast.makeText(ctx, "Usuário criado com sucesso. Faça login para continuar", Toast.LENGTH_LONG).show();
                 finish();
             }else{
                 errorArea.setVisibility(View.VISIBLE);
                 errorMsg.setText("Nome de usuário ou email já estão sendo utilizados.");
-                Toast.makeText(ctx, "Ocorreu um problema ao criar o usuário.", Toast.LENGTH_LONG);
+                Toast.makeText(ctx, "Ocorreu um problema ao criar o usuário.", Toast.LENGTH_LONG).show();
             }
         }
     }

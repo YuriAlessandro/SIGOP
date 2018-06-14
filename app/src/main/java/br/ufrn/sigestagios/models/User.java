@@ -1,10 +1,12 @@
 package br.ufrn.sigestagios.models;
 
+import java.io.Serializable;
+
 /**
  * Created by yurialessandro on 27/10/17.
  */
 
-public class User {
+public class User implements Serializable {
     private long userId;
     private long unityId;
     private long photoId;
@@ -14,6 +16,7 @@ public class User {
     private String cpf;
     private String email;
     private String photoKey;
+    private String type = "aluno";
 
     public User(long userId, long unityId, long photoId, boolean active, String login, String name,
                 String cpf, String email, String photoKey) {
@@ -26,6 +29,15 @@ public class User {
         this.cpf = cpf;
         this.email = email;
         this.photoKey = photoKey;
+    }
+    public User(long userId, long unityId, String login, String firstName, String lastName,
+                String email, String type){
+        this.userId = userId;
+        this.unityId = unityId;
+        this.login = login;
+        this.name = firstName + " " + lastName;
+        this.email = email;
+        this.type = type;
     }
 
     public long getUserId() {

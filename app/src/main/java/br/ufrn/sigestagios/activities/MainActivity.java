@@ -28,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void loginNotSigaa(View v){
-        Toast.makeText(getApplicationContext(), "Em breve", Toast.LENGTH_LONG).show();
+        Intent i = new Intent(this, LoginActivityAPI.class);
+        startActivity(i);
     }
 
     public void register(View v){

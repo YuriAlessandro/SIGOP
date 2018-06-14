@@ -72,7 +72,8 @@
             android:layout_height="wrap_content"
             android:text="Entrar"
             android:layout_below="@id/loginPwd"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            android:onClick="Login"/>
 
     </RelativeLayout>
 
