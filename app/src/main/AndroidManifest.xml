@@ -37,7 +37,8 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".activities.UserProfile" />
-        <activity android:name=".activities.SignupActivity"></activity>
+        <activity android:name=".activities.SignupActivity" />
+        <activity android:name=".activities.LoginActivityAPI"></activity>
     </application>
 
 </manifest>
