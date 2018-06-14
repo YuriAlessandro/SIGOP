@@ -76,6 +76,14 @@ public class OfferActivity extends AppCompatActivity {
 
     private String apiKey = "iZOuoL4kPb1xuJUeLD3AGwU3xKCcJ5uwrctBfwX6";
 
+
+    private void setLoggedUserStats(){
+        NavigationView navigationView = findViewById(R.id.navView);
+        View header = navigationView.getHeaderView(0);
+        TextView tv_email = header.findViewById(R.id.tv_email);
+        tv_email.setText(loggedUser.getName());
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -110,13 +118,23 @@ public class OfferActivity extends AppCompatActivity {
         SharedPreferences preferences = this.getSharedPreferences("user_info", 0);
         accessToken = preferences.getString(Constants.KEY_ACCESS_TOKEN, null);
 
-        if(accessToken != null){
+        Boolean isFromApi = getIntent().getBooleanExtra("isFromAPI", false);
+
+        if(accessToken != null && !isFromApi){
             new GetLoggedUser().execute("usuario/v0.1/usuarios/info", accessToken);
 
             // Get offers from SIGAA
             Toast.makeText(getApplicationContext(), "Carregando ofertas", Toast.LENGTH_LONG).show();
             new GetInternshipFromSigaa().execute(accessToken);
+        }else{
+            loggedUser = (User) getIntent().getSerializableExtra("user");
+            Log.i(TAG, loggedUser.toString());
+            setLoggedUserStats();
+
+            // TODO: Hide elements that are only for SIGAA users
         }
+
+        // TODO: Get offers from API
 
         // Database Controller
         databaseController = new OfferDatabaseController(this);
@@ -211,14 +229,7 @@ public class OfferActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            NavigationView navigationView = (NavigationView)findViewById(R.id.navView);
-            View header = navigationView.getHeaderView(0);
-            TextView tv_email = header.findViewById(R.id.tv_email);
-            try {
-                tv_email.setText(jsonObject.getString("nome-pessoa"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            setLoggedUserStats();
         }
     }
 
