@@ -14,11 +14,13 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.JsonReader;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.CookieManager;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -86,11 +88,6 @@ public class OfferActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        for (int i = 0; i < 6; i++) {
-            offers.add(new ArrayList<Offer>());
-        }
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offer);
 
@@ -120,6 +117,10 @@ public class OfferActivity extends AppCompatActivity {
 
         Boolean isFromApi = getIntent().getBooleanExtra("isFromAPI", false);
 
+        for (int i = 0; i < 6; i++) {
+            offers.add(new ArrayList<Offer>());
+        }
+
         if(accessToken != null && !isFromApi){
             new GetLoggedUser().execute("usuario/v0.1/usuarios/info", accessToken);
 
@@ -127,11 +128,11 @@ public class OfferActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Carregando ofertas", Toast.LENGTH_LONG).show();
             new GetInternshipFromSigaa().execute(accessToken);
         }else{
+            tabLayout.getChildAt(0).setVisibility(View.GONE);
             loggedUser = (User) getIntent().getSerializableExtra("user");
             Log.i(TAG, loggedUser.toString());
             setLoggedUserStats();
-
-            // TODO: Hide elements that are only for SIGAA users
+            new GetOffersFromAPI().execute(String.valueOf(loggedUser.getUserId()));
         }
 
         // TODO: Get offers from API
@@ -181,6 +182,63 @@ public class OfferActivity extends AppCompatActivity {
         return true;
     }
 
+    private class GetOffersFromAPI extends AsyncTask<String, Void, JSONObject>{
+
+        @Override
+        protected JSONObject doInBackground(String... strings) {
+            String url = Constants.URL_API_BASE + "/offers";
+
+            url += "?logged_user_id=" + strings[0];
+
+            HttpHandler sh = new HttpHandler();
+
+            String req_url = url;
+            String jsonStr = sh.makeServiceCall(req_url, "GET");
+            if (jsonStr != null) {
+                try {
+                    JSONObject resp = new JSONObject(jsonStr);
+                    return resp;
+                } catch (JSONException e) {
+                    Log.e(TAG, "Json parsing error: " + e.getMessage());
+                }
+            } else {
+                Log.e(TAG, "Couldn't get json from server.");
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject resp) {
+            super.onPostExecute(resp);
+
+            try {
+                Log.i(TAG, resp.toString());
+                if (resp.getBoolean("success")){
+                    JSONArray offers = resp.getJSONArray("offers");
+                    Log.i(TAG, offers.toString());
+                    for(int i = 0; i < offers.length(); i++) {
+                        JSONObject offer = offers.getJSONObject(i);
+                        Log.i(TAG, offer.toString());
+                    }
+//                    int idOffer = offer.getInt("id-oferta-estagio");
+//    //                    int idConcedenteEstagio = opportunity.getInt("id-concedente-estagio");
+//                    String title = offer.getString("titulo");
+//                    String description = offer.getString("descricao");
+//                    int vacancies = offer.getInt("qtd-vagas");
+//                    int value = (int) offer.getDouble("valor-bolsa");
+//                    int tranpAux = (int) offer.getDouble("valor-aux-transporte");
+//
+//                    String endOffer = String.valueOf(opportunity.getLong("data-fim-publicacao"));
+//
+//                    Offer internship = new Internship(description, title, vacancies, value, tranpAux, endOffer);
+//
+//                    offers.get(0).add(internship);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     private class GetLoggedUser extends AsyncTask<String, Void, JSONObject> {
 
@@ -217,6 +275,7 @@ public class OfferActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(JSONObject jsonObject) {
             try {
+                Log.i(TAG, jsonObject.toString());
                 loggedUser = new User(jsonObject.getLong("id-usario"),
                         jsonObject.getLong("id-unidade"),
                         jsonObject.getLong("id-foto"),
@@ -226,10 +285,14 @@ public class OfferActivity extends AppCompatActivity {
                         jsonObject.getString("cpf-cnpj"),
                         jsonObject.getString("email"),
                         jsonObject.getString("chave-foto"));
+
+                setLoggedUserStats();
+                // TODO: Send this guy to API Database if not exists there.
+                // TODO: Activaty this when Logged User from SIGAA also go to API database.
+//                new GetOffersFromAPI().execute(String.valueOf(loggedUser.getUserId()));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            setLoggedUserStats();
         }
     }
 
@@ -350,6 +413,7 @@ public class OfferActivity extends AppCompatActivity {
                 switch (id){
                     case R.id.cadastro:
                         i = new Intent(getApplicationContext(), RegistrationFormActivity.class);
+                        i.putExtra("currentUserId", loggedUser.getUserId());
                         startActivityForResult(i, REGISTER);
                         drawerLayout.closeDrawers();
                         break;

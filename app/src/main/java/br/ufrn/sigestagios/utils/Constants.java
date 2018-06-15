@@ -10,4 +10,5 @@ public class Constants {
     public static final String KEY_EXPIRES_IN = "expires_in";
 
     public static final String URL_BASE = "https://api.info.ufrn.br/";
+    public static final String URL_API_BASE = "https://sigop-api-yurialessandro.c9users.io";
 }

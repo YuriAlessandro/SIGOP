@@ -85,9 +85,7 @@ public class SignupActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(String... params) {
-            String url = "https://sigop-api-yurialessandro.c9users.io/users";
-            final String uuid = UUID.randomUUID().toString().replace("-", "");
-
+            String url = Constants.URL_API_BASE + "/users";
             url += "?user_id=0";
             url += "&first_name=" + params[0];
             url += "&last_name=" + params[1];
