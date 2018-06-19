@@ -28,6 +28,7 @@ import br.ufrn.sigestagios.R;
 import br.ufrn.sigestagios.activities.OfferActivity;
 import br.ufrn.sigestagios.models.Internship;
 import br.ufrn.sigestagios.models.Internship;
+import br.ufrn.sigestagios.models.User;
 import br.ufrn.sigestagios.utils.Constants;
 import br.ufrn.sigestagios.utils.HttpHandler;
 
@@ -54,7 +55,8 @@ public class RegistrationFormActivity extends AppCompatActivity {
     String data;
     private AlertDialog alerta;
     TextView endOffer;
-    EditText title, description, responsible, email, companyName, numberPositions, grantValue, auxTransport;
+    EditText title, description, email, numberPositions, grantValue, auxTransport, phone, locale;
+    String responsible;
     private Toolbar toolbar;
 
     private String TAG = "RegistrationFormActivity";
@@ -66,24 +68,28 @@ public class RegistrationFormActivity extends AppCompatActivity {
         setContentView(R.layout.registration_form);
 
         currentUserId = getIntent().getLongExtra("currentUserId", 0);
-
         title = (EditText) findViewById(R.id.title);
         description = (EditText) findViewById(R.id.description);
-        responsible = (EditText) findViewById(R.id.responsible);
-        email = (EditText) findViewById(R.id.email);
-        companyName = (EditText) findViewById(R.id.companyName);
+
+        SimpleDateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+        Calendar calendar = Calendar.getInstance();
+        Date today = calendar.getTime();
+        String sToday = df.format(today);
+        endOffer = (TextView) findViewById(R.id.endOffer);
+        endOffer.setText(sToday);
+        data = sToday;
+
         numberPositions = (EditText) findViewById(R.id.numberPositions);
         grantValue = (EditText) findViewById(R.id.grantValue);
         auxTransport = (EditText) findViewById(R.id.auxTransport);
-        endOffer = (TextView) findViewById(R.id.endOffer);
 
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        Calendar calendar = Calendar.getInstance();
-        calendar = Calendar.getInstance();
-        Date today = calendar.getTime();
-        String sToday = df.format(today);
-        endOffer.setText(sToday);
-        data = sToday;
+        responsible = User.getActualUser();
+
+        email = (EditText) findViewById(R.id.email);
+        phone = (EditText) findViewById(R.id.phone);
+
+        locale = (EditText) findViewById(R.id.locale);
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
@@ -101,20 +107,27 @@ public class RegistrationFormActivity extends AppCompatActivity {
             internship = new Internship(
                     description.getText().toString(),
                     email.getText().toString(),
-                    companyName.getText().toString(),
-                    responsible.getText().toString(),
+                    " ",
+                    responsible,
                     Integer.parseInt(numberPositions.getText().toString()),
                     Integer.parseInt(grantValue.getText().toString()),
                     Integer.parseInt(auxTransport.getText().toString()),
                     data,
-                    title.getText().toString());
+                    title.getText().toString(),
+                    phone.getText().toString(),
+                    locale.getText().toString());
 
             new CreateNewOffer().execute(
                     String.valueOf(currentUserId),
                     internship.getTitle(),
                     internship.getDescription(),
                     internship.getEndOffer(),
-                    internship.getEmail(),new String(""));
+                    internship.getEmail(),
+                    internship.getPhone(),
+                    String.valueOf(internship.getAuxTransport()),
+                    String.valueOf(internship.getGrantValue()),
+                    internship.getLocation()
+                    );
 
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -176,15 +189,15 @@ public class RegistrationFormActivity extends AppCompatActivity {
             url += "&endOffer=" + strings[3];
             url += "&email=" + strings[4];
             url += "&phone=" + strings[5];
+            url += "&offer_type=estagio";
+            url += "&salary_aids=" + strings[6];
+            url += "&salary_total=" + strings[7];
+            url += "&location=" + strings[8];
+            url += "&latitude=0&longitude=0";
+
 
             HttpHandler sh = new HttpHandler();
 
-//            String req_url = null;
-//            try {
-//                req_url = URLEncoder.encode(url, "UTF-8");
-//            } catch (UnsupportedEncodingException e) {
-//                e.printStackTrace();
-//            }
             URI req_url = null;
             try {
                 req_url = new URI(url.replace(" ", "%20"));
