@@ -4,16 +4,16 @@
     package="br.ufrn.sigestagios">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
-        tools:node="replace"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:node="replace">
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,6 +33,7 @@
         <activity android:name=".activities.SupportServiceShowActivity" />
         <activity android:name=".activities.TeacherAssistantShowActivity" />
         <activity android:name=".activities.AboutActivity" />
+        <activity android:name=".activities.MyOffersActivity"/>
 
         <meta-data
             android:name="preloaded_fonts"
@@ -40,7 +41,7 @@
 
         <activity android:name=".activities.UserProfile" />
         <activity android:name=".activities.SignupActivity" />
-        <activity android:name=".activities.LoginActivityAPI"></activity>
+        <activity android:name=".activities.LoginActivityAPI" />
     </application>
 
 </manifest>
