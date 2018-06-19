@@ -14,11 +14,13 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.JsonReader;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.CookieManager;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -86,11 +88,6 @@ public class OfferActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        for (int i = 0; i < 6; i++) {
-            offers.add(new ArrayList<Offer>());
-        }
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offer);
 
@@ -120,6 +117,10 @@ public class OfferActivity extends AppCompatActivity {
 
         Boolean isFromApi = getIntent().getBooleanExtra("isFromAPI", false);
 
+        for (int i = 0; i < 6; i++) {
+            offers.add(new ArrayList<Offer>());
+        }
+
         if(accessToken != null && !isFromApi){
             new GetLoggedUser().execute("usuario/v0.1/usuarios/info", accessToken);
 
@@ -127,20 +128,19 @@ public class OfferActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Carregando ofertas", Toast.LENGTH_LONG).show();
             new GetInternshipFromSigaa().execute(accessToken);
         }else{
+            tabLayout.getChildAt(0).setVisibility(View.GONE);
             loggedUser = (User) getIntent().getSerializableExtra("user");
             Log.i(TAG, loggedUser.toString());
             setLoggedUserStats();
-
-            // TODO: Hide elements that are only for SIGAA users
         }
 
-        // TODO: Get offers from API
+        new GetOffersFromAPI().execute(String.valueOf(loggedUser.getUserId()));
 
         // Database Controller
-        databaseController = new OfferDatabaseController(this);
+//        databaseController = new OfferDatabaseController(this);
 
         // Get offers from Database
-        new DatabasePopulator(offers, pagerAdapter, databaseController).execute();
+//        new DatabasePopulator(offers, pagerAdapter, databaseController).execute();
 
         //Swipe to refresh
         initNavigationDrawer();
@@ -181,6 +181,59 @@ public class OfferActivity extends AppCompatActivity {
         return true;
     }
 
+    private class GetOffersFromAPI extends AsyncTask<String, Void, JSONObject>{
+
+        @Override
+        protected JSONObject doInBackground(String... strings) {
+            String url = Constants.URL_API_BASE + "/offers";
+
+            url += "?logged_user_id=" + strings[0];
+
+            HttpHandler sh = new HttpHandler();
+
+            String req_url = url;
+            String jsonStr = sh.makeServiceCall(req_url, "GET");
+            if (jsonStr != null) {
+                try {
+                    JSONObject resp = new JSONObject(jsonStr);
+                    return resp;
+                } catch (JSONException e) {
+                    Log.e(TAG, "Json parsing error: " + e.getMessage());
+                }
+            } else {
+                Log.e(TAG, "Couldn't get json from server.");
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject resp) {
+            super.onPostExecute(resp);
+
+            try {
+                if (resp.getBoolean("success")){
+                    JSONArray offers_js = resp.getJSONArray("offers");
+                    JSONObject offer;
+                    for(int i = 0; i < offers_js.length(); i++) {
+                        offer = offers_js.getJSONObject(i);
+                        Log.i(TAG, offer.toString());
+
+                        String email = offer.getJSONArray("contacts").getJSONObject(0).getString("email");
+                        String description = offer.getString("description");
+
+                        Offer internship = new Internship(description, email);
+
+                        offers.get(0).add(internship);
+                    }
+
+                    pagerAdapter.notifyDataSetChanged();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
 
     private class GetLoggedUser extends AsyncTask<String, Void, JSONObject> {
 
@@ -217,6 +270,7 @@ public class OfferActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(JSONObject jsonObject) {
             try {
+                Log.i(TAG, jsonObject.toString());
                 loggedUser = new User(jsonObject.getLong("id-usario"),
                         jsonObject.getLong("id-unidade"),
                         jsonObject.getLong("id-foto"),
@@ -226,53 +280,57 @@ public class OfferActivity extends AppCompatActivity {
                         jsonObject.getString("cpf-cnpj"),
                         jsonObject.getString("email"),
                         jsonObject.getString("chave-foto"));
+
+                setLoggedUserStats();
+                // TODO: Send this guy to API Database if not exists there.
+                // TODO: Activaty this when Logged User from SIGAA also go to API database.
+//                new GetOffersFromAPI().execute(String.valueOf(loggedUser.getUserId()));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            setLoggedUserStats();
         }
     }
 
-    private class DatabasePopulator extends AsyncTask<Void, Void, Void> {
-
-        List<List<Offer>> offers;
-        OfferFragmentPagerAdapter pagerAdapter;
-        OfferDatabaseController databaseController;
-
-        DatabasePopulator (List<List<Offer>> offers,
-                           OfferFragmentPagerAdapter pagerAdapter,
-                           OfferDatabaseController databaseController) {
-            this.offers = offers;
-            this.pagerAdapter = pagerAdapter;
-            this.databaseController = databaseController;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            Cursor cursor = databaseController.retrieveOffers();
-            while (cursor != null && cursor.moveToNext()) {
-
-                Offer temp = new Internship(
-                        cursor.getString(cursor.getColumnIndex(OfferEntry.DESCRICAO)),
-                        cursor.getString(cursor.getColumnIndex(OfferEntry.EMAIL)),
-                        cursor.getString(cursor.getColumnIndex(OfferEntry.UNIDADE)),
-                        cursor.getString(cursor.getColumnIndex(OfferEntry.RESPONSAVEL)),
-                        cursor.getInt(cursor.getColumnIndex(OfferEntry.VAGAS)),
-                        cursor.getInt(cursor.getColumnIndex(OfferEntry.VALOR)),
-                        cursor.getInt(cursor.getColumnIndex(OfferEntry.AUXTRANSP)),
-                        cursor.getString(cursor.getColumnIndex(OfferEntry.FIMOFERTA)),
-                        cursor.getString(cursor.getColumnIndex(OfferEntry.TITULO)));
-                offers.get(0).add(temp);
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            pagerAdapter.notifyDataSetChanged();
-        }
-    }
+//    private class DatabasePopulator extends AsyncTask<Void, Void, Void> {
+//
+//        List<List<Offer>> offers;
+//        OfferFragmentPagerAdapter pagerAdapter;
+//        OfferDatabaseController databaseController;
+//
+//        DatabasePopulator (List<List<Offer>> offers,
+//                           OfferFragmentPagerAdapter pagerAdapter,
+//                           OfferDatabaseController databaseController) {
+//            this.offers = offers;
+//            this.pagerAdapter = pagerAdapter;
+//            this.databaseController = databaseController;
+//        }
+//
+//        @Override
+//        protected Void doInBackground(Void... voids) {
+//            Cursor cursor = databaseController.retrieveOffers();
+//            while (cursor != null && cursor.moveToNext()) {
+//
+//                Offer temp = new Internship(
+//                        cursor.getString(cursor.getColumnIndex(OfferEntry.DESCRICAO)),
+//                        cursor.getString(cursor.getColumnIndex(OfferEntry.EMAIL)),
+//                        cursor.getString(cursor.getColumnIndex(OfferEntry.UNIDADE)),
+//                        cursor.getString(cursor.getColumnIndex(OfferEntry.RESPONSAVEL)),
+//                        cursor.getInt(cursor.getColumnIndex(OfferEntry.VAGAS)),
+//                        cursor.getInt(cursor.getColumnIndex(OfferEntry.VALOR)),
+//                        cursor.getInt(cursor.getColumnIndex(OfferEntry.AUXTRANSP)),
+//                        cursor.getString(cursor.getColumnIndex(OfferEntry.FIMOFERTA)),
+//                        cursor.getString(cursor.getColumnIndex(OfferEntry.TITULO)));
+//                offers.get(0).add(temp);
+//            }
+//
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Void aVoid) {
+//            pagerAdapter.notifyDataSetChanged();
+//        }
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -280,7 +338,7 @@ public class OfferActivity extends AppCompatActivity {
         if (requestCode == REGISTER && resultCode == RESULT_OK) {
             Internship internshipRegistered = (Internship) data.getSerializableExtra("offerRegistered");
 
-            databaseController.insertOffer(internshipRegistered);
+//            databaseController.insertOffer(internshipRegistered);
             offers.get(0).add(internshipRegistered);
             pagerAdapter.notifyDataSetChanged();
         }
@@ -350,6 +408,7 @@ public class OfferActivity extends AppCompatActivity {
                 switch (id){
                     case R.id.cadastro:
                         i = new Intent(getApplicationContext(), RegistrationFormActivity.class);
+                        i.putExtra("currentUserId", loggedUser.getUserId());
                         startActivityForResult(i, REGISTER);
                         drawerLayout.closeDrawers();
                         break;
@@ -378,7 +437,7 @@ public class OfferActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "Carregando ofertas", Toast.LENGTH_LONG).show();
 
         // Get offers from Database (Internships)
-        new DatabasePopulator(offers, pagerAdapter, databaseController).execute();
+//        new DatabasePopulator(offers, pagerAdapter, databaseController).execute();
 
         //get the offers for Associated Actions
         new GetInternshipFromSigaa().execute(accessToken);

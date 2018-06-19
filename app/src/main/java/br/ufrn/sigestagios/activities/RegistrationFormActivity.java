@@ -6,13 +6,19 @@ import android.app.DialogFragment;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -22,6 +28,9 @@ import br.ufrn.sigestagios.R;
 import br.ufrn.sigestagios.activities.OfferActivity;
 import br.ufrn.sigestagios.models.Internship;
 import br.ufrn.sigestagios.models.Internship;
+import br.ufrn.sigestagios.models.User;
+import br.ufrn.sigestagios.utils.Constants;
+import br.ufrn.sigestagios.utils.HttpHandler;
 
 import java.util.Calendar;
 
@@ -38,36 +47,49 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class RegistrationFormActivity extends AppCompatActivity {
     Internship internship;
     String data;
     private AlertDialog alerta;
     TextView endOffer;
-    EditText title, description, responsible, email, companyName, numberPositions, grantValue, auxTransport;
+    EditText title, description, email, numberPositions, grantValue, auxTransport, phone, locale;
+    String responsible;
     private Toolbar toolbar;
+
+    private String TAG = "RegistrationFormActivity";
+    private long currentUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registration_form);
 
+        currentUserId = getIntent().getLongExtra("currentUserId", 0);
         title = (EditText) findViewById(R.id.title);
         description = (EditText) findViewById(R.id.description);
-        responsible = (EditText) findViewById(R.id.responsible);
-        email = (EditText) findViewById(R.id.email);
-        companyName = (EditText) findViewById(R.id.companyName);
+
+        SimpleDateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+        Calendar calendar = Calendar.getInstance();
+        Date today = calendar.getTime();
+        String sToday = df.format(today);
+        endOffer = (TextView) findViewById(R.id.endOffer);
+        endOffer.setText(sToday);
+        data = sToday;
+
         numberPositions = (EditText) findViewById(R.id.numberPositions);
         grantValue = (EditText) findViewById(R.id.grantValue);
         auxTransport = (EditText) findViewById(R.id.auxTransport);
-        endOffer = (TextView) findViewById(R.id.endOffer);
 
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        Calendar calendar = Calendar.getInstance();
-        calendar = Calendar.getInstance();
-        Date today = calendar.getTime();
-        String sToday = df.format(today);
-        endOffer.setText(sToday);
-        data = sToday;
+        responsible = User.getActualUser();
+
+        email = (EditText) findViewById(R.id.email);
+        phone = (EditText) findViewById(R.id.phone);
+
+        locale = (EditText) findViewById(R.id.locale);
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
@@ -79,27 +101,38 @@ public class RegistrationFormActivity extends AppCompatActivity {
         calendar = Calendar.getInstance();
         Date today = calendar.getTime();
 
+        Toast.makeText(getApplicationContext(), "Criando oferta...", Toast.LENGTH_LONG).show();
 
         if ((today.compareTo(myDate) < 0) && (!numberPositions.getText().toString().equals("") ) && (!grantValue.getText().toString().equals("")) && (!auxTransport.getText().toString().equals("")) ) {
             internship = new Internship(
                     description.getText().toString(),
                     email.getText().toString(),
-                    companyName.getText().toString(),
-                    responsible.getText().toString(),
+                    " ",
+                    responsible,
                     Integer.parseInt(numberPositions.getText().toString()),
                     Integer.parseInt(grantValue.getText().toString()),
                     Integer.parseInt(auxTransport.getText().toString()),
                     data,
-                    title.getText().toString());
+                    title.getText().toString(),
+                    phone.getText().toString(),
+                    locale.getText().toString());
 
-            Intent resultIntent = new Intent(this, OfferActivity.class);
-            resultIntent.putExtra("offerRegistered", internship);
-            setResult(RESULT_OK, resultIntent);
-            finish();
+            new CreateNewOffer().execute(
+                    String.valueOf(currentUserId),
+                    internship.getTitle(),
+                    internship.getDescription(),
+                    internship.getEndOffer(),
+                    internship.getEmail(),
+                    internship.getPhone(),
+                    String.valueOf(internship.getAuxTransport()),
+                    String.valueOf(internship.getGrantValue()),
+                    internship.getLocation()
+                    );
+
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Erro ao cadastrar");
-            builder.setMessage("Campos inválidas");
+            builder.setMessage("Campos inválidos");
             builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface arg0, int arg1) {
                 }
@@ -142,5 +175,62 @@ public class RegistrationFormActivity extends AppCompatActivity {
 
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(ft, "datePicker");
+    }
+
+    private class CreateNewOffer extends AsyncTask<String, Void, Boolean>{
+
+        @Override
+        protected Boolean doInBackground(String... strings) {
+            String url = Constants.URL_API_BASE + "/offers";
+
+            url += "?logged_user_id=" + strings[0];
+            url += "&title=" + strings[1];
+            url += "&description=" + strings[2];
+            url += "&endOffer=" + strings[3];
+            url += "&email=" + strings[4];
+            url += "&phone=" + strings[5];
+            url += "&offer_type=estagio";
+            url += "&salary_aids=" + strings[6];
+            url += "&salary_total=" + strings[7];
+            url += "&location=" + strings[8];
+            url += "&latitude=0&longitude=0";
+
+
+            HttpHandler sh = new HttpHandler();
+
+            URI req_url = null;
+            try {
+                req_url = new URI(url.replace(" ", "%20"));
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+            String jsonStr = sh.makeServiceCall(req_url.toString(), "POST");
+            if (jsonStr != null) {
+                try {
+                    JSONObject resp = new JSONObject(jsonStr);
+                    Log.e(TAG, resp.toString());
+                    return resp.getBoolean("success");
+                } catch (JSONException e) {
+                    Log.e(TAG, "Json parsing error: " + e.getMessage());
+                }
+            } else {
+                Log.e(TAG, "Couldn't get json from server.");
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            super.onPostExecute(success);
+
+            if(success){
+                Intent resultIntent = new Intent(getApplicationContext(), OfferActivity.class);
+                resultIntent.putExtra("offerRegistered", internship);
+                setResult(RESULT_OK, resultIntent);
+                finish();
+            }else{
+                Log.e(TAG, "DEU ERRADO. UM DIA ARRUMA O QUE FAZER SE DER ERRADO");
+            }
+        }
     }
 }

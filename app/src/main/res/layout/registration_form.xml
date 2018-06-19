@@ -20,7 +20,14 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/offerLabel"
+                style="@style/HeaderTextStyle"
+                android:text="Informações Gerais"
+                android:textColor="@color/colorAccent"/>
 
             <EditText
                 android:id="@+id/title"
@@ -32,21 +39,20 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:layout_marginEnd="20dp"
-                android:layout_below="@+id/toolbar"
+                android:layout_below="@+id/offerLabel"
                 android:textColor="@color/colorPrimaryText"
                 android:textColorHint="@color/colorPrimaryTextDark"
                 android:textColorLink="@color/colorPrimaryTextDark"
                 />
 
-
             <EditText
-                android:id="@+id/email"
+                android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="Descrição"
                 android:layout_marginTop="10dp"
-                android:hint="Email"
                 android:ems="10"
-                android:inputType="textEmailAddress"
+                android:inputType="textLongMessage"
                 android:layout_below="@+id/title"
                 android:layout_alignStart="@+id/title"
                 android:layout_alignEnd="@id/title"
@@ -54,37 +60,36 @@
                 android:textColorHint="@color/colorPrimaryTextDark"
                 android:textColorLink="@color/colorPrimaryTextDark"/>
 
-            <EditText
-                android:id="@+id/responsible"
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/buttonDate"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:hint="Nome do responsável"
-                android:ems="10"
-                android:inputType="text"
-                android:layout_below="@+id/email"
-                android:layout_alignStart="@+id/email"
-                android:layout_alignEnd="@id/title"
+                android:layout_below="@+id/description"
+                android:layout_alignStart="@+id/description"
+                android:onClick="showDatePickerDialog"
+                android:text="Data do fim da oferta"
+                android:background="@color/colorAccent"
                 android:textColor="@color/colorPrimaryText"
-                android:textColorHint="@color/colorPrimaryTextDark"
-                android:textColorLink="@color/colorPrimaryTextDark"/>
+                android:padding="5dp"/>
 
-
-            <EditText
-                android:id="@+id/companyName"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/endOffer"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:hint="Nome do local de estágio"
-                android:ems="10"
-                android:inputType="text"
-                android:layout_below="@+id/responsible"
-                android:layout_alignStart="@+id/responsible"
-                android:layout_alignEnd="@id/title"
-                android:textColor="@color/colorPrimaryText"
-                android:textColorHint="@color/colorPrimaryTextDark"
-                android:textColorLink="@color/colorPrimaryTextDark"/>
+                android:layout_alignBaseline="@+id/buttonDate"
+                android:layout_alignBottom="@+id/buttonDate"
+                android:layout_toEndOf="@+id/buttonDate"
+                android:layout_marginLeft="10dp"
+                android:layout_alignEnd="@id/description"
+                android:textSize="17dp"
+                android:textColor="@color/colorPrimaryText"/>
 
+            <TextView
+                android:id="@+id/vacanciesLabel"
+                style="@style/HeaderTextStyle"
+                android:text="Informações das Vagas"
+                android:textColor="@color/colorAccent"
+                android:layout_below="@id/buttonDate"/>
 
             <EditText
                 android:id="@+id/numberPositions"
@@ -94,8 +99,8 @@
                 android:hint="N° de vagas"
                 android:ems="10"
                 android:inputType="number"
-                android:layout_below="@+id/companyName"
-                android:layout_alignStart="@+id/companyName"
+                android:layout_below="@+id/vacanciesLabel"
+                android:layout_alignStart="@+id/title"
                 android:layout_alignEnd="@id/title"
                 android:textColor="@color/colorPrimaryText"
                 android:textColorHint="@color/colorPrimaryTextDark"
@@ -131,50 +136,68 @@
                 android:textColorHint="@color/colorPrimaryTextDark"
                 android:textColorLink="@color/colorPrimaryTextDark"/>
 
+            <TextView
+                android:id="@+id/contactLabel"
+                style="@style/HeaderTextStyle"
+                android:text="Informações de Contato"
+                android:textColor="@color/colorAccent"
+                android:layout_below="@id/auxTransport"/>
+
             <EditText
-                android:id="@+id/description"
+                android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Descrição"
+                android:hint="Email"
                 android:layout_marginTop="10dp"
                 android:ems="10"
-                android:inputType="textLongMessage"
-                android:layout_below="@+id/auxTransport"
-                android:layout_alignStart="@+id/auxTransport"
+                android:layout_below="@+id/contactLabel"
+                android:layout_alignStart="@+id/grantValue"
+                android:layout_alignEnd="@id/title"
+                android:textColor="@color/colorPrimaryText"
+                android:textColorHint="@color/colorPrimaryTextDark"
+                android:textColorLink="@color/colorPrimaryTextDark"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Telefone"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:layout_below="@+id/email"
+                android:layout_alignStart="@+id/grantValue"
+                android:layout_alignEnd="@id/title"
+                android:textColor="@color/colorPrimaryText"
+                android:textColorHint="@color/colorPrimaryTextDark"
+                android:textColorLink="@color/colorPrimaryTextDark" />
+
+            <TextView
+                android:id="@+id/localeLabel"
+                style="@style/HeaderTextStyle"
+                android:text="Localização"
+                android:textColor="@color/colorAccent"
+                android:layout_below="@id/phone"/>
+
+            <EditText
+                android:id="@+id/locale"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Local"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:layout_below="@+id/localeLabel"
+                android:layout_alignStart="@+id/grantValue"
                 android:layout_alignEnd="@id/title"
                 android:textColor="@color/colorPrimaryText"
                 android:textColorHint="@color/colorPrimaryTextDark"
                 android:textColorLink="@color/colorPrimaryTextDark"/>
 
             <Button
-                android:id="@+id/button1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/description"
-                android:layout_alignStart="@+id/description"
-                android:onClick="showDatePickerDialog"
-                android:text="Data do fim da oferta"
-                android:background="@color/colorAccent"
-                android:textColor="@color/colorPrimaryText"
-                android:layout_marginBottom="10dp"/>
-
-            <TextView
-                android:id="@+id/endOffer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/button1"
-                android:layout_alignBottom="@+id/button1"
-                android:layout_toEndOf="@+id/button1"
-                android:layout_marginLeft="10dp"
-                android:layout_alignEnd="@id/description"
-                android:textSize="17dp"
-                android:textColor="@color/colorPrimaryText"/>
-
-            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/button1"
-                android:layout_alignStart="@id/button1"
+                android:layout_below="@id/locale"
+                android:layout_alignStart="@id/title"
                 android:layout_alignEnd="@id/description"
                 android:text="Cadastrar"
                 android:onClick="register"

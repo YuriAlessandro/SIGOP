@@ -68,8 +68,6 @@ public class LoginActivityAPI extends AppCompatActivity {
         @Override
         protected void onPostExecute(JSONObject resp) {
             super.onPostExecute(resp);
-            Log.i(TAG, resp.toString());
-
             try {
                 if (!resp.getBoolean("success")){
                     Toast.makeText(getApplicationContext(), resp.getString("msg"), Toast.LENGTH_LONG).show();
