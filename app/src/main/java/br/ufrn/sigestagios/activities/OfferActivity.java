@@ -234,6 +234,53 @@ public class OfferActivity extends AppCompatActivity {
 
     }
 
+    private class InsertUserFromSigaa extends AsyncTask<String, Void, Void>{
+
+        @Override
+        protected Void doInBackground(String... params) {
+            String url = Constants.URL_API_BASE + "/auth/sigaa";
+            url += "?first_name=" + params[0];
+            url += "&last_name=" + params[1];
+            url += "&status=ativo";
+            url += "&username=" + params[2];
+            url += "&password=" + params[3];
+            url += "&email=" + params[4];
+            url += "&type=aluno";
+            url += "&unity=0";
+
+            HttpHandler sh = new HttpHandler();
+
+            String req_url = url;
+            String jsonStr = sh.makeServiceCall(req_url, "POST");
+            if (jsonStr != null) {
+                try {
+                    JSONObject resp = new JSONObject(jsonStr);
+                    Log.e(TAG, resp.toString());
+                    boolean insertedUser = resp.getBoolean("inserted");
+                    int userId;
+                    if(insertedUser){
+                        userId = resp.getInt("inserted_user");
+                    }else{
+                        userId = resp.getJSONObject("user").getInt("idUser");
+                    }
+
+                    loggedUser.setUserId(userId);
+                } catch (JSONException e) {
+                    Log.e(TAG, "Json parsing error: " + e.getMessage());
+                }
+            } else {
+                Log.e(TAG, "Couldn't get json from server.");
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            new GetOffersFromAPI().execute(String.valueOf(loggedUser.getUserId()));
+        }
+    }
+
     private class GetLoggedUser extends AsyncTask<String, Void, JSONObject> {
 
         @Override
@@ -264,13 +311,18 @@ public class OfferActivity extends AppCompatActivity {
             return null;
         }
 
-
-
         @Override
         protected void onPostExecute(JSONObject jsonObject) {
             try {
                 Log.i(TAG, jsonObject.toString());
-                loggedUser = new User(jsonObject.getLong("id-usario"),
+
+                String[] name = jsonObject.getString("nome-pessoa").split(" ");
+                String firstName = name[0];
+                String lastName = name[name.length - 1];
+                String email = jsonObject.getString("email");
+
+                String username = jsonObject.getString("login");
+                loggedUser = new User(0,
                         jsonObject.getLong("id-unidade"),
                         jsonObject.getLong("id-foto"),
                         jsonObject.getBoolean("ativo"),
@@ -281,12 +333,13 @@ public class OfferActivity extends AppCompatActivity {
                         jsonObject.getString("chave-foto"));
 
                 setLoggedUserStats();
-                // TODO: Send this guy to API Database if not exists there.
-                // TODO: Activaty this when Logged User from SIGAA also go to API database.
-//                new GetOffersFromAPI().execute(String.valueOf(loggedUser.getUserId()));
+
+                new InsertUserFromSigaa().execute(firstName,lastName, username, "", email);
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
         }
     }
 
