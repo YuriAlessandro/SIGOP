@@ -42,7 +42,8 @@ public class Internship extends Offer implements Serializable {
         this.location = location;
     }
 
-    public Internship(String description, String title, int numberPositions, int grantValue, int auxTransport, String endOffer){
+    public Internship(String description, String title, int numberPositions, int grantValue,
+                      int auxTransport, String endOffer){
         super(description, "", 0, "");
         this.numberPositions = numberPositions;
         this.grantValue = grantValue;

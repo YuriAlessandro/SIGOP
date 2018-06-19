@@ -196,6 +196,7 @@ public class OfferActivity extends AppCompatActivity {
             if (jsonStr != null) {
                 try {
                     JSONObject resp = new JSONObject(jsonStr);
+                    Log.e(TAG, resp.toString());
                     return resp;
                 } catch (JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
@@ -218,11 +219,22 @@ public class OfferActivity extends AppCompatActivity {
                         offer = offers_js.getJSONObject(i);
 
                         String email = offer.getJSONArray("contacts").getJSONObject(0).getString("email");
+                        String phone = offer.getJSONArray("contacts").getJSONObject(0).getString("phone");
+
                         String description = offer.getString("description");
+                        String title = offer.getString("title");
+                        String endOffer = offer.getString("endOffer");
+                        String responsible = offer.getString("first_name") + " " + offer.getString("last_name");
+                        String location = offer.getString("location");
 
-                        Offer internship = new Internship(description, email);
+                        int value = offer.getJSONArray("vacancies").getJSONObject(0).getInt("salary_total");
+                        int tranpAux = offer.getJSONArray("vacancies").getJSONObject(0).getInt("salary_aids");
+                        int numberPositions = offer.getJSONArray("vacancies").length();
 
-                        offers.get(0).add(internship);
+                        Offer internship = new Internship(description, email, "Não definido",
+                                responsible, numberPositions, value, tranpAux, endOffer,
+                                title, phone, location);
+                        offers.get(0).add(0, internship);
                     }
 
                     pagerAdapter.notifyDataSetChanged();
@@ -319,12 +331,13 @@ public class OfferActivity extends AppCompatActivity {
                 String[] name = jsonObject.getString("nome-pessoa").split(" ");
                 String firstName = name[0];
                 String lastName = name[name.length - 1];
-                String email = jsonObject.getString("email");
+                int userSigaaId = jsonObject.getInt("id-usuario");
+                String email = jsonObject.getString("email") + '-' + String.valueOf(userSigaaId);
 
                 String username = jsonObject.getString("login");
                 loggedUser = new User(0,
                         jsonObject.getLong("id-unidade"),
-                        jsonObject.getLong("id-foto"),
+//                        jsonObject.getLong("id-foto"),
                         jsonObject.getBoolean("ativo"),
                         jsonObject.getString("login"),
                         jsonObject.getString("nome-pessoa"),

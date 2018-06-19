@@ -20,11 +20,11 @@ public class User implements Serializable {
 
     private static String currentUserName;
 
-    public User(long userId, long unityId, long photoId, boolean active, String login, String name,
+    public User(long userId, long unityId, /*long photoId,*/ boolean active, String login, String name,
                 String cpf, String email, String photoKey) {
         this.userId = userId;
         this.unityId = unityId;
-        this.photoId = photoId;
+        this.photoId = 0;
         this.active = active;
         this.login = login;
         this.name = name;
