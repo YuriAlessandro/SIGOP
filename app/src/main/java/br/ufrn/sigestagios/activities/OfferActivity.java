@@ -132,9 +132,9 @@ public class OfferActivity extends AppCompatActivity {
             loggedUser = (User) getIntent().getSerializableExtra("user");
             Log.i(TAG, loggedUser.toString());
             setLoggedUserStats();
-        }
 
-        new GetOffersFromAPI().execute(String.valueOf(loggedUser.getUserId()));
+            new GetOffersFromAPI().execute(String.valueOf(loggedUser.getUserId()));
+        }
 
         // Database Controller
 //        databaseController = new OfferDatabaseController(this);
@@ -216,7 +216,6 @@ public class OfferActivity extends AppCompatActivity {
                     JSONObject offer;
                     for(int i = 0; i < offers_js.length(); i++) {
                         offer = offers_js.getJSONObject(i);
-                        Log.i(TAG, offer.toString());
 
                         String email = offer.getJSONArray("contacts").getJSONObject(0).getString("email");
                         String description = offer.getString("description");
@@ -422,6 +421,11 @@ public class OfferActivity extends AppCompatActivity {
                         break;
                     case R.id.about:
                         i = new Intent(getApplicationContext(), AboutActivity.class);
+                        startActivity(i);
+                        break;
+                    case R.id.myOffers:
+                        i = new Intent(getApplicationContext(), MyOffersActivity.class);
+                        i.putExtra("currentUserId", loggedUser.getUserId());
                         startActivity(i);
                         break;
                 }
