@@ -20,74 +20,73 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="10dp">
+
+            <!--<TextView-->
+                <!--android:id="@+id/iTitle1"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Dados da unidade:"-->
+                <!--android:textSize="17dp"-->
+                <!--android:textColor="@color/colorPrimaryDark"-->
+                <!--android:layout_gravity="start"-->
+                <!--android:layout_marginLeft="20dp"-->
+                <!--android:layout_marginRight="20dp"-->
+                <!--android:layout_marginTop="10dp"/>-->
 
             <TextView
                 android:id="@+id/iTitle1"
+                style="@style/HeaderTextStyle"
+                android:text="Informações Gerais"
+                android:textColor="@color/colorAccent"/>
+
+            <TextView
+                android:id="@+id/iTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Dados da unidade:"
-                android:textSize="17dp"
+                android:layout_below="@id/iTitle1"
+                android:layout_alignStart="@id/iTitle1"
                 android:textColor="@color/colorPrimaryDark"
-                android:layout_gravity="start"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"/>
+                android:textSize="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:text="Estágio para Programador em JavaScript" />
+
+            <TextView
+                android:id="@+id/iDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iTitle"
+                android:layout_alignStart="@+id/iTerm"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/colorPrimaryText"
+                android:text="Descrição: \nAbscsvcn sncbs nbcsnb cns bcbs nbs nbcnsbc nbscbscscscscscscscscscscscscscscsc scscsc" />
+
+
+            <TextView
+                android:id="@+id/iLocaleLabel"
+                style="@style/HeaderTextStyle"
+                android:text="Local e valores"
+                android:textColor="@color/colorAccent"
+                android:layout_below="@id/iDesc"/>
+
 
             <TextView
                 android:id="@+id/iTerm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="INSTITUTO METROPOLE DIGITAL"
-                android:layout_below="@+id/iTitle1"
+                android:layout_below="@+id/iLocaleLabel"
                 android:layout_alignStart="@+id/iTitle1"
                 android:textColor="@color/colorPrimaryText"/>
 
-            <TextView
-                android:id="@+id/iTitle2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/iTerm"
-                android:layout_alignStart="@+id/iTerm"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="17dp"
-                android:text="Dados do responsável:" />
-
-            <TextView
-                android:id="@+id/iResponsible"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/iTitle2"
-                android:layout_alignStart="@+id/iTerm"
-                android:text="JOAO EMMANUEL IZIDIO DA SILVA"
-                android:textColor="@color/colorPrimaryText"/>
-
-            <TextView
-                android:id="@+id/iEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/iResponsible"
-                android:layout_alignStart="@+id/iTerm"
-                android:text="joaoeizidio@gmail.com"
-                android:textColor="@color/colorPrimaryText"/>
-
-            <TextView
-                android:id="@+id/iTitle3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/iEmail"
-                android:layout_alignStart="@+id/iTerm"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="17dp"
-                android:text="Dados da oferta:" />
 
             <TextView
                 android:id="@+id/iPositionsRemunerated"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/iTitle3"
+                android:layout_below="@+id/iTerm"
                 android:layout_alignStart="@+id/iTerm"
                 android:layout_marginRight="10dp"
                 android:text="Vagas remuneradas: 2"
@@ -123,27 +122,45 @@
                 android:text="Fim da oferta: 21/12/2017"
                 android:textColor="@color/colorPrimaryText"/>
 
-            <TextView
-                android:id="@+id/iTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/iEndOffer"
-                android:layout_alignStart="@id/iTitle1"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="10dp"
-                android:text="Estágio para Programador em JavaScript" />
 
             <TextView
-                android:id="@+id/iDesc"
+                android:id="@+id/iResponsibleLabel"
+                style="@style/HeaderTextStyle"
+                android:text="Dados do Responsável"
+                android:textColor="@color/colorAccent"
+                android:layout_below="@id/iEndOffer"/>
+
+            <TextView
+                android:id="@+id/iResponsible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/iTitle"
+                android:layout_below="@+id/iResponsibleLabel"
                 android:layout_alignStart="@+id/iTerm"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/colorPrimaryText"
-                android:text="Descrição: \nAbscsvcn sncbs nbcsnb cns bcbs nbs nbcnsbc nbscbscscscscscscscscscscscscscscsc scscsc" />
+                android:text="JOAO EMMANUEL IZIDIO DA SILVA"
+                android:textColor="@color/colorPrimaryText"/>
+
+            <TextView
+                android:id="@+id/iEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iResponsible"
+                android:layout_alignStart="@+id/iTerm"
+                android:text="joaoeizidio@gmail.com"
+                android:textColor="@color/colorPrimaryText"/>
+
+            <TextView
+                android:id="@+id/iAvaliationsLabel"
+                style="@style/HeaderTextStyle"
+                android:text="Avaliações dessa oferta"
+                android:textColor="@color/colorAccent"
+                android:layout_below="@id/iEmail"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/mAvaliationRv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iAvaliationsLabel"></android.support.v7.widget.RecyclerView>
+
         </RelativeLayout>
 
     </ScrollView>
