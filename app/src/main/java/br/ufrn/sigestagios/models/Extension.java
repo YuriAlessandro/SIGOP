@@ -15,7 +15,7 @@ public class Extension extends Offer implements Serializable {
     private int idProjectExtension;
 
     public Extension(String description, String term, int idTerm, String email, int year, long cpf_cnpj, String responsible, int positionsRemunerated, int idProject, int idProjectExtension) {
-        super(description, term, idTerm, email);
+        super(0, description, term, idTerm, email, true);
         this.year = year;
         this.cpf_cnpj = cpf_cnpj;
         this.responsible = responsible;

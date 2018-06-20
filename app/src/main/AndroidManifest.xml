@@ -33,7 +33,8 @@
         <activity android:name=".activities.SupportServiceShowActivity" />
         <activity android:name=".activities.TeacherAssistantShowActivity" />
         <activity android:name=".activities.AboutActivity" />
-        <activity android:name=".activities.MyOffersActivity"/>
+        <activity android:name=".activities.MyOffersActivity" />
+        <activity android:name=".activities.MyFavoritesActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

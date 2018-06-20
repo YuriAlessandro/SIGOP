@@ -104,18 +104,19 @@ public class RegistrationFormActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "Criando oferta...", Toast.LENGTH_LONG).show();
 
         if ((today.compareTo(myDate) < 0) && (!numberPositions.getText().toString().equals("") ) && (!grantValue.getText().toString().equals("")) && (!auxTransport.getText().toString().equals("")) ) {
-            internship = new Internship(
-                    description.getText().toString(),
-                    email.getText().toString(),
-                    " ",
-                    responsible,
-                    Integer.parseInt(numberPositions.getText().toString()),
-                    Integer.parseInt(grantValue.getText().toString()),
-                    Integer.parseInt(auxTransport.getText().toString()),
-                    data,
-                    title.getText().toString(),
-                    phone.getText().toString(),
-                    locale.getText().toString());
+//            internship = new Internship(
+//                    0,
+//                    description.getText().toString(),
+//                    email.getText().toString(),
+//                    " ",
+//                    responsible,
+//                    Integer.parseInt(numberPositions.getText().toString()),
+//                    Integer.parseInt(grantValue.getText().toString()),
+//                    Integer.parseInt(auxTransport.getText().toString()),
+//                    data,
+//                    title.getText().toString(),
+//                    phone.getText().toString(),
+//                    locale.getText().toString());
 
             new CreateNewOffer().execute(
                     String.valueOf(currentUserId),

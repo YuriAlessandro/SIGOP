@@ -18,47 +18,44 @@ import br.ufrn.sigestagios.R;
 import br.ufrn.sigestagios.adapters.OffersListAdapter;
 import br.ufrn.sigestagios.models.Internship;
 import br.ufrn.sigestagios.models.Offer;
-import br.ufrn.sigestagios.models.User;
 import br.ufrn.sigestagios.utils.Constants;
 import br.ufrn.sigestagios.utils.HttpHandler;
 
-import static br.ufrn.sigestagios.fragments.OffersFragment.SHOWER_CLASS;
-
-public class MyOffersActivity extends AppCompatActivity {
+public class MyFavoritesActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    private ArrayList<Offer> myOffers = new ArrayList<>();
-    private String TAG = "MyOffers";
+    private ArrayList<Offer> favoriteOffers = new ArrayList<>();
+    private String TAG = "MyFavorites";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_offers);
+        setContentView(R.layout.activity_my_favorites);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.my_offers_rv);
+        mRecyclerView = (RecyclerView) findViewById(R.id.my_favorite_offers_rv);
 
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new OffersListAdapter(myOffers, InternshipShowActivity.class, getApplicationContext());
+        mAdapter = new OffersListAdapter(favoriteOffers, InternshipShowActivity.class, getApplicationContext());
         mRecyclerView.setAdapter(mAdapter);
 
         long currentUserId = getIntent().getLongExtra("currentUserId", 0);
-        new getMyOffers().execute(String.valueOf(currentUserId));
+        new GetFavoriteOffers().execute(String.valueOf(currentUserId));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Ofertas criadas por mim");
+        getSupportActionBar().setTitle("Meus Favoritos");
     }
 
-    private class getMyOffers extends AsyncTask<String, Void, Void>{
+    private class GetFavoriteOffers extends AsyncTask<String, Void, Void>{
 
         @Override
         protected Void doInBackground(String... strings) {
-            String url = Constants.URL_API_BASE + "/myOffers/" + strings[0];
+            String url = Constants.URL_API_BASE + "/favorites?logged_user_id=" + strings[0];
 
             HttpHandler sh = new HttpHandler();
 
@@ -90,7 +87,7 @@ public class MyOffersActivity extends AppCompatActivity {
                         Offer internship = new Internship(offerId, description, email, "Não definido",
                                 responsible, numberPositions, value, tranpAux, endOffer,
                                 title, phone, location);
-                        myOffers.add(internship);
+                        favoriteOffers.add(internship);
                     }
 
                     Log.i(TAG, resp.toString());

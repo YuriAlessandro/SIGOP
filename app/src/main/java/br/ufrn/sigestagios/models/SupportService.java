@@ -12,7 +12,7 @@ public class SupportService extends Offer implements Serializable {
     private int idOpportunity;
 
     public SupportService(String description, String term, int idTerm, String email, String abbrevTerm, int idOpportunity) {
-        super(description, term, idTerm, email);
+        super(0, description, term, idTerm, email, true);
         this.abbrevTerm = abbrevTerm;
         this.idOpportunity = idOpportunity;
     }

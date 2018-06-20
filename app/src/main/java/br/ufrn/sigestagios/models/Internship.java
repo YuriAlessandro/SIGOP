@@ -1,5 +1,7 @@
 package br.ufrn.sigestagios.models;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -26,10 +28,11 @@ public class Internship extends Offer implements Serializable {
     boolean isFromSigaa;
     boolean isFromApi;
 
-    public Internship(String description, String email, String companyName, String responsible,
+    public Internship(int offerId, String description, String email, String companyName, String responsible,
                       int numberPositions, int grantValue, int auxTransport, String endOffer,
                       String title, String phone, String location) {
-        super(description, companyName, 0, email);
+        super(offerId, description, companyName, 0, email, false);
+        Log.e("AAAAAAAA", String.valueOf(offerId));
         this.responsible = responsible;
         this.numberPositions = numberPositions;
         this.grantValue = grantValue;
@@ -42,9 +45,9 @@ public class Internship extends Offer implements Serializable {
         this.location = location;
     }
 
-    public Internship(String description, String title, int numberPositions, int grantValue,
+    public Internship(int offerId, String description, String title, int numberPositions, int grantValue,
                       int auxTransport, String endOffer){
-        super(description, "", 0, "");
+        super(offerId, description, "", 0, "", false);
         this.numberPositions = numberPositions;
         this.grantValue = grantValue;
         this.auxTransport = auxTransport;
@@ -52,12 +55,6 @@ public class Internship extends Offer implements Serializable {
         this.title = title;
         this.isFromSigaa = true;
         this.isFromApi = false;
-    }
-
-    public Internship(String description, String email){
-        super(description, "", 0, email);
-        this.isFromSigaa = false;
-        this.isFromApi = true;
     }
 
     public String getResponsible() {
@@ -107,4 +104,6 @@ public class Internship extends Offer implements Serializable {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public boolean isFromSigaa() { return isFromSigaa; }
 }

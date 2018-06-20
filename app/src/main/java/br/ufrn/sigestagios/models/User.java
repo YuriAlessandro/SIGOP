@@ -19,6 +19,7 @@ public class User implements Serializable {
     private String type = "aluno";
 
     private static String currentUserName;
+    private static long currentUserId;
 
     public User(long userId, long unityId, /*long photoId,*/ boolean active, String login, String name,
                 String cpf, String email, String photoKey) {
@@ -32,6 +33,7 @@ public class User implements Serializable {
         this.email = email;
         this.photoKey = photoKey;
         currentUserName = name;
+        currentUserId = userId;
     }
     public User(long userId, long unityId, String login, String firstName, String lastName,
                 String email, String type){
@@ -42,6 +44,7 @@ public class User implements Serializable {
         this.email = email;
         this.type = type;
         currentUserName = firstName + " " + lastName;
+        currentUserId = userId;
     }
 
     public long getUserId() {
@@ -50,6 +53,7 @@ public class User implements Serializable {
 
     public void setUserId(long userId) {
         this.userId = userId;
+        currentUserId = userId;
     }
 
     public long getUnityId() {
@@ -118,5 +122,9 @@ public class User implements Serializable {
 
     public static String getActualUser(){
         return currentUserName;
+    }
+
+    public static long getActualUserId(){
+        return currentUserId;
     }
 }

@@ -243,7 +243,9 @@ public class OfferActivity extends AppCompatActivity {
                         int tranpAux = offer.getJSONArray("vacancies").getJSONObject(0).getInt("salary_aids");
                         int numberPositions = offer.getJSONArray("vacancies").length();
 
-                        Offer internship = new Internship(description, email, "Não definido",
+                        int offerId = offer.getInt("idOffer");
+
+                        Offer internship = new Internship(offerId, description, email, "Não definido",
                                 responsible, numberPositions, value, tranpAux, endOffer,
                                 title, phone, location);
                         offers.get(0).add(0, internship);
@@ -506,6 +508,11 @@ public class OfferActivity extends AppCompatActivity {
                         i.putExtra("currentUserId", loggedUser.getUserId());
                         startActivity(i);
                         break;
+                    case R.id.myFavs:
+                        i = new Intent(getApplicationContext(), MyFavoritesActivity.class);
+                        i.putExtra("currentUserId", loggedUser.getUserId());
+                        startActivity(i);
+                        break;
                 }
                 return true;
             }
@@ -562,7 +569,7 @@ public class OfferActivity extends AppCompatActivity {
 
                     String endOffer = String.valueOf(opportunity.getLong("data-fim-publicacao"));
 
-                    Offer internship = new Internship(description, title, vacancies, value, tranpAux, endOffer);
+                    Offer internship = new Internship(0, description, title, vacancies, value, tranpAux, endOffer);
 
                     offers.get(0).add(internship);
 
